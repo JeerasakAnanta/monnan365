@@ -145,7 +145,7 @@ export function HeroSection() {
             </span>
             <br />
             <span style={{ fontSize: "0.65em", fontWeight: 400 }}>
-              วางแผนทริปน่านทุกเดือน
+              วางแผนเที่ยวเมืองน่านทุกเดือน
             </span>
           </h1>
 
