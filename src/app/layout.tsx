@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Sarabun } from "next/font/google";
+import { Sarabun, Noto_Sans_Thai } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -9,6 +10,34 @@ const sarabun = Sarabun({
   subsets: ["latin", "thai"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
+});
+
+const notoSansThai = Noto_Sans_Thai({
+  variable: "--font-noto-sans",
+  subsets: ["thai"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const googleSans = localFont({
+  src: [
+    {
+      path: "../../public/fonts/GoogleSans-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/GoogleSans-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/GoogleSans-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-google-sans",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" className={`${sarabun.variable} h-full`}>
+    <html lang="th" className={`${sarabun.variable} ${notoSansThai.variable} ${googleSans.variable} h-full`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -40,7 +69,7 @@ export default function RootLayout({
           flexDirection: "column",
           background: "var(--nan-cream)",
           color: "var(--nan-ink)",
-          fontFamily: "var(--font-sarabun), 'Sarabun', sans-serif",
+          fontFamily: "var(--font-google-sans), var(--font-noto-sans), var(--font-sarabun), 'Sarabun', sans-serif",
         }}
       >
         <Navbar />

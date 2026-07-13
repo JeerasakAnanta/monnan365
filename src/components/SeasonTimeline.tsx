@@ -1,3 +1,5 @@
+"use client";
+
 const SEASONS = [
   {
     month: "ม.ค. – ก.พ.",
