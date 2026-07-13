@@ -1,11 +1,6 @@
 services:
   app:
-    build:
-      context: .
-      args:
-        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
-        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}
-    image: ${IMAGE_NAME:-nan365-app:latest}
+    image: ${IMAGE_NAME}
     restart: unless-stopped
     environment:
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
