@@ -23,7 +23,8 @@ alter table attractions enable row level security;
 
 -- Public read-only access: the app only needs SELECT from the client/anon key.
 -- Writes go through the seed script using the service role key, which bypasses RLS.
-create policy if not exists "attractions_public_read"
+drop policy if exists "attractions_public_read" on attractions;
+create policy "attractions_public_read"
   on attractions for select
   to anon, authenticated
   using (true);
