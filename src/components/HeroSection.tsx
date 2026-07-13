@@ -11,7 +11,7 @@ export function HeroSection() {
     <section
       style={{
         position: "relative",
-        minHeight: "92vh",
+        minHeight: "80vh",
         display: "flex",
         alignItems: "center",
         overflow: "hidden",
@@ -85,7 +85,7 @@ export function HeroSection() {
           zIndex: 2,
           maxWidth: "1200px",
           margin: "0 auto",
-          padding: "4rem 1.5rem",
+          padding: "1.5rem 1.5rem 3.5rem 1.5rem",
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: "4rem",
