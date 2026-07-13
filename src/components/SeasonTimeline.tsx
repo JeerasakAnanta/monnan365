@@ -81,7 +81,7 @@ export function SeasonTimeline() {
           </h2>
           <div className="section-divider" style={{ margin: "0 auto 1.25rem" }} />
           <p style={{ color: "var(--nan-stone)", fontSize: "1rem", maxWidth: "500px", margin: "0 auto", lineHeight: 1.8 }}>
-            ไม่ว่าจะเดินทางมาเดือนไหน น่านมีสิ่งพิเศษรอคุณอยู่เสมอ
+            ไม่ว่าจะเดินทางมาเดือนไหน น่านก็มีสิ่งพิเศษ รอคุณอยู่เสมอ
           </p>
         </div>
 

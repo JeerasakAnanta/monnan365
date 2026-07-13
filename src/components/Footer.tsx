@@ -49,7 +49,7 @@ export function Footer() {
                     color: "#fff",
                   }}
                 >
-                  Nan365
+                  มนต์น่าน
                 </div>
                 <div style={{ fontSize: "0.75rem", color: "var(--nan-mist)", letterSpacing: "0.1em" }}>
                   น่าน ไร้ฤดู
@@ -159,7 +159,7 @@ export function Footer() {
               </div>
               <div style={{ display: "flex", gap: "0.5rem" }}>
                 <span>📧</span>
-                <span>nan365@rmutl.ac.th</span>
+                <span>jeerasakananta@gmail.com</span>
               </div>
             </div>
           </div>
@@ -179,7 +179,7 @@ export function Footer() {
           }}
         >
           <p style={{ fontSize: "0.8rem", color: "rgba(149,213,178,0.7)" }}>
-            © {new Date().getFullYear()} Nan365 — พัฒนาโดย RMUTL Nan · สงวนลิขสิทธิ์
+            © {new Date().getFullYear()} มนต์น่าน — พัฒนาโดย RMUTL Nan · สงวนลิขสิทธิ์
           </p>
           <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
             <span style={{ fontSize: "0.75rem", color: "rgba(149,213,178,0.5)" }}>พัฒนาโดย</span>

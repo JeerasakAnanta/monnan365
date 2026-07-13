@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "เกี่ยวกับเรา — Nan365",
-  description: "Nan365 พัฒนาโดยทีม RMUTL Nan เพื่อส่งเสริมการท่องเที่ยวจังหวัดน่านตลอด 12 เดือน",
+  title: "เกี่ยวกับเรา  มนต์น่าน",
+  description: "มนต์น่าน พัฒนาโดยทีม RMUTL Nan เพื่อส่งเสริมการท่องเที่ยวจังหวัดน่านตลอด 12 เดือน",
 };
 
 const TEAM_VALUES = [
@@ -78,7 +78,7 @@ export default function AboutUsPage() {
               textShadow: "0 2px 16px rgba(100,50,10,0.3)",
             }}
           >
-            Nan365
+            มนต์น่าน
             <br />
             <span style={{ fontSize: "0.6em", fontWeight: 400 }}>พัฒนาเพื่อน่าน</span>
           </h1>
@@ -128,7 +128,7 @@ export default function AboutUsPage() {
                   marginBottom: "1rem",
                 }}
               >
-                🎯 พันธกิจ
+                🎯 พันธกิจของเรา
               </span>
               <h2
                 style={{
@@ -146,7 +146,7 @@ export default function AboutUsPage() {
               <div className="section-divider" />
               <p style={{ color: "var(--nan-stone)", lineHeight: 1.9, fontSize: "0.9375rem", marginBottom: "1.25rem" }}>
                 น่านมีนักท่องเที่ยวกระจุกตัวอยู่ในไฮซีซัน (พฤศจิกายน – มกราคม) เพียงไม่กี่เดือน
-                ทั้งที่น่านสวยงามทุกเดือน Nan365 จึงถูกสร้างขึ้นเพื่อแนะนำนักท่องเที่ยวให้รู้จักน่านในมิติที่หลากหลายกว่าที่เคยรู้จัก
+                ทั้งที่น่านสวยงามทุกเดือน จึงถูกสร้างขึ้นเพื่อแนะนำนักท่องเที่ยวให้รู้จักน่านในมิติที่หลากหลายกว่าที่เคยรู้จัก
               </p>
               <p style={{ color: "var(--nan-stone)", lineHeight: 1.9, fontSize: "0.9375rem" }}>
                 โดยเฉพาะการส่งเสริมชุมชนท้องถิ่น แหล่งท่องเที่ยวรอง และวิถีชีวิตดั้งเดิมที่ยังคงสมบูรณ์
@@ -279,7 +279,7 @@ export default function AboutUsPage() {
             เริ่มต้นทริปน่านของคุณวันนี้
           </h2>
           <p style={{ color: "var(--nan-stone)", lineHeight: 1.8, marginBottom: "2rem", fontSize: "1rem" }}>
-            ให้ Nan365 ช่วยคุณค้นพบน่านในมุมที่ไม่เคยเห็นมาก่อน
+            ให้มนต์น่านช่วยคุณค้นพบน่านในมุมที่ไม่เคยเห็นมาก่อน
           </p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <Link href="/plan" style={{ textDecoration: "none" }}>

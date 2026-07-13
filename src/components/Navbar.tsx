@@ -118,7 +118,6 @@ export function Navbar() {
                     }
                   }}
                 >
-                  <span style={{ fontSize: "0.85rem" }}>{item.icon}</span>
                   {item.label}
                 </Link>
               </li>
@@ -182,7 +181,6 @@ export function Navbar() {
                       fontSize: "1rem",
                     }}
                   >
-                    <span>{item.icon}</span>
                     {item.label}
                   </Link>
                 </li>

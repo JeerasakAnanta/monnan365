@@ -12,7 +12,7 @@ const ATTRACTIONS = [
     emoji: "🏔️",
     name: "ดอยภูคา",
     category: "ธรรมชาติ",
-    desc: "ยอดดอยสูง 1,980 เมตร ปกคลุมด้วยป่าดิบชื้น เป็นที่อยู่ของชมพูภูคา — ดอกไม้หายากที่พบในน่านเท่านั้น ทะเลหมอกยามเช้าสวยงามที่สุดแห่งหนึ่งของภาคเหนือ",
+    desc: "ยอดดอยสูง 1,980 เมตร ปกคลุมด้วยป่าดิบชื้น เป็นที่อยู่ของชมพูภูคา ดอกไม้หายากที่พบในน่านเท่านั้น ทะเลหมอกยามเช้าสวยงามที่สุดแห่งหนึ่งของภาคเหนือ",
     best: "พ.ย. – ก.พ.",
     color: "var(--nan-forest)",
     light: "var(--nan-sprout)",
@@ -123,7 +123,9 @@ export default function AboutNanPage() {
               textShadow: "0 2px 16px rgba(30,70,50,0.3)",
             }}
           >
-            รู้จักน่าน — เมืองที่{" "}
+            รู้จักน่าน
+            <br></br>
+            {" "}
             <span
               style={{
                 background: "linear-gradient(90deg, var(--nan-amber), #fff)",
@@ -132,7 +134,7 @@ export default function AboutNanPage() {
                 backgroundClip: "text",
               }}
             >
-              ธรรมชาติยังสมบูรณ์
+              เมืองที่ ธรรมชาติยังสมบูรณ์
             </span>
           </h1>
           <p
@@ -144,7 +146,8 @@ export default function AboutNanPage() {
               margin: "0 auto",
             }}
           >
-            จังหวัดทางภาคเหนือตอนบนที่ยังคงความดั้งเดิมไว้ได้มากที่สุด
+            จังหวัดทางภาคเหนือตอนบน ที่ยังคงความดั้งเดิม ไว้ได้มากที่สุด
+            <br></br>
             ป่าไม้ 80% วัฒนธรรมไทลื้อ บ่อเกลือพันปี และวัดโบราณอีกนับร้อย
           </p>
         </div>
@@ -337,7 +340,7 @@ export default function AboutNanPage() {
                 color: "var(--nan-bark)",
               }}
             >
-              ไม่ควรพลาดเมื่อมาน่าน
+              สถานที่ท่องเที่ยว ไม่ควรพลาดเมื่อมาน่าน
             </h2>
             <div className="section-divider" style={{ margin: "0.75rem auto 0" }} />
           </div>

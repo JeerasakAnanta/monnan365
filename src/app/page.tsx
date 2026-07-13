@@ -36,7 +36,7 @@ export default function Home() {
               marginBottom: "1rem",
             }}
           >
-            พร้อมค้นพบน่านแล้วหรือยัง?
+            พร้อมค้นพบ น่านแล้วหรือยัง
           </h2>
           <p
             style={{
@@ -46,7 +46,7 @@ export default function Home() {
               marginBottom: "2.5rem",
             }}
           >
-            ให้ AI ช่วยวางแผนทริปน่านที่เหมาะกับเดือนและสไตล์ของคุณ
+            ให้ AI ช่วยวางแผนทริป เที่ยวน่าน ที่เหมาะกับเดือน ตามสไตล์ของคุณ
             พร้อมแนะนำสถานที่ที่นักท่องเที่ยวทั่วไปมักไม่รู้จัก
           </p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
