@@ -10,8 +10,8 @@ variables:
   # - GITHUB_OWNER: ชื่อ Owner ของ Repository บน GitHub (เช่น ชื่อยูสเซอร์ หรือองค์กร)
   # - SERVER_HOST: IP หรือโดเมนของเซิร์ฟเวอร์ปลายทาง
   # - SERVER_USER: ชื่อยูสเซอร์สำหรับ SSH เข้าเซิร์ฟเวอร์
-  # - SERVER_SSH_KEY: Private Key สำหรับเชื่อมต่อ SSH (ตั้งค่าเป็นประเภท File หรือใส่ท่อ tr -d ในสคริปต์)
-  # - POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, CLIENT_PORT, JWT_SECRET
+  # - SERVER_SSH_KEY: Private Key สำหรับเชื่อมต่อ SSH
+  # - OPENROUTER_API_KEY, NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 
 # ---------------------------------------------
 # Job: Build & Push Docker Image
@@ -26,16 +26,14 @@ build_images:
     - if: $CI_COMMIT_BRANCH == "main"
     - if: $CI_COMMIT_TAG =~ /^v/
   script:
-    # 1. คำนวณเวอร์ชันของแอปโดยการตัดตัวอักษร 'v' ออกจาก tag (เช่น v0.1.4 -> 0.1.4)
+    # 1. กำหนดเวอร์ชันและ Tag ของรูปภาพ
     - |
       if [ -n "$CI_COMMIT_TAG" ]; then
-        APP_VERSION=$(echo "${CI_COMMIT_TAG#v}")
         IMAGE_TAG="$CI_COMMIT_TAG"
       else
-        APP_VERSION="latest"
         IMAGE_TAG="latest"
       fi
-    
+
     # 2. ทำการล็อกอินเข้า GHCR.io หากเป็น Tag
     - |
       if [ -n "$CI_COMMIT_TAG" ]; then
@@ -43,32 +41,20 @@ build_images:
         echo "$GITHUB_TOKEN" | docker login "$REGISTRY" -u "$GITHUB_USER" --password-stdin
       fi
 
-    # 3. Build & Push: tour-booking-app
-    - echo "Building tour-booking-app..."
+    # 3. Build Docker Image (ใช้ Root Context และแนบ Supabase Build Args ตาม Dockerfile)
+    - echo "Building monnan365-app..."
     - >
       docker build
-      --build-arg APP_VERSION="$APP_VERSION"
-      -t "$REGISTRY/$GITHUB_OWNER/tour-booking-app:$IMAGE_TAG"
-      ./apps/client
+      --build-arg NEXT_PUBLIC_SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL"
+      --build-arg NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY="$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"
+      -t "$REGISTRY/$GITHUB_OWNER/monnan365-app:$IMAGE_TAG"
+      .
 
+    # 4. Push Image ไปยัง Registry เฉพาะกรณีที่เป็น Git Tag
     - |
       if [ -n "$CI_COMMIT_TAG" ]; then
-        echo "Pushing tour-booking-app..."
-        docker push "$REGISTRY/$GITHUB_OWNER/tour-booking-app:$IMAGE_TAG"
-      fi
-
-    # 4. Build & Push: tour-booking-migrate (target: migrator)
-    - echo "Building tour-booking-migrate..."
-    - >
-      docker build
-      --target migrator
-      -t "$REGISTRY/$GITHUB_OWNER/tour-booking-migrate:$IMAGE_TAG"
-      ./apps/client
-
-    - |
-      if [ -n "$CI_COMMIT_TAG" ]; then
-        echo "Pushing tour-booking-migrate..."
-        docker push "$REGISTRY/$GITHUB_OWNER/tour-booking-migrate:$IMAGE_TAG"
+        echo "Pushing monnan365-app..."
+        docker push "$REGISTRY/$GITHUB_OWNER/monnan365-app:$IMAGE_TAG"
       fi
 
 # ---------------------------------------------
@@ -96,19 +82,15 @@ deploy_to_server:
       ssh "$SERVER_USER@$SERVER_HOST" "
         mkdir -p ~/app &&
         cat > ~/app/.env << 'EOF'
-      POSTGRES_USER=$POSTGRES_USER
-      POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-      POSTGRES_DB=$POSTGRES_DB
-      POSTGRES_PORT=$POSTGRES_PORT
-      CLIENT_PORT=$CLIENT_PORT
-      JWT_SECRET=$JWT_SECRET
-      IMAGE_TAG=$CI_COMMIT_TAG
+      IMAGE_NAME=$REGISTRY/$GITHUB_OWNER/monnan365-app:$CI_COMMIT_TAG
+      OPENROUTER_API_KEY=$OPENROUTER_API_KEY
+      NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
       EOF
 
         echo \"$GITHUB_TOKEN\" | docker login \"$REGISTRY\" -u \"$GITHUB_USER\" --password-stdin &&
         cd ~/app &&
         set -e &&
         docker compose pull &&
-        docker compose run --rm migrate &&
         docker compose up -d
       "
