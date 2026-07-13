@@ -10,7 +10,7 @@
     "seed": "node --env-file=.env scripts/seed.mjs"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.111.0",
+    "openai": "^6.7.0",
     "@supabase/ssr": "^0.12.1",
     "@supabase/supabase-js": "^2.110.3",
     "leaflet": "^1.9.4",

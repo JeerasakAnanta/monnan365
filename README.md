@@ -43,9 +43,9 @@
 | ส่วน | เทคโนโลยี | เหตุผล |
 |---|---|---|
 | Frontend + Backend | Next.js 16 (App Router, TypeScript, Tailwind CSS 4) | โค้ดชุดเดียว deploy ง่าย |
-| AI | Claude API (Anthropic, `claude-opus-4-8`) | สร้างแผนเที่ยวแบบ Structured Output (JSON) พร้อมเหตุผลภาษาไทย |
+| AI | OpenRouter (`openai/gpt-oss-120b:free`) | สร้างแผนเที่ยวแบบ Structured Output (JSON) พร้อมเหตุผลภาษาไทย |
 | ฐานข้อมูล | Supabase (Postgres) | เก็บ dataset สถานที่/กิจกรรมของน่านเป็นตาราง `attractions` query ตามเดือน/สไตล์ก่อนส่งเข้า LLM — แม่นยำ ไม่ hallucinate |
-| Validation | Zod + Anthropic Structured Outputs (`output_config.format`) | บังคับ schema ของ output จาก LLM ตั้งแต่ระดับ API |
+| Validation | Zod + OpenAI Structured Outputs (`response_format`) | บังคับ schema ของ output จาก LLM ตั้งแต่ระดับ API |
 | แผนที่ | Leaflet + OpenStreetMap (react-leaflet) | ฟรี ไม่ต้องใช้ API key |
 | Hosting | Docker (multi-stage, Next.js standalone) บน self-hosted VPS | คุมค่าใช้จ่ายและโครงสร้างเองได้เต็มที่ |
 | CI/CD | GitLab CI (`.gitlab-ci.yml`) | lint/typecheck/build → build+push Docker image → deploy ผ่าน SSH ไปยัง VPS |
@@ -59,7 +59,7 @@
      /api/plan (server-side, Next.js API route)
           │ 1. query ตาราง attractions ใน Supabase ตามเดือนที่เลือก
           │ 2. คัดกรอง/สุ่มตามสไตล์ + บังคับ quota แหล่งท่องเที่ยวรอง/ชุมชน ≥ 35%
-          │ 3. เรียก Claude API พร้อม output_config.format (Zod schema)
+           │ 3. เรียก OpenRouter API พร้อม response_format (Zod schema)
           │    → รับประกัน JSON ตรง schema ตั้งแต่ระดับ API
           ▼
      Itinerary JSON → Timeline cards + แผนที่ (Leaflet)
@@ -96,7 +96,7 @@ npm install
 # 3. ตั้งค่า environment variables
 cp .env.example .env
 # แก้ไข .env ใส่ค่า NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
-# SUPABASE_SERVICE_ROLE_KEY (ใช้เฉพาะตอน seed), ANTHROPIC_API_KEY
+# SUPABASE_SERVICE_ROLE_KEY (ใช้เฉพาะตอน seed), OPENROUTER_API_KEY
 
 # 4. สร้างตารางใน Supabase (รันครั้งเดียว)
 # นำ SQL ใน supabase/migrations/0001_attractions.sql ไปรันใน Supabase SQL editor
@@ -116,7 +116,7 @@ npm run dev
 | `NEXT_PUBLIC_SUPABASE_URL` | client + server | URL โปรเจกต์ Supabase (public) |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | client + server | Publishable/anon key อ่านข้อมูล attractions แบบ public read-only (RLS) |
 | `SUPABASE_SERVICE_ROLE_KEY` | `scripts/seed.mjs` เท่านั้น | ใช้ seed/upsert ข้อมูลเข้าตาราง bypass RLS — **ห้าม expose ฝั่ง client** |
-| `ANTHROPIC_API_KEY` | `/api/plan` (server) | เรียก Claude API สร้างแผนเที่ยว |
+| `OPENROUTER_API_KEY` | `/api/plan` (server) | เรียก OpenRouter API (GPT-OSS-120B) สร้างแผนเที่ยว |
 | `IMAGE_NAME` | docker-compose (deploy เท่านั้น) | ชื่อ image จาก GitLab Container Registry ที่จะรันบน VPS |
 
 > 🔒 **Security:** repo นี้ไม่มี API key หรือข้อมูลลับใดๆ — ใช้ environment variables และ `.gitignore` ครอบ `.env*` ตามข้อกำหนดของการแข่งขัน

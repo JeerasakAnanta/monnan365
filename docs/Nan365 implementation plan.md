@@ -38,7 +38,7 @@
 1. รับ `{month, days, styles[], budget}`
 2. Filter `nan.json`: เอาเฉพาะรายการที่ `months_best` ครอบคลุมเดือนนั้น + ตรง category
 3. บังคับ quota: อย่างน้อย 35% ของรายการที่ส่งเข้า prompt ต้องเป็น `is_secondary: true`
-4. เรียก Claude API พร้อม system prompt ให้ตอบเป็น JSON schema ที่กำหนด
+4. เรียก OpenRouter API พร้อม system prompt ให้ตอบเป็น JSON schema ที่กำหนด
 5. Validate JSON (zod) → คืน frontend
 
 **เหตุผลที่ไม่ใช้ FastAPI + vector DB:** ข้อมูลน่านทั้งชุด < 200 รายการ ใส่ context ได้โดยตรง ลด infra ที่ต้อง deploy/debug เหลือชิ้นเดียวบน Vercel
@@ -83,7 +83,7 @@
 
 ## 4. LLM Integration
 
-- Model: Claude (หรือ LLM ที่มี key อยู่แล้ว) ผ่าน API route ฝั่ง server เท่านั้น
+- Model: OpenRouter (`openai/gpt-oss-120b:free`) ผ่าน API route ฝั่ง server เท่านั้น
 - API key เก็บใน Environment Variable บน Vercel — **ห้ามอยู่ใน repo** (กติกาบังคับ + มี .gitignore สำหรับ .env)
 - System prompt กำหนด:
   - ตอบเป็น JSON ตาม schema เท่านั้น

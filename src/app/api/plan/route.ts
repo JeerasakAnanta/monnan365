@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import Anthropic from "@anthropic-ai/sdk";
-import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
+import OpenAI from "openai";
+import { zodResponseFormat } from "openai/helpers/zod";
 import { createClient } from "@/lib/supabase/server";
 import { selectAttractions } from "@/lib/selectAttractions";
 import type { Attraction } from "@/lib/types";
@@ -110,28 +110,69 @@ export async function POST(request: Request) {
   const selected = selectAttractions(attractions as Attraction[], styles, days);
   const userPrompt = buildUserPrompt(month, days, styles, budget, selected);
 
-  const anthropic = new Anthropic();
+  const openai = new OpenAI({
+    baseURL: "https://openrouter.ai/api/v1",
+    apiKey: process.env.OPENROUTER_API_KEY,
+  });
 
-  let parsed: z.infer<typeof PlanResponseSchema> | null;
-  try {
-    const response = await anthropic.messages.parse({
-      model: "claude-opus-4-8",
-      max_tokens: 4096,
-      system: SYSTEM_PROMPT,
-      messages: [{ role: "user", content: userPrompt }],
-      output_config: { format: zodOutputFormat(PlanResponseSchema) },
-    });
-    parsed = response.parsed_output;
-  } catch (err) {
+  const models = ["google/gemini-3.5-flash"];
+  const MAX_RETRIES = 3;
+
+  let parsed: z.infer<typeof PlanResponseSchema> | null = null;
+  let lastError: string | null = null;
+
+  const startTime = Date.now();
+  console.log(`[LLM] Starting | models=${models.join(" → ")}`);
+
+  for (const model of models) {
+    if (parsed) break;
+    console.log(`[LLM] Trying model: ${model}`);
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      const attemptStart = Date.now();
+      try {
+        const response = await openai.chat.completions.parse({
+          model,
+          max_tokens: 4096,
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            { role: "user", content: userPrompt },
+          ],
+          response_format: zodResponseFormat(PlanResponseSchema, "plan"),
+        });
+        parsed = response.choices[0].message.parsed ?? null;
+        if (parsed) {
+          const elapsed = Date.now() - attemptStart;
+          console.log(`[LLM] ✓ Success | model=${model} attempt=${attempt} ${elapsed}ms`);
+          break;
+        }
+        lastError = "LLM returned null parsed output";
+        console.warn(`[LLM] ✗ Null output | model=${model} attempt=${attempt}`);
+      } catch (err) {
+        lastError = err instanceof Error ? err.message : String(err);
+        const elapsed = Date.now() - attemptStart;
+        console.error(`[LLM] ✗ Error | model=${model} attempt=${attempt} ${elapsed}ms | ${lastError}`);
+        if (attempt < MAX_RETRIES) {
+          const delay = 1000 * attempt;
+          console.log(`[LLM] Retrying in ${delay}ms...`);
+          await new Promise((r) => setTimeout(r, delay));
+        }
+      }
+    }
+    if (!parsed) {
+      console.warn(`[LLM] Model ${model} exhausted, falling back...`);
+    }
+  }
+
+  const totalElapsed = Date.now() - startTime;
+  if (!parsed) {
+    console.error(`[LLM] ✗ All models failed after ${totalElapsed}ms | lastError: ${lastError}`);
     return NextResponse.json(
-      { error: "LLM request failed", details: err instanceof Error ? err.message : String(err) },
+      { error: "LLM request failed after retries", details: lastError },
       { status: 502 }
     );
   }
 
-  if (!parsed) {
-    return NextResponse.json({ error: "LLM returned an unparseable response" }, { status: 502 });
-  }
+  console.log(`[LLM] Done | ${totalElapsed}ms total`);
 
   const attractionsById = new Map(selected.map((a) => [a.id, a]));
   const enrichedDays = parsed.days.map((day) => ({
