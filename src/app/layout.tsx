@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Sarabun } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const sarabun = Sarabun({
+  variable: "--font-sarabun",
+  subsets: ["latin", "thai"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Nan365 — วางแผนทริปน่านทุกเดือน",
-  description: "AI Trip Planner ที่ช่วยกระจายนักท่องเที่ยวสู่น่านตลอด 12 เดือน",
+  description:
+    "สัมผัสธรรมชาติ วัฒนธรรม และวิถีชีวิตจังหวัดน่านด้วย AI Trip Planner ที่ช่วยวางแผนทริปให้เหมาะกับทุกเดือน",
+  keywords: ["น่าน", "ท่องเที่ยวน่าน", "ดอยภูคา", "วัดภูมินทร์", "ไทลื้อ", "AI Trip Planner"],
 };
 
 export default function RootLayout({
@@ -23,11 +24,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="th"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="th" className={`${sarabun.variable} h-full`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Noto+Serif+Thai:wght@400;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          background: "var(--nan-cream)",
+          color: "var(--nan-ink)",
+          fontFamily: "var(--font-sarabun), 'Sarabun', sans-serif",
+        }}
+      >
+        <Navbar />
+        <main style={{ flex: 1 }}>{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

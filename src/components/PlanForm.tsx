@@ -15,6 +15,21 @@ export type PlanFormValues = {
   budget: BudgetLevel;
 };
 
+const selectStyle: React.CSSProperties = {
+  borderRadius: "0.625rem",
+  border: "1.5px solid var(--nan-smoke)",
+  background: "var(--nan-cream)",
+  padding: "0.625rem 1rem",
+  fontSize: "0.9375rem",
+  color: "var(--nan-ink)",
+  width: "100%",
+  fontFamily: "'Sarabun', sans-serif",
+  outline: "none",
+  transition: "border-color 0.2s",
+  cursor: "pointer",
+  appearance: "auto",
+};
+
 export function PlanForm({
   onSubmit,
   isLoading,
@@ -35,63 +50,81 @@ export function PlanForm({
 
   return (
     <form
-      className="w-full max-w-2xl rounded-2xl border border-black/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900 sm:p-8"
+      style={{ padding: "1.75rem 2rem 2rem" }}
       onSubmit={(e) => {
         e.preventDefault();
         if (styles.length === 0) return;
         onSubmit({ month, days, styles, budget });
       }}
     >
-      <div className="grid gap-6 sm:grid-cols-2">
-        <label className="flex flex-col gap-2">
-          <span className="text-sm font-medium">เดือนที่เดินทาง</span>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: "1.25rem",
+        }}
+      >
+        {/* Month */}
+        <label style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)" }}>
+            📅 เดือนที่เดินทาง
+          </span>
           <select
-            className="rounded-lg border border-black/10 bg-transparent px-3 py-2 dark:border-white/15"
+            style={selectStyle}
             value={month}
             onChange={(e) => setMonth(Number(e.target.value))}
+            onFocus={(e) => { e.currentTarget.style.borderColor = "var(--nan-leaf)"; }}
+            onBlur={(e) => { e.currentTarget.style.borderColor = "var(--nan-smoke)"; }}
           >
             {MONTH_NAMES.map((name, i) => (
-              <option key={name} value={i + 1}>
-                {name}
-              </option>
+              <option key={name} value={i + 1}>{name}</option>
             ))}
           </select>
         </label>
 
-        <label className="flex flex-col gap-2">
-          <span className="text-sm font-medium">จำนวนวัน</span>
+        {/* Days */}
+        <label style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)" }}>
+            🗓️ จำนวนวัน
+          </span>
           <select
-            className="rounded-lg border border-black/10 bg-transparent px-3 py-2 dark:border-white/15"
+            style={selectStyle}
             value={days}
             onChange={(e) => setDays(Number(e.target.value))}
+            onFocus={(e) => { e.currentTarget.style.borderColor = "var(--nan-leaf)"; }}
+            onBlur={(e) => { e.currentTarget.style.borderColor = "var(--nan-smoke)"; }}
           >
             {[1, 2, 3, 4, 5].map((d) => (
-              <option key={d} value={d}>
-                {d} วัน
-              </option>
+              <option key={d} value={d}>{d} วัน</option>
             ))}
           </select>
         </label>
 
-        <label className="flex flex-col gap-2">
-          <span className="text-sm font-medium">งบประมาณ</span>
+        {/* Budget */}
+        <label style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)" }}>
+            💰 งบประมาณ
+          </span>
           <select
-            className="rounded-lg border border-black/10 bg-transparent px-3 py-2 dark:border-white/15"
+            style={selectStyle}
             value={budget}
             onChange={(e) => setBudget(e.target.value as BudgetLevel)}
+            onFocus={(e) => { e.currentTarget.style.borderColor = "var(--nan-leaf)"; }}
+            onBlur={(e) => { e.currentTarget.style.borderColor = "var(--nan-smoke)"; }}
           >
             {BUDGET_OPTIONS.map((b) => (
-              <option key={b.value} value={b.value}>
-                {b.label}
-              </option>
+              <option key={b.value} value={b.value}>{b.label}</option>
             ))}
           </select>
         </label>
       </div>
 
-      <fieldset className="mt-6">
-        <legend className="text-sm font-medium">สไตล์ที่สนใจ (เลือกได้หลายข้อ)</legend>
-        <div className="mt-2 flex flex-wrap gap-2">
+      {/* Styles */}
+      <fieldset style={{ border: "none", marginTop: "1.75rem" }}>
+        <legend style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)", marginBottom: "0.75rem" }}>
+          🎯 สไตล์ที่สนใจ (เลือกได้หลายข้อ)
+        </legend>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.625rem" }}>
           {STYLE_OPTIONS.map((opt) => {
             const active = styles.includes(opt.value);
             return (
@@ -99,11 +132,21 @@ export function PlanForm({
                 type="button"
                 key={opt.value}
                 onClick={() => toggleStyle(opt.value)}
-                className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
-                  active
-                    ? "border-emerald-600 bg-emerald-600 text-white"
-                    : "border-black/15 dark:border-white/20"
-                }`}
+                style={{
+                  borderRadius: "99px",
+                  border: active ? "2px solid var(--nan-forest)" : "1.5px solid var(--nan-smoke)",
+                  padding: "0.4rem 1.1rem",
+                  fontSize: "0.875rem",
+                  fontFamily: "'Sarabun', sans-serif",
+                  fontWeight: active ? 600 : 400,
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  background: active
+                    ? "linear-gradient(135deg, var(--nan-forest), var(--nan-leaf))"
+                    : "var(--nan-cream)",
+                  color: active ? "#fff" : "var(--nan-stone)",
+                  boxShadow: active ? "0 2px 12px rgba(45,106,79,0.25)" : "none",
+                }}
               >
                 {opt.label}
               </button>
@@ -111,16 +154,19 @@ export function PlanForm({
           })}
         </div>
         {styles.length === 0 && (
-          <p className="mt-2 text-sm text-red-600">กรุณาเลือกอย่างน้อย 1 สไตล์</p>
+          <p style={{ marginTop: "0.5rem", fontSize: "0.8rem", color: "#DC2626" }}>
+            กรุณาเลือกอย่างน้อย 1 สไตล์
+          </p>
         )}
       </fieldset>
 
       <button
         type="submit"
         disabled={isLoading || styles.length === 0}
-        className="mt-8 w-full rounded-full bg-emerald-600 py-3 font-medium text-white transition-opacity disabled:opacity-50 sm:w-auto sm:px-10"
+        className="btn-primary"
+        style={{ marginTop: "2rem", width: "100%", fontSize: "1rem", padding: "0.875rem" }}
       >
-        {isLoading ? "กำลังวางแผน..." : "วางแผนทริป"}
+        {isLoading ? "🔄 กำลังวางแผน..." : "🗺️ วางแผนทริปเลย"}
       </button>
     </form>
   );
