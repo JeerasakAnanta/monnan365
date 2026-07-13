@@ -158,8 +158,8 @@ export function HeroSection() {
               maxWidth: "480px",
             }}
           >
-            ให้ AI ช่วยพาคุณสัมผัสธรรมชาติ วิถีชีวิต และวัฒนธรรมน่านที่ซ่อนอยู่ —
-            ดอยหมอก นาขั้นบันได ไทลื้อ และอีกมากมาย ในทุกเดือนของปี
+            ให้ AI ช่วยพาคุณสัมผัสธรรมชาติ วิถีชีวิต และวัฒนธรรมน่านที่ซ่อนอยู่
+            กาเเฟ ทะเลหมอก นาขั้นบันได ไทลื้อ และอีกมากมาย ในทุกเดือนของปี
           </p>
 
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
@@ -190,7 +190,7 @@ export function HeroSection() {
                   (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.2)";
                 }}
               >
-                🗺️ รู้จักน่าน
+                รู้จักน่าน
               </button>
             </Link>
           </div>

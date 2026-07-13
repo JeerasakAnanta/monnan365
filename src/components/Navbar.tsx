@@ -5,10 +5,10 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NAV_ITEMS = [
-  { href: "/", label: "หน้าแรก", icon: "🏔️" },
-  { href: "/about-nan", label: "แนะนำน่าน", icon: "🌿" },
-  { href: "/plan", label: "AI วางแผนทริป", icon: "✨" },
-  { href: "/about-us", label: "เกี่ยวกับเรา", icon: "🤝" },
+  { href: "/", label: "หน้าแรก" },
+  { href: "/about-nan", label: "แนะนำน่าน" },
+  { href: "/plan", label: "AI วางแผนทริป" },
+  { href: "/about-us", label: "เกี่ยวกับเรา" },
 ];
 
 export function Navbar() {
@@ -53,7 +53,7 @@ export function Navbar() {
                   lineHeight: 1.1,
                 }}
               >
-                Nan365
+                มนต์น่าน
               </div>
               <div
                 style={{

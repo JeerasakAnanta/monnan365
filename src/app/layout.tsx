@@ -41,7 +41,7 @@ const googleSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Nan365 — วางแผนทริปน่านทุกเดือน",
+  title: "มนต์น่าน 365 วัน (MonNan365)",
   description:
     "สัมผัสธรรมชาติ วัฒนธรรม และวิถีชีวิตจังหวัดน่านด้วย AI Trip Planner ที่ช่วยวางแผนทริปให้เหมาะกับทุกเดือน",
   keywords: ["น่าน", "ท่องเที่ยวน่าน", "ดอยภูคา", "วัดภูมินทร์", "ไทลื้อ", "AI Trip Planner"],
