@@ -182,8 +182,8 @@ export function Footer() {
             © {new Date().getFullYear()} Nan365 — พัฒนาโดย RMUTL Nan · สงวนลิขสิทธิ์
           </p>
           <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-            <span style={{ fontSize: "0.75rem", color: "rgba(149,213,178,0.5)" }}>สร้างด้วย</span>
-            <span style={{ fontSize: "0.75rem", color: "var(--nan-amber)" }}>❤️ และ AI</span>
+            <span style={{ fontSize: "0.75rem", color: "rgba(149,213,178,0.5)" }}>พัฒนาโดย</span>
+            <span style={{ fontSize: "0.75rem", color: "var(--nan-amber)" }}>Jeerasak Ananta SS4</span>
           </div>
         </div>
       </div>
