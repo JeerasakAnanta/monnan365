@@ -118,7 +118,7 @@ export function HeroSection() {
             }}
           >
             <span>🌿</span>
-            <span>ค้นพบน่านในแบบที่ไม่เคยรู้จักมาก่อน</span>
+            <span>ค้นพบน่าน ในแบบที่ไม่เคยรู้จักมาก่อน</span>
           </div>
 
           <h1
