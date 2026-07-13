@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/monnan365-app
+  IMAGE_NAME: jeerasakananta/monnan365-app
 
 jobs:
   build:
