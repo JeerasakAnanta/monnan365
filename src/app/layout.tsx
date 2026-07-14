@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ScrollRestoration } from "@/components/ScrollRestoration";
+import { APP_VERSION } from "@/lib/constants";
 
 const googleSans = localFont({
   src: [
@@ -27,7 +28,7 @@ const googleSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "มนต์น่าน 365 วัน (MonNan365)",
+  title: `มนต์น่าน 365 วัน v${APP_VERSION}`,
   description:
     "สัมผัสธรรมชาติ วัฒนธรรม และวิถีชีวิตจังหวัดน่านด้วย AI Trip Planner ที่ช่วยวางแผนทริปให้เหมาะกับทุกเดือน",
   keywords: ["น่าน", "ท่องเที่ยวน่าน", "ดอยภูคา", "วัดภูมินทร์", "ไทลื้อ", "AI Trip Planner"],
