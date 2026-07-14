@@ -1,0 +1,47 @@
+name: Server Housekeeping
+
+on:
+  schedule:
+    - cron: '0 19 * * *'  # ทุกวันตี 2 เวลาไทย (UTC 19:00 = ICT 02:00)
+  workflow_dispatch: {}    # กดรันเองได้ผ่าน GitHub UI
+
+concurrency:
+  group: server-housekeeping
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Docker cleanup on server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            echo "🧹 Housekeeping started: $(date)"
+
+            echo "--- Before cleanup ---"
+            docker system df
+
+            # เก็บ log container ที่รันอยู่ ไม่แตะ
+            docker image prune -af --filter "until=72h"
+            docker container prune -f --filter "until=72h"
+            docker volume prune -f
+            docker network prune -f
+            docker builder prune -af --filter "until=168h"
+
+            # ลบ log ของ container ที่รันอยู่ ถ้าไฟล์ log โตเกิน (เผื่อไม่ได้ตั้ง logging limit ไว้)
+            find /var/lib/docker/containers/ -name "*.log" -size +100M -exec truncate -s 0 {} \;
+
+            echo "--- After cleanup ---"
+            docker system df
+            df -h /
+
+            echo "✅ Housekeeping done: $(date)"
+
+      - name: Notify on failure
+        if: failure()
+        run: echo "⚠️ Housekeeping failed — ตรวจสอบ server disk space ด้วยตนเอง"
