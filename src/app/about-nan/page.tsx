@@ -116,7 +116,6 @@ export default function AboutNanPage() {
           </div>
           <h1
             style={{
-              fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
               color: "#fff",
               marginBottom: "1.25rem",
@@ -166,7 +165,6 @@ export default function AboutNanPage() {
           <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
             <h2
               style={{
-                fontFamily: "'Playfair Display', serif",
                 fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
                 color: "var(--nan-bark)",
               }}
@@ -192,7 +190,7 @@ export default function AboutNanPage() {
                 <div style={{ fontSize: "0.75rem", color: "var(--nan-stone)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.25rem" }}>
                   {f.label}
                 </div>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", color: "var(--nan-bark)", fontWeight: 700 }}>
+                <div style={{ fontSize: "1.1rem", color: "var(--nan-bark)", fontWeight: 700 }}>
                   {f.value}
                 </div>
               </div>
@@ -237,7 +235,6 @@ export default function AboutNanPage() {
             </span>
             <h2
               style={{
-                fontFamily: "'Playfair Display', serif",
                 fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
                 color: "var(--nan-bark)",
                 lineHeight: 1.3,
@@ -335,7 +332,6 @@ export default function AboutNanPage() {
             </span>
             <h2
               style={{
-                fontFamily: "'Playfair Display', serif",
                 fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
                 color: "var(--nan-bark)",
               }}
@@ -378,7 +374,7 @@ export default function AboutNanPage() {
                     <div style={{ fontSize: "0.7rem", fontWeight: 600, color: a.color, letterSpacing: "0.08em", textTransform: "uppercase" }}>
                       {a.category}
                     </div>
-                    <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", color: "var(--nan-bark)", marginTop: "0.1rem" }}>
+                    <h3 style={{ fontSize: "1.2rem", color: "var(--nan-bark)", marginTop: "0.1rem" }}>
                       {a.name}
                     </h3>
                   </div>
@@ -419,7 +415,6 @@ export default function AboutNanPage() {
         <div style={{ maxWidth: "600px", margin: "0 auto" }}>
           <h2
             style={{
-              fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)",
               color: "#fff",
               marginBottom: "1rem",
@@ -430,19 +425,22 @@ export default function AboutNanPage() {
           <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "1rem", lineHeight: 1.8, marginBottom: "2rem" }}>
             บอกเดือนและสไตล์ที่ชอบ AI จะแนะนำสถานที่และกิจกรรมที่เหมาะกับคุณที่สุด
           </p>
-          <Link href="/plan" style={{ textDecoration: "none" }}>
-            <button
-              className="btn-primary"
-              style={{
-                background: "var(--nan-amber)",
-                color: "var(--nan-bark)",
-                boxShadow: "0 4px 20px rgba(233,196,106,0.4)",
-                fontSize: "1.05rem",
-                padding: "0.9rem 2.5rem",
-              }}
-            >
-              ✨ เริ่มวางแผนทริปเลย
-            </button>
+          <Link
+            href="/plan"
+            className="btn-primary"
+            style={{
+              display: "inline-block",
+              background: "var(--nan-amber)",
+              color: "var(--nan-bark)",
+              boxShadow: "0 4px 20px rgba(233,196,106,0.4)",
+              fontSize: "1.05rem",
+              padding: "0.9rem 2.5rem",
+              borderRadius: "99px",
+              textDecoration: "none",
+              fontWeight: 600,
+            }}
+          >
+            ✨ เริ่มวางแผนทริปเลย
           </Link>
         </div>
       </section>

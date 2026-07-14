@@ -71,7 +71,6 @@ export default function AboutUsPage() {
           </div>
           <h1
             style={{
-              fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(2rem, 5vw, 3.25rem)",
               color: "#fff",
               marginBottom: "1.25rem",
@@ -132,7 +131,6 @@ export default function AboutUsPage() {
               </span>
               <h2
                 style={{
-                  fontFamily: "'Playfair Display', serif",
                   fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
                   color: "var(--nan-bark)",
                   lineHeight: 1.3,
@@ -166,7 +164,6 @@ export default function AboutUsPage() {
                 >
                   <div
                     style={{
-                      fontFamily: "'Playfair Display', serif",
                       fontSize: "2.25rem",
                       fontWeight: 700,
                       color: s.color,
@@ -203,7 +200,6 @@ export default function AboutUsPage() {
           <div style={{ textAlign: "center", marginBottom: "3rem" }}>
             <h2
               style={{
-                fontFamily: "'Playfair Display', serif",
                 fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
                 color: "var(--nan-bark)",
               }}
@@ -242,7 +238,6 @@ export default function AboutUsPage() {
                 </div>
                 <h3
                   style={{
-                    fontFamily: "'Playfair Display', serif",
                     fontSize: "1.2rem",
                     color: "var(--nan-bark)",
                     marginBottom: "0.75rem",
@@ -270,7 +265,6 @@ export default function AboutUsPage() {
         <div style={{ maxWidth: "580px", margin: "0 auto" }}>
           <h2
             style={{
-              fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(1.5rem, 3.5vw, 2.25rem)",
               color: "var(--nan-bark)",
               marginBottom: "1rem",

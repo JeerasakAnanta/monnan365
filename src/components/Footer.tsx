@@ -43,7 +43,6 @@ export function Footer() {
               <div>
                 <div
                   style={{
-                    fontFamily: "'Playfair Display', serif",
                     fontWeight: 700,
                     fontSize: "1.25rem",
                     color: "#fff",

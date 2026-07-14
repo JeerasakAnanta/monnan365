@@ -34,7 +34,7 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "0.875rem" }}>
           <span style={{ fontSize: "1.5rem" }}>🌿</span>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.175rem", color: "var(--nan-bark)" }}>
+          <h2 style={{ fontSize: "1.175rem", color: "var(--nan-bark)" }}>
             ทำไมเดือนนี้ถึงน่าไปน่าน
           </h2>
         </div>
@@ -106,7 +106,6 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
             </div>
             <h3
               style={{
-                fontFamily: "'Playfair Display', serif",
                 fontSize: "1.05rem",
                 color: "var(--nan-bark)",
               }}
@@ -151,7 +150,7 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
                     >
                       🕐 {item.time}
                     </span>
-                    <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.05rem", color: "var(--nan-bark)" }}>
+                    <h4 style={{ fontSize: "1.05rem", color: "var(--nan-bark)" }}>
                       {item.attraction?.name ?? item.id}
                     </h4>
                   </div>

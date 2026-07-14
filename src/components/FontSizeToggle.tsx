@@ -17,7 +17,6 @@ export function FontSizeToggle({
     background: "var(--nan-cream)",
     padding: "0.3rem 0.75rem",
     cursor: "pointer",
-    fontFamily: "'Sarabun', sans-serif",
     fontWeight: 500,
     color: "var(--nan-stone)",
     transition: "all 0.2s",

@@ -93,7 +93,6 @@ export default function PlanPage() {
           </div>
           <h1
             style={{
-              fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(1.875rem, 4.5vw, 3rem)",
               color: "#fff",
               marginBottom: "1rem",
@@ -239,7 +238,7 @@ function PlanFormNanTheme({
       >
         <span style={{ fontSize: "1.5rem" }}>🗺️</span>
         <div>
-          <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, color: "var(--nan-bark)", fontSize: "1.125rem" }}>
+          <div style={{ fontWeight: 700, color: "var(--nan-bark)", fontSize: "1.125rem" }}>
             วางแผนทริปของคุณ
           </div>
           <div style={{ fontSize: "0.8rem", color: "var(--nan-stone)" }}>กรอกข้อมูลเพื่อให้ AI สร้างแผนทริปเฉพาะสำหรับคุณ</div>

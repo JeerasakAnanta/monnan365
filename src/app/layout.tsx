@@ -1,24 +1,9 @@
 import type { Metadata } from "next";
-import { Sarabun, Noto_Sans_Thai } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ScrollRestoration } from "@/components/ScrollRestoration";
-
-const sarabun = Sarabun({
-  variable: "--font-sarabun",
-  subsets: ["latin", "thai"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
-
-const notoSansThai = Noto_Sans_Thai({
-  variable: "--font-noto-sans",
-  subsets: ["thai"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
 
 const googleSans = localFont({
   src: [
@@ -54,15 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" className={`${sarabun.variable} ${notoSansThai.variable} ${googleSans.variable} h-full`}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Noto+Serif+Thai:wght@400;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="th" className={`${googleSans.variable} h-full`}>
       <body
         style={{
           minHeight: "100vh",
@@ -70,7 +47,7 @@ export default function RootLayout({
           flexDirection: "column",
           background: "var(--nan-cream)",
           color: "var(--nan-ink)",
-          fontFamily: "var(--font-google-sans), var(--font-noto-sans), var(--font-sarabun), 'Sarabun', sans-serif",
+          fontFamily: "var(--font-google-sans), Arial, sans-serif",
         }}
       >
         <Navbar />

@@ -58,6 +58,10 @@ export function ScrollRestoration() {
   useEffect(() => {
     const save = () => saveScrollKey(pathname, window.scrollY);
 
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") save();
+    };
+
     const handleClick = (e: MouseEvent) => {
       const anchor = (e.target as HTMLElement).closest("a[href]");
       if (!anchor) return;
@@ -66,13 +70,12 @@ export function ScrollRestoration() {
     };
 
     window.addEventListener("beforeunload", save);
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "hidden") save();
-    });
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     document.addEventListener("click", handleClick, true);
 
     return () => {
       window.removeEventListener("beforeunload", save);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       document.removeEventListener("click", handleClick, true);
     };
   }, [pathname]);

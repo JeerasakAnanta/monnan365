@@ -50,7 +50,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-google-sans), var(--font-noto-sans), "Sarabun", "Noto Serif Thai", Arial, sans-serif;
+  font-family: var(--font-google-sans), Arial, sans-serif;
   font-weight: 400;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -58,7 +58,7 @@ body {
 
 /* ─── Typography ─── */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Playfair Display", "Noto Serif Thai", serif;
+  font-family: var(--font-google-sans), Arial, sans-serif;
   font-weight: 700;
   line-height: 1.3;
   color: var(--nan-bark);
@@ -94,8 +94,8 @@ h1, h2, h3, h4, h5, h6 {
   --color-smoke:   #E8E0D5;
   --color-ink:     #3D2B1F;
 
-  --font-sans: var(--font-google-sans), var(--font-noto-sans), "Sarabun", sans-serif;
-  --font-serif: "Playfair Display", "Noto Serif Thai", serif;
+  --font-sans: var(--font-google-sans), Arial, sans-serif;
+  --font-serif: var(--font-google-sans), Arial, sans-serif;
 }
 
 /* ─── Scrollbar ─── */
@@ -151,7 +151,7 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
   border-radius: 99px;
   padding: 0.75rem 2rem;
-  font-family: "Sarabun", sans-serif;
+  font-family: var(--font-google-sans), Arial, sans-serif;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
@@ -176,7 +176,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 2px solid var(--nan-forest);
   border-radius: 99px;
   padding: 0.65rem 1.75rem;
-  font-family: "Sarabun", sans-serif;
+  font-family: var(--font-google-sans), Arial, sans-serif;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;

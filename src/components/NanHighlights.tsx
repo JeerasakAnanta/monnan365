@@ -54,7 +54,6 @@ export function NanHighlights() {
           </span>
           <h2
             style={{
-              fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
               color: "var(--nan-bark)",
               marginBottom: "0.75rem",
@@ -127,7 +126,6 @@ export function NanHighlights() {
               </div>
               <h3
                 style={{
-                  fontFamily: "'Playfair Display', serif",
                   fontSize: "1.375rem",
                   color: "var(--nan-bark)",
                   marginBottom: "0.875rem",

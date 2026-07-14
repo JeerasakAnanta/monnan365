@@ -71,7 +71,6 @@ export function SeasonTimeline() {
           </span>
           <h2
             style={{
-              fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)",
               color: "var(--nan-bark)",
               marginBottom: "0.75rem",
@@ -136,7 +135,7 @@ export function SeasonTimeline() {
               <div style={{ fontSize: "0.7rem", fontWeight: 600, color: s.color, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.25rem" }}>
                 {s.month}
               </div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", color: "var(--nan-bark)", fontWeight: 700, marginBottom: "0.875rem" }}>
+              <div style={{ fontSize: "1.1rem", color: "var(--nan-bark)", fontWeight: 700, marginBottom: "0.875rem" }}>
                 {s.season}
               </div>
 

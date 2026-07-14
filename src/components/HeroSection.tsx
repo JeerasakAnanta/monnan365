@@ -1,11 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export function HeroSection() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => { setLoaded(true); }, []);
 
   return (
     <section
@@ -95,11 +93,7 @@ export function HeroSection() {
       >
         {/* Left: Text */}
         <div
-          style={{
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? "translateY(0)" : "translateY(30px)",
-            transition: "opacity 0.8s ease, transform 0.8s ease",
-          }}
+          className="hero-text"
         >
           {/* Badge */}
           <div
@@ -124,7 +118,6 @@ export function HeroSection() {
           <h1
             style={{
               fontSize: "clamp(2.25rem, 5vw, 3.75rem)",
-              fontFamily: "'Playfair Display', 'Noto Serif Thai', serif",
               fontWeight: 700,
               color: "#fff",
               lineHeight: 1.15,
@@ -178,7 +171,6 @@ export function HeroSection() {
                   borderRadius: "99px",
                   padding: "0.875rem 2rem",
                   fontSize: "1rem",
-                  fontFamily: "'Sarabun', sans-serif",
                   fontWeight: 600,
                   cursor: "pointer",
                   transition: "all 0.2s",
@@ -212,7 +204,6 @@ export function HeroSection() {
               <div key={s.label}>
                 <div
                   style={{
-                    fontFamily: "'Playfair Display', serif",
                     fontSize: "1.75rem",
                     fontWeight: 700,
                     color: "var(--nan-amber)",
@@ -234,11 +225,7 @@ export function HeroSection() {
 
         {/* Right: Image Card */}
         <div
-          className="animate-float hidden md:block"
-          style={{
-            opacity: loaded ? 1 : 0,
-            transition: "opacity 1s ease 0.3s",
-          }}
+          className="animate-float hidden md:block hero-image"
         >
           <div
             style={{
@@ -250,9 +237,12 @@ export function HeroSection() {
               boxShadow: "0 16px 64px rgba(30,70,50,0.3)",
             }}
           >
-            <img
+            <Image
               src="/nan-hero.png"
               alt="ภูมิทัศน์จังหวัดน่าน — นาขั้นบันไดและหมอก"
+              width={600}
+              height={600}
+              priority
               style={{
                 width: "100%",
                 borderRadius: "1.5rem",
@@ -303,6 +293,21 @@ export function HeroSection() {
       </div>
 
       <style>{`
+        @keyframes heroFadeIn {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heroImageFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .hero-text {
+          animation: heroFadeIn 0.8s ease forwards;
+        }
+        .hero-image {
+          opacity: 0;
+          animation: heroImageFadeIn 1s ease 0.3s forwards;
+        }
         @media (max-width: 768px) {
           .hero-grid {
             grid-template-columns: 1fr !important;

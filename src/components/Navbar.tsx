@@ -46,7 +46,6 @@ export function Navbar() {
             <div>
               <div
                 style={{
-                  fontFamily: "'Playfair Display', serif",
                   fontWeight: 700,
                   fontSize: "1.125rem",
                   color: "var(--nan-forest)",

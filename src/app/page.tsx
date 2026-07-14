@@ -30,7 +30,6 @@ export default function Home() {
           </div>
           <h2
             style={{
-              fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
               color: "var(--nan-bark)",
               marginBottom: "1rem",
