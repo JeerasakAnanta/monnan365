@@ -115,7 +115,7 @@ npm run dev
 |---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | client + server | URL โปรเจกต์ Supabase (public) |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | client + server | Publishable/anon key อ่านข้อมูล attractions แบบ public read-only (RLS) |
-| `SUPABASE_SERVICE_ROLE_KEY` | `scripts/seed.mjs` เท่านั้น | ใช้ seed/upsert ข้อมูลเข้าตาราง bypass RLS — **ห้าม expose ฝั่ง client** |
+| `SUPABASE_SERVICE_ROLE_KEY` | `scripts/seed.mjs`, `/api/plan/share` (server) | ใช้ seed/upsert ข้อมูลเข้าตาราง และบันทึกลิงก์แชร์แผนทริป bypass RLS — **ห้าม expose ฝั่ง client** |
 | `OPENROUTER_API_KEY` | `/api/plan` (server) | เรียก OpenRouter API (GPT-OSS-120B) สร้างแผนเที่ยว |
 | `IMAGE_NAME` | docker-compose (deploy เท่านั้น) | ชื่อ image จาก GitLab Container Registry ที่จะรันบน VPS |
 
