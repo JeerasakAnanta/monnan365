@@ -32,22 +32,24 @@ export function Navbar() {
         style={{
           maxWidth: "1200px",
           margin: "0 auto",
-          padding: "0 1.5rem",
-          height: "68px",
+          padding: "0 1rem",
+          minHeight: "60px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          gap: "0.5rem",
         }}
+        className="navbar-container"
       >
         {/* Logo */}
         <Link href="/" style={{ textDecoration: "none" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
-            <span style={{ fontSize: "1.75rem", lineHeight: 1 }}>🌄</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }} className="navbar-logo">
+            <span style={{ fontSize: "clamp(1.25rem, 5vw, 1.75rem)", lineHeight: 1 }}>🌄</span>
             <div>
               <div
                 style={{
                   fontWeight: 700,
-                  fontSize: "1.125rem",
+                  fontSize: "clamp(0.9rem, 2.5vw, 1.125rem)",
                   color: "var(--nan-forest)",
                   lineHeight: 1.1,
                 }}
@@ -56,7 +58,7 @@ export function Navbar() {
               </div>
               <div
                 style={{
-                  fontSize: "0.65rem",
+                  fontSize: "clamp(0.6rem, 1.5vw, 0.65rem)",
                   color: "var(--nan-stone)",
                   letterSpacing: "0.08em",
                   fontWeight: 500,
@@ -133,14 +135,22 @@ export function Navbar() {
             background: "var(--nan-sprout)",
             border: "none",
             borderRadius: "0.75rem",
-            width: "40px",
-            height: "40px",
+            width: "44px",
+            height: "44px",
+            minWidth: "44px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             cursor: "pointer",
             color: "var(--nan-forest)",
-            fontSize: "1.25rem",
+            fontSize: "clamp(1rem, 5vw, 1.5rem)",
+            transition: "all 0.2s ease",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.background = "var(--nan-leaf)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.background = "var(--nan-sprout)";
           }}
         >
           {menuOpen ? "✕" : "☰"}
@@ -153,11 +163,12 @@ export function Navbar() {
           style={{
             background: "rgba(253, 248, 239, 0.97)",
             borderTop: "1px solid var(--nan-smoke)",
-            padding: "1rem 1.5rem 1.5rem",
+            padding: "0.75rem 1rem 1rem",
+            animation: "slideDown 0.2s ease",
           }}
-          className="md:hidden"
+          className="md:hidden mobile-menu"
         >
-          <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
             {NAV_ITEMS.map((item) => {
               const active = pathname === item.href;
               return (
@@ -168,16 +179,17 @@ export function Navbar() {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "0.75rem",
-                      padding: "0.75rem 1rem",
-                      borderRadius: "0.875rem",
+                      gap: "0.5rem",
+                      padding: "0.65rem 0.875rem",
+                      borderRadius: "0.75rem",
                       textDecoration: "none",
                       fontWeight: active ? 600 : 400,
                       color: active ? "#fff" : "var(--nan-bark)",
                       background: active
                         ? "linear-gradient(135deg, var(--nan-forest), var(--nan-leaf))"
                         : "var(--nan-sprout)",
-                      fontSize: "1rem",
+                      fontSize: "clamp(0.9rem, 2vw, 1rem)",
+                      transition: "all 0.2s ease",
                     }}
                   >
                     {item.label}
@@ -188,6 +200,29 @@ export function Navbar() {
           </ul>
         </div>
       )}
+
+      <style>{`
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @media (max-width: 640px) {
+          .navbar-container {
+            padding: 0 0.75rem !important;
+            min-height: 56px !important;
+          }
+          .navbar-logo {
+            min-width: 0;
+            flex-shrink: 1;
+          }
+        }
+      `}</style>
     </nav>
   );
 }
