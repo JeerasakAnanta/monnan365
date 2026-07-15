@@ -14,6 +14,16 @@ type Stats = {
   monthlyCoverage: { month: number; count: number }[];
 };
 
+type AuditEntry = {
+  id: number;
+  user_email: string | null;
+  action: string;
+  entity_type: string;
+  entity_id: string | null;
+  details: Record<string, unknown> | null;
+  created_at: string;
+};
+
 function SkeletonCard() {
   return (
     <div style={{
@@ -49,16 +59,16 @@ function SkeletonChart() {
 }
 
 const STAT_CARDS = [
-  { key: "totalAttractions", label: "Total Attractions", icon: "map-pin" as const, color: "var(--nan-forest)", bg: "var(--nan-sprout)" },
-  { key: "secondaryCount", label: "Secondary", icon: "mountain" as const, color: "var(--nan-gold)", bg: "var(--nan-wheat)" },
-  { key: "communityCount", label: "Community", icon: "handshake" as const, color: "var(--nan-river)", bg: "#E0F2FE" },
-  { key: "totalSharedPlans", label: "Shared Plans", icon: "share" as const, color: "var(--nan-leaf)", bg: "var(--nan-sprout)" },
+  { key: "totalAttractions", label: "สถานที่ทั้งหมด", icon: "map-pin" as const, color: "var(--nan-forest)", bg: "var(--nan-sprout)" },
+  { key: "secondaryCount", label: "แหล่งท่องเที่ยวรอง", icon: "mountain" as const, color: "var(--nan-gold)", bg: "var(--nan-wheat)" },
+  { key: "communityCount", label: "ชุมชน", icon: "handshake" as const, color: "var(--nan-river)", bg: "#E0F2FE" },
+  { key: "totalSharedPlans", label: "แผนใช้ร่วมกัน", icon: "share" as const, color: "var(--nan-leaf)", bg: "var(--nan-sprout)" },
 ] as const;
 
 const QUICK_ACTIONS = [
-  { href: "/admin/attractions", label: "Manage Attractions", desc: "Add, edit, delete attractions", icon: "map-pin" as const, color: "var(--nan-forest)" },
-  { href: "/admin/ai-config", label: "AI Configuration", desc: "Model, temperature, prompt", icon: "settings" as const, color: "var(--nan-gold)" },
-  { href: "/", label: "View Live Site", desc: "Open the public app", icon: "sparkles" as const, color: "var(--nan-river)" },
+  { href: "/admin/attractions", label: "จัดการสถานที่", desc: "เพิ่ม แก้ไข ลบ สถานที่ท่องเที่ยว", icon: "map-pin" as const, color: "var(--nan-forest)" },
+  { href: "/admin/ai-config", label: "ตั้งค่า AI", desc: "โมเดล อุณหภูมิ คำสั่ง", icon: "settings" as const, color: "var(--nan-gold)" },
+  { href: "/", label: "ดูเว็บไซต์จริง", desc: "เปิดแอปสาธารณะ", icon: "sparkles" as const, color: "var(--nan-river)" },
 ];
 
 const MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
@@ -70,6 +80,7 @@ export default function AdminDashboardPage() {
   const [adminEmail, setAdminEmail] = useState("");
   const [hoveredMonth, setHoveredMonth] = useState<number | null>(null);
   const [hoveredDistrict, setHoveredDistrict] = useState<string | null>(null);
+  const [auditLogs, setAuditLogs] = useState<AuditEntry[]>([]);
 
   useEffect(() => {
     const supabase = createClient();
@@ -89,6 +100,13 @@ export default function AdminDashboardPage() {
 
   useEffect(() => { loadStats(); }, []);
 
+  useEffect(() => {
+    fetch("/api/admin/audit?limit=10")
+      .then((r) => r.ok ? r.json() : [])
+      .then((data) => setAuditLogs(Array.isArray(data) ? data : []))
+      .catch(() => {});
+  }, []);
+
   const maxDistrict = stats ? Math.max(...stats.districts.map((d) => d.count)) : 1;
 
   return (
@@ -97,11 +115,11 @@ export default function AdminDashboardPage() {
       <div style={{ marginBottom: "2rem" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <h1 style={{ fontSize: "1.75rem", color: "var(--nan-bark)", fontWeight: 700, marginBottom: "0.25rem" }}>
-              Welcome back
+            <h1 style={{ fontSize: "2rem", color: "var(--nan-bark)", fontWeight: 700, marginBottom: "0.25rem" }}>
+              ยินดีต้อนรับกลับ
             </h1>
-            <p style={{ fontSize: "0.9rem", color: "var(--nan-stone)" }}>
-              {adminEmail ? `Signed in as ${adminEmail}` : "Admin Dashboard"}
+            <p style={{ fontSize: "1rem", color: "var(--nan-stone)" }}>
+              {adminEmail ? `เข้าสู่ระบบในชื่อ ${adminEmail}` : "แดชบอร์ดผู้ดูแล"}
             </p>
           </div>
           <Link
@@ -114,14 +132,14 @@ export default function AdminDashboardPage() {
               borderRadius: "99px",
               border: "1.5px solid var(--nan-smoke)",
               background: "#fff",
-              fontSize: "0.8rem",
+              fontSize: "0.9rem",
               fontWeight: 500,
               color: "var(--nan-forest)",
               textDecoration: "none",
               transition: "border-color 0.2s",
             }}
           >
-            <NanIcon name="sparkles" size={14} /> Visit Site
+            <NanIcon name="sparkles" size={14} /> เข้าเว็บไซต์
           </Link>
         </div>
       </div>
@@ -146,10 +164,10 @@ export default function AdminDashboardPage() {
           textAlign: "center",
         }}>
           <NanIcon name="alert-triangle" size={32} color="#DC2626" />
-          <p style={{ fontSize: "0.9rem", color: "#DC2626", marginTop: "0.75rem", marginBottom: "1rem" }}>
+          <p style={{ fontSize: "1rem", color: "#DC2626", marginTop: "0.75rem", marginBottom: "1rem" }}>
             ไม่สามารถโหลดข้อมูลได้
           </p>
-          <button onClick={loadStats} className="btn-outline" style={{ padding: "0.5rem 1.25rem", fontSize: "0.85rem" }}>
+          <button onClick={loadStats} className="btn-outline" style={{ padding: "0.5rem 1.25rem", fontSize: "0.95rem" }}>
             ลองใหม่
           </button>
         </div>
@@ -201,15 +219,15 @@ export default function AdminDashboardPage() {
                     <NanIcon name={card.icon} size={20} color={card.color} />
                   </div>
                   <div>
-                    <div style={{ fontSize: "0.75rem", color: "var(--nan-stone)", fontWeight: 500 }}>
+                    <div style={{ fontSize: "0.9rem", color: "var(--nan-stone)", fontWeight: 500 }}>
                       {card.label}
                     </div>
-                    <div style={{ fontSize: "1.5rem", fontWeight: 700, color: "var(--nan-bark)", lineHeight: 1.2 }}>
+                    <div style={{ fontSize: "1.75rem", fontWeight: 700, color: "var(--nan-bark)", lineHeight: 1.2 }}>
                       {value}
                     </div>
                     {pct !== null && (
-                      <div style={{ fontSize: "0.7rem", color: "var(--nan-stone)", marginTop: "0.125rem" }}>
-                        {pct}% of total
+                      <div style={{ fontSize: "0.8rem", color: "var(--nan-stone)", marginTop: "0.125rem" }}>
+                        {pct}% ของทั้งหมด
                       </div>
                     )}
                   </div>
@@ -257,19 +275,19 @@ export default function AdminDashboardPage() {
                   <NanIcon name={action.icon} size={18} color={action.color} />
                 </div>
                 <div>
-                  <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--nan-bark)" }}>{action.label}</div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--nan-stone)" }}>{action.desc}</div>
+                  <div style={{ fontSize: "1rem", fontWeight: 600, color: "var(--nan-bark)" }}>{action.label}</div>
+                  <div style={{ fontSize: "0.85rem", color: "var(--nan-stone)" }}>{action.desc}</div>
                 </div>
               </Link>
             ))}
           </div>
 
           {/* Charts row */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem" }}>
             {/* Districts */}
             <div style={{ background: "#fff", borderRadius: "1rem", border: "1.5px solid var(--nan-smoke)", padding: "1.25rem" }}>
-              <h2 style={{ fontSize: "0.95rem", color: "var(--nan-bark)", fontWeight: 600, marginBottom: "1rem" }}>
-                Attractions by District
+              <h2 style={{ fontSize: "1.1rem", color: "var(--nan-bark)", fontWeight: 600, marginBottom: "1rem" }}>
+                สถานที่ท่องเที่ยวตามอำเภอ
               </h2>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                 {stats.districts.map((d, i) => {
@@ -282,10 +300,10 @@ export default function AdminDashboardPage() {
                       onMouseEnter={() => setHoveredDistrict(d.district)}
                       onMouseLeave={() => setHoveredDistrict(null)}
                     >
-                      <span style={{ fontSize: "0.7rem", color: "var(--nan-stone)", minWidth: "20px", textAlign: "right" }}>
+                      <span style={{ fontSize: "0.8rem", color: "var(--nan-stone)", minWidth: "20px", textAlign: "right" }}>
                         {i + 1}.
                       </span>
-                      <span style={{ fontSize: "0.8rem", color: "var(--nan-bark)", minWidth: "100px", fontWeight: isHovered ? 600 : 400 }}>
+                      <span style={{ fontSize: "0.95rem", color: "var(--nan-bark)", minWidth: "100px", fontWeight: isHovered ? 600 : 400 }}>
                         {d.district}
                       </span>
                       <div style={{ flex: 1, height: "8px", background: "var(--nan-smoke)", borderRadius: "99px", overflow: "hidden" }}>
@@ -299,7 +317,7 @@ export default function AdminDashboardPage() {
                           transition: "width 0.4s ease",
                         }} />
                       </div>
-                      <span style={{ fontSize: "0.75rem", color: "var(--nan-bark)", fontWeight: 600, minWidth: "20px", textAlign: "right" }}>
+                      <span style={{ fontSize: "0.85rem", color: "var(--nan-bark)", fontWeight: 600, minWidth: "20px", textAlign: "right" }}>
                         {d.count}
                       </span>
                     </div>
@@ -310,8 +328,8 @@ export default function AdminDashboardPage() {
 
             {/* Monthly coverage */}
             <div style={{ background: "#fff", borderRadius: "1rem", border: "1.5px solid var(--nan-smoke)", padding: "1.25rem" }}>
-              <h2 style={{ fontSize: "0.95rem", color: "var(--nan-bark)", fontWeight: 600, marginBottom: "1rem" }}>
-                Monthly Coverage
+              <h2 style={{ fontSize: "1.1rem", color: "var(--nan-bark)", fontWeight: 600, marginBottom: "1rem" }}>
+                ความครอบคลุมรายเดือน
               </h2>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "0.25rem", alignItems: "flex-end" }}>
                 {stats.monthlyCoverage.map((m) => {
@@ -353,17 +371,17 @@ export default function AdminDashboardPage() {
                             top: "-4px",
                             background: "var(--nan-ink)",
                             color: "#fff",
-                            fontSize: "0.65rem",
+                            fontSize: "0.75rem",
                             padding: "0.2rem 0.4rem",
                             borderRadius: "4px",
                             fontWeight: 600,
                             whiteSpace: "nowrap",
                           }}>
-                            {m.count} places
+                            {m.count} แห่ง
                           </div>
                         )}
                       </div>
-                      <div style={{ fontSize: "0.6rem", color: "var(--nan-stone)", marginTop: "0.375rem" }}>
+                      <div style={{ fontSize: "0.75rem", color: "var(--nan-stone)", marginTop: "0.375rem" }}>
                         {MONTHS[m.month - 1]}
                       </div>
                     </div>
@@ -372,6 +390,33 @@ export default function AdminDashboardPage() {
               </div>
             </div>
           </div>
+
+          {/* Activity Feed */}
+          {auditLogs.length > 0 && (
+            <div style={{ background: "#fff", borderRadius: "1rem", border: "1.5px solid var(--nan-smoke)", padding: "1.25rem", marginTop: "1.5rem" }}>
+              <h2 style={{ fontSize: "1.1rem", color: "var(--nan-bark)", fontWeight: 600, marginBottom: "1rem" }}>
+                กิจกรรมล่าสุด
+              </h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                {auditLogs.map((log) => {
+                  const actionLabel = log.action === "create" ? "สร้าง" : log.action === "update" ? "แก้ไข" : log.action === "delete" ? "ลบ" : log.action === "config_change" ? "เปลี่ยนแปลง config" : log.action;
+                  const entityLabel = log.entity_type === "attraction" ? "สถานที่" : log.entity_type === "ai_config" ? "AI Config" : log.entity_type;
+                  const timeDiff = Date.now() - new Date(log.created_at).getTime();
+                  const timeStr = timeDiff < 60000 ? "เมื่อสักครู่" : timeDiff < 3600000 ? `${Math.floor(timeDiff / 60000)} นาทีที่แล้ว` : timeDiff < 86400000 ? `${Math.floor(timeDiff / 3600000)} ชม. ที่แล้ว` : `${Math.floor(timeDiff / 86400000)} วันที่แล้ว`;
+                  return (
+                    <div key={log.id} style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.5rem 0", borderBottom: "1px solid var(--nan-smoke)" }}>
+                      <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: log.action === "delete" ? "#DC2626" : log.action === "create" ? "var(--nan-leaf)" : "var(--nan-gold)", flexShrink: 0 }} />
+                      <div style={{ flex: 1, fontSize: "0.85rem", color: "var(--nan-bark)" }}>
+                        <strong>{log.user_email || "Unknown"}</strong> {actionLabel} {entityLabel}
+                        {log.entity_id && <span style={{ color: "var(--nan-stone)" }}> ({log.entity_id})</span>}
+                      </div>
+                      <span style={{ fontSize: "0.75rem", color: "var(--nan-stone)", whiteSpace: "nowrap" }}>{timeStr}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </>
       )}
 

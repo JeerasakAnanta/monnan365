@@ -1,0 +1,257 @@
+# Architecture & Technical Reference
+
+## Overview
+
+MonNan365 is a **RAG-lite** AI trip planner. The core idea: query Supabase for relevant attractions, filter with business logic, then send the curated dataset to an LLM as context. The LLM never invents places — it only selects and explains from a verified dataset.
+
+```
+User Input (month, days, style, budget)
+    │
+    ▼
+/api/plan (Next.js API Route)
+    │
+    ├─ 1. Supabase query: SELECT * FROM attractions WHERE months_best @> [month]
+    │
+    ├─ 2. selectAttractions(): filter by style, enforce 35% secondary quota, shuffle
+    │
+    ├─ 3. Load ai_config (1-minute in-memory cache)
+    │
+    ├─ 4. OpenRouter API call with zodResponseFormat (structured output)
+    │      - System prompt (Thai, anti-hallucination rules)
+    │      - User prompt (month, days, style, budget + filtered attraction list)
+    │
+    └─ 5. Enrich response: map LLM item IDs back to full attraction data
+           │
+           ▼
+      PlanApiResponse → Timeline cards + Leaflet map
+```
+
+## Tech Stack
+
+| Layer | Technology | Version |
+|---|---|---|
+| Framework | Next.js (App Router, standalone) | 16.2.10 |
+| UI | React + Tailwind CSS 4 | 19.2.4 |
+| Database | Supabase (PostgreSQL) | - |
+| LLM | OpenRouter → `google/gemini-3.5-flash` | - |
+| Validation | Zod + OpenAI Structured Outputs | 4.4.3 |
+| Maps | Leaflet + OpenStreetMap | 1.9.4 |
+| Storage | Cloudflare R2 (images) | - |
+| Auth | Supabase Auth (email/password) | - |
+| Deploy | Docker multi-stage → VPS | Node 22 |
+
+## Project Structure
+
+```
+rmutl_nan/
+├── src/
+│   ├── app/
+│   │   ├── (main)/              # Public pages (Navbar + Footer)
+│   │   │   ├── page.tsx         # Landing page
+│   │   │   └── plan/            # AI Trip Planner + shared view
+│   │   ├── (admin)/admin/       # Admin panel (protected)
+│   │   │   ├── dashboard/
+│   │   │   ├── attractions/     # CRUD manager
+│   │   │   └── ai-config/       # LLM settings editor
+│   │   └── api/                 # API routes
+│   ├── components/              # 15 React components
+│   ├── hooks/                   # useVisitorCount
+│   └── lib/
+│       ├── types.ts             # TypeScript types + constants
+│       ├── selectAttractions.ts # Core selection algorithm
+│       └── supabase/            # 3 client variants
+├── supabase/migrations/         # 6 SQL migrations
+├── data/nan-seed.json           # 40 seed attractions
+└── scripts/                     # seed.mjs, setup-admin.mjs
+```
+
+## Supabase Client Pattern
+
+Three clients serve different purposes:
+
+| Client | File | Key | Use Case |
+|---|---|---|---|
+| Browser | `lib/supabase/client.ts` | Publishable (anon) | Client-side reads only (RLS) |
+| Server | `lib/supabase/server.ts` | Publishable (anon) | SSR with cookie-based auth |
+| Service Role | `lib/supabase/serviceRole.ts` | Service role (secret) | Server-only writes (bypasses RLS) |
+
+All public tables use **read-only RLS** for anon/authenticated. Writes go through service role key exclusively.
+
+## Selection Algorithm
+
+`src/lib/selectAttractions.ts:14` implements the core logic:
+
+1. **Style filter**: Keep attractions matching at least one selected style
+2. **Fallback**: If style-matched pool is too small (< `days × 3`), use all month-filtered attractions
+3. **Pool split**: Separate into secondary/community pool and main pool
+4. **Quota enforcement**: Target `min(pool.length, max(days × 4, 12))` items, with ≥35% secondary/community
+5. **Shuffle**: Fisher-Yates shuffle on both pools before merging
+6. **Merge**: Secondary picks + remaining slots from (main + leftover secondary), shuffled
+
+The 35% quota (`SECONDARY_QUOTA = 0.35`) ensures tourism distribution to lesser-known spots.
+
+## LLM Integration
+
+### Structured Output
+
+The LLM response is constrained via `zodResponseFormat(PlanResponseSchema, "plan")` — OpenAI-compatible API guarantees the output matches the Zod schema at the API level.
+
+**Schema hierarchy:**
+
+```
+PlanResponse
+├── summary: string (trip overview + month highlights)
+├── days: PlanDay[]
+│   └── items: PlanItem[]
+│       ├── id: string (must match an attraction ID from the dataset)
+│       ├── time: "เช้า" | "บ่าย" | "เย็น"
+│       ├── reason: string (why this fits the month/style)
+│       └── tip: string
+└── low_season_perks: string[] (2-4 benefits of off-season travel)
+```
+
+### Anti-Hallucination
+
+The system prompt (Thai, configurable via admin panel) explicitly instructs:
+- Use ONLY attractions from the provided dataset
+- Reference by exact `id`
+- Every day must include at least 1 secondary/community attraction
+- Explain why each stop fits the chosen month and style
+
+### Retry Logic
+
+Up to 3 attempts per model with exponential backoff (1s, 2s, 3s). Configurable via `ai_config.max_retries`.
+
+### Config Cache
+
+AI configuration is cached in memory for 60 seconds to avoid hitting the database on every plan generation request. Cache is per-server-instance.
+
+## Database Schema
+
+### `attractions`
+
+| Column | Type | Notes |
+|---|---|---|
+| `id` | text (PK) | e.g. `"doi-phu_kha"` |
+| `name` | text | Thai name |
+| `district` | text | e.g. `"เมือง"` |
+| `category` | text[] | GIN-indexed. Values: `nature`, `culture`, `food`, `wellness`, `community` |
+| `months_best` | smallint[] | GIN-indexed. Values: 1-12 |
+| `season_note` | text | e.g. `"ดอกนางพญาเสือโคร่งบาน ม.ค."` |
+| `is_secondary` | boolean | Secondary attraction flag |
+| `is_community` | boolean | Community-based tourism flag |
+| `budget_level` | text | `low`, `mid`, or `premium` |
+| `lat` / `lng` | double precision | GPS coordinates |
+| `description` | text | Full description |
+| `contact` | text | Phone/line/facebook |
+| `image_url` | text | Cloudflare R2 URL |
+
+**RLS:** Public read-only. Writes via service role.
+
+### `shared_plans`
+
+Immutable JSON snapshots. Max 200KB per row. Public read-only.
+
+### `admin_users`
+
+Links to `auth.users` via foreign key. Self-read only via RLS. Roles: `admin`, `superadmin`.
+
+### `ai_config`
+
+Key-value store for LLM parameters. Public read-only. Default rows: `model`, `temperature`, `max_tokens`, `max_retries`, `system_prompt`.
+
+### `visits`
+
+Anonymous visitor tracking. IP hashed with salt (SHA-256). Indexed on `ip_hash` and `visited_at`. No RLS (server-only via service role).
+
+## API Routes
+
+### Public
+
+| Method | Route | Description |
+|---|---|---|
+| POST | `/api/plan` | Generate trip plan. Input: `{month, days, styles[], budget}` |
+| POST | `/api/plan/share` | Save plan to DB, return shareable UUID |
+| GET | `/api/visitor?path=/` | Track visit + return 30-day unique count |
+
+### Admin (auth required)
+
+| Method | Route | Description |
+|---|---|---|
+| GET | `/api/admin/stats` | Dashboard statistics |
+| GET/POST | `/api/admin/attractions` | List / create attractions |
+| PUT/DELETE | `/api/admin/attractions/[id]` | Update / delete |
+| POST | `/api/admin/attractions/upload` | Image upload to R2 (5MB max) |
+| GET/PUT | `/api/admin/ai-config` | Read / update LLM config |
+
+### Middleware
+
+`src/middleware.ts` protects `/admin/*` routes. Checks `supabase.auth.getUser()`. Redirects unauthenticated users to `/admin/login`. Redirects authenticated users away from login page.
+
+## Component Architecture
+
+| Component | Type | Purpose |
+|---|---|---|
+| `Navbar` | Client | Sticky nav with mobile hamburger, active link highlighting |
+| `Footer` | Client | Visitor count (animated), links, highlights |
+| `HeroSection` | Client | Landing hero with gradient, mountain SVG, stats, CTAs |
+| `NanHighlights` | Server | 3 glass cards: Nature, Culture, Community |
+| `SeasonTimeline` | Server | 5-season timeline with highlights |
+| `PlanForm` | Client | Trip input: month, days, styles (multi-select), budget |
+| `TripResult` | Client | Day-by-day timeline, map, print/share, modal |
+| `TripMap` | Client | Leaflet map with color-coded markers (dynamic import) |
+| `AttractionModal` | Client | Full attraction detail with hero image |
+| `ShareButton` | Client | Save to DB + Web Share API / clipboard |
+| `FontSizeToggle` | Client | Accessibility: 3-level font size toggle |
+| `ScrollRestoration` | Client | Scroll position memory via sessionStorage |
+| `NanIcon` | Server | 35+ Lucide icons + 4 custom SVGs |
+
+## Deployment
+
+```
+GitHub push (tag v*)
+  → GitHub Actions: Docker build (multi-stage)
+  → Push to GHCR (ghcr.io/jeerasakananta/monnan365-app)
+  → SSH deploy: docker compose pull && up -d
+  → VPS: port 3003 → 3000 (container)
+```
+
+**Dockerfile stages:**
+1. `deps` — install production dependencies
+2. `builder` — `next build` with standalone output
+3. `runner` — copy standalone output + static assets, run as non-root `nextjs` user
+
+**Daily housekeeping:** Docker image/container/volume/network prune at 02:00 ICT.
+
+## Design System
+
+Custom **Nan Province** color palette (20+ CSS custom properties):
+
+- **Forest greens:** `--nan-forest: #2D6A4F`, `--nan-leaf: #52B788`, `--nan-mist: #95D5B2`
+- **Warm tones:** `--nan-gold: #D4A017`, `--nan-amber: #E9C46A`, `--nan-earth: #8B4513`
+- **Sky/water:** `--nan-sky: #4ECDC4`, `--nan-river: #2A9D8F`
+- **Neutrals:** `--nan-cream: #FDF8EF` (bg), `--nan-ink: #3D2B1F` (darkest, no pure black)
+
+Key patterns: glass-morphism cards, gradient buttons, custom animations (`fadeInUp`, `float`, `shimmer`, `mist`), print stylesheet with page breaks.
+
+## Environment Variables
+
+| Variable | Scope | Description |
+|---|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | client + server | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | client + server | Anon key (read-only) |
+| `SUPABASE_SERVICE_ROLE_KEY` | server only | Bypasses RLS for writes |
+| `OPENROUTER_API_KEY` | server only | LLM API key |
+| `NEXT_PUBLIC_APP_VERSION` | client + server | Displayed in UI |
+| `IMAGE_NAME` | deploy only | Docker image for VPS |
+
+## Seed Data
+
+`data/nan-seed.json` contains 40 curated attractions across 10 districts, covering all 12 months. 31 are secondary, 21 are community-based. Seeded via `npm run seed` which upserts into the `attractions` table.
+
+## Future Work
+
+- Real-time TAT Data API + weather forecast integration
+- Community-sourced data (form for operators to add listings)
+- Tourist feedback system for recommendation improvement
+- Multi-language support (English, Chinese)

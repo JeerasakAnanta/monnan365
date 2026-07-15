@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { NanIcon } from "@/components/Icon";
 
 type Attraction = {
@@ -33,6 +33,16 @@ const EMPTY: Attraction = {
   image_url: "",
 };
 
+function validateForm(form: Attraction): string | null {
+  if (!form.name.trim()) return "กรุณากรอกชื่อสถานที่";
+  if (!form.id.trim()) return "กรุณากรอก ID";
+  if (form.lat !== null && (form.lat < -90 || form.lat > 90)) return "ละติจูดต้องอยู่ระหว่าง -90 ถึง 90";
+  if (form.lng !== null && (form.lng < -180 || form.lng > 180)) return "ลองจิจูดต้องอยู่ระหว่าง -180 ถึง 180";
+  if (form.category.length === 0) return "กรุณาเลือกอย่างน้อย 1 Category";
+  if (form.months_best.length === 0) return "กรุณาเลือกอย่างน้อย 1 เดือน";
+  return null;
+}
+
 export default function AdminAttractionsPage() {
   const [attractions, setAttractions] = useState<Attraction[]>([]);
   const [loading, setLoading] = useState(true);
@@ -43,6 +53,8 @@ export default function AdminAttractionsPage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+  const snapshotRef = useRef<string>("");
 
   const load = useCallback(async () => {
     const res = await fetch("/api/admin/attractions");
@@ -64,32 +76,104 @@ export default function AdminAttractionsPage() {
 
   useEffect(() => { setPage(1); }, [search]);
 
+  // Unsaved changes guard
+  useEffect(() => {
+    if (!isDirty) return;
+    function handleBeforeUnload(e: BeforeUnloadEvent) {
+      e.preventDefault();
+    }
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [isDirty]);
+
+  // Warn on route change via beforeunload (covers browser navigation)
+  useEffect(() => {
+    if (!isDirty) return;
+    function handleBeforeUnload(e: BeforeUnloadEvent) {
+      e.preventDefault();
+    }
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [isDirty]);
+
+  function trackDirty(prev: Attraction, next: Attraction) {
+    const changed = JSON.stringify(prev) !== JSON.stringify(next);
+    setIsDirty(changed);
+  }
+
   function startEdit(a: Attraction) {
+    if (isDirty && !window.confirm("มีข้อมูลที่ยังไม่ได้บันทึก ต้องการเปลี่ยนรายการหรือไม่?")) return;
     setEditing(a);
     setForm({ ...a });
+    snapshotRef.current = JSON.stringify(a);
+    setIsDirty(false);
     setMessage("");
   }
 
   function startNew() {
+    if (isDirty && !window.confirm("มีข้อมูลที่ยังไม่ได้บันทึก ต้องการสร้างใหม่หรือไม่?")) return;
     setEditing(null);
-    setForm({ ...EMPTY, id: `custom-${Date.now()}` });
+    const empty = { ...EMPTY };
+    setForm(empty);
+    snapshotRef.current = JSON.stringify(empty);
+    setIsDirty(false);
     setMessage("");
   }
 
+  function updateForm(patch: Partial<Attraction>) {
+    setForm((f) => {
+      const next = { ...f, ...patch };
+      trackDirty({ ...EMPTY, ...JSON.parse(snapshotRef.current) }, next);
+      return next;
+    });
+  }
+
   async function handleSave() {
+    const validationError = validateForm(form);
+    if (validationError) {
+      setMessage(`Error: ${validationError}`);
+      return;
+    }
+
     setSaving(true);
     setMessage("");
-    const method = editing ? "PUT" : "POST";
-    const url = editing ? `/api/admin/attractions/${editing.id}` : "/api/admin/attractions";
+
+    let body: Record<string, unknown>;
+    let url: string;
+    let method: string;
+
+    if (editing) {
+      // Update existing
+      method = "PUT";
+      url = `/api/admin/attractions/${editing.id}`;
+      body = { ...form };
+      if (editing.id !== form.id) {
+        // ID changed: delete old + create new
+        await fetch(`/api/admin/attractions/${editing.id}`, { method: "DELETE" });
+        method = "POST";
+        url = "/api/admin/attractions";
+      }
+    } else {
+      // Create new — let server generate ID if empty
+      method = "POST";
+      url = "/api/admin/attractions";
+      body = { ...form };
+      if (!body.id || String(body.id).trim() === "") {
+        delete body.id; // server will generate UUID
+      }
+    }
+
     const res = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify(body),
     });
     if (res.ok) {
       setMessage("บันทึกสำเร็จ");
       setEditing(null);
       setForm(EMPTY);
+      setIsDirty(false);
+      snapshotRef.current = "";
       load();
     } else {
       const err = await res.json();
@@ -103,31 +187,33 @@ export default function AdminAttractionsPage() {
     const res = await fetch(`/api/admin/attractions/${id}`, { method: "DELETE" });
     if (res.ok) {
       load();
-      if (editing?.id === id) { setEditing(null); setForm(EMPTY); }
+      if (editing?.id === id) { setEditing(null); setForm(EMPTY); setIsDirty(false); }
     }
   }
 
   function toggleCategory(cat: string) {
-    setForm((f) => ({
-      ...f,
-      category: f.category.includes(cat)
-        ? f.category.filter((c) => c !== cat)
-        : [...f.category, cat],
-    }));
+    updateForm({ category: form.category.includes(cat) ? form.category.filter((c) => c !== cat) : [...form.category, cat] });
   }
 
   function toggleMonth(m: number) {
-    setForm((f) => ({
-      ...f,
-      months_best: f.months_best.includes(m)
-        ? f.months_best.filter((n) => n !== m)
-        : [...f.months_best, m].sort((a, b) => a - b),
-    }));
+    updateForm({ months_best: form.months_best.includes(m) ? form.months_best.filter((n) => n !== m) : [...form.months_best, m].sort((a, b) => a - b) });
   }
 
   async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // Client-side validation
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+    if (!allowedTypes.includes(file.type)) {
+      setMessage("Error: ไฟล์ต้องเป็น JPG, PNG, WebP, หรือ GIF เท่านั้น");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setMessage("Error: ไฟล์ต้องมีขนาดไม่เกิน 5MB");
+      return;
+    }
+
     setUploading(true);
     const fd = new FormData();
     fd.append("file", file);
@@ -135,7 +221,7 @@ export default function AdminAttractionsPage() {
       const res = await fetch("/api/admin/attractions/upload", { method: "POST", body: fd });
       if (res.ok) {
         const { url } = await res.json();
-        setForm((f) => ({ ...f, image_url: url }));
+        updateForm({ image_url: url });
       } else {
         const err = await res.json();
         setMessage(`Upload error: ${err.error}`);
@@ -168,6 +254,40 @@ export default function AdminAttractionsPage() {
               width: "200px",
             }}
           />
+          <button
+            onClick={() => window.open("/api/admin/attractions/export", "_blank")}
+            className="btn-outline"
+            style={{ padding: "0.5rem 0.75rem", fontSize: "0.8rem" }}
+          >
+            Export
+          </button>
+          <label className="btn-outline" style={{ padding: "0.5rem 0.75rem", fontSize: "0.8rem", cursor: "pointer" }}>
+            Import
+            <input
+              type="file"
+              accept=".json"
+              style={{ display: "none" }}
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                try {
+                  const text = await file.text();
+                  const data = JSON.parse(text);
+                  if (!Array.isArray(data)) { setMessage("Error: JSON ต้องเป็น array"); return; }
+                  if (!confirm(`นำเข้า ${data.length} รายการ?`)) return;
+                  const res = await fetch("/api/admin/attractions/import", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                  });
+                  const result = await res.json();
+                  setMessage(`นำเข้าสำเร็จ ${result.updated} รายการ, error ${result.errors} รายการ`);
+                  load();
+                } catch { setMessage("Error: ไฟล์ JSON ไม่ถูกต้อง"); }
+                e.target.value = "";
+              }}
+            />
+          </label>
           <button onClick={startNew} className="btn-primary" style={{ padding: "0.5rem 1rem", fontSize: "0.85rem" }}>
             + New
           </button>
@@ -280,11 +400,18 @@ export default function AdminAttractionsPage() {
         </div>
 
         {/* Form */}
-        {form.id && (
+        {form.id !== "" || !editing ? (
           <div style={{ background: "#fff", borderRadius: "1rem", border: "1.5px solid var(--nan-smoke)", padding: "1.25rem", maxHeight: "70vh", overflowY: "auto" }}>
-            <h2 style={{ fontSize: "1rem", color: "var(--nan-bark)", fontWeight: 600, marginBottom: "1rem" }}>
-              {editing ? "Edit" : "New"} Attraction
-            </h2>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+              <h2 style={{ fontSize: "1rem", color: "var(--nan-bark)", fontWeight: 600 }}>
+                {editing ? "Edit" : "New"} Attraction
+              </h2>
+              {isDirty && (
+                <span style={{ fontSize: "0.75rem", color: "var(--nan-gold)", fontWeight: 500 }}>
+                  มีการแก้ไข chưaบันทึก
+                </span>
+              )}
+            </div>
 
             {/* Image Upload */}
             <div style={{ marginBottom: "1rem" }}>
@@ -296,7 +423,7 @@ export default function AdminAttractionsPage() {
                     style={{ width: "100%", height: "160px", objectFit: "cover", display: "block" }}
                   />
                   <button
-                    onClick={() => setForm((f) => ({ ...f, image_url: "" }))}
+                    onClick={() => updateForm({ image_url: "" })}
                     style={{
                       position: "absolute", top: "0.5rem", right: "0.5rem",
                       background: "rgba(0,0,0,0.5)", border: "none", borderRadius: "0.375rem",
@@ -329,13 +456,13 @@ export default function AdminAttractionsPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
               {[
                 { label: "ID", key: "id", type: "text", disabled: !!editing },
-                { label: "Name", key: "name", type: "text" },
+                { label: "Name *", key: "name", type: "text" },
                 { label: "District", key: "district", type: "text" },
                 { label: "Description", key: "description", type: "textarea" },
                 { label: "Season Note", key: "season_note", type: "textarea" },
                 { label: "Contact", key: "contact", type: "text" },
-                { label: "Latitude", key: "lat", type: "number" },
-                { label: "Longitude", key: "lng", type: "number" },
+                { label: "Latitude (-90 to 90)", key: "lat", type: "number" },
+                { label: "Longitude (-180 to 180)", key: "lng", type: "number" },
               ].map((field) => (
                 <div key={field.key}>
                   <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--nan-bark)", display: "block", marginBottom: "0.25rem" }}>
@@ -344,7 +471,10 @@ export default function AdminAttractionsPage() {
                   {field.type === "textarea" ? (
                     <textarea
                       value={(form as Record<string, unknown>)[field.key] as string ?? ""}
-                      onChange={(e) => setForm((f) => ({ ...f, [field.key]: e.target.value }))}
+                      onChange={(e) => {
+                        const patch: Record<string, unknown> = { [field.key]: e.target.value };
+                        updateForm(patch as Partial<Attraction>);
+                      }}
                       disabled={field.disabled}
                       rows={2}
                       style={{ width: "100%", padding: "0.5rem", borderRadius: "0.5rem", border: "1.5px solid var(--nan-smoke)", fontSize: "0.8rem", outline: "none", resize: "vertical" }}
@@ -353,7 +483,11 @@ export default function AdminAttractionsPage() {
                     <input
                       type={field.type}
                       value={(form as Record<string, unknown>)[field.key] as string ?? ""}
-                      onChange={(e) => setForm((f) => ({ ...f, [field.key]: e.target.value }))}
+                      onChange={(e) => {
+                        const val = field.type === "number" ? (e.target.value === "" ? null : Number(e.target.value)) : e.target.value;
+                        const patch: Record<string, unknown> = { [field.key]: val };
+                        updateForm(patch as Partial<Attraction>);
+                      }}
                       disabled={field.disabled}
                       style={{ width: "100%", padding: "0.5rem", borderRadius: "0.5rem", border: "1.5px solid var(--nan-smoke)", fontSize: "0.8rem", outline: "none" }}
                     />
@@ -366,7 +500,7 @@ export default function AdminAttractionsPage() {
                 <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--nan-bark)", display: "block", marginBottom: "0.25rem" }}>Budget</label>
                 <select
                   value={form.budget_level}
-                  onChange={(e) => setForm((f) => ({ ...f, budget_level: e.target.value }))}
+                  onChange={(e) => updateForm({ budget_level: e.target.value })}
                   style={{ width: "100%", padding: "0.5rem", borderRadius: "0.5rem", border: "1.5px solid var(--nan-smoke)", fontSize: "0.8rem" }}
                 >
                   {BUDGET_LEVELS.map((b) => <option key={b} value={b}>{b}</option>)}
@@ -376,18 +510,18 @@ export default function AdminAttractionsPage() {
               {/* Toggles */}
               <div style={{ display: "flex", gap: "1.5rem" }}>
                 <label style={{ display: "flex", alignItems: "center", gap: "0.375rem", fontSize: "0.8rem", color: "var(--nan-bark)", cursor: "pointer" }}>
-                  <input type="checkbox" checked={form.is_secondary} onChange={(e) => setForm((f) => ({ ...f, is_secondary: e.target.checked }))} />
+                  <input type="checkbox" checked={form.is_secondary} onChange={(e) => updateForm({ is_secondary: e.target.checked })} />
                   Secondary
                 </label>
                 <label style={{ display: "flex", alignItems: "center", gap: "0.375rem", fontSize: "0.8rem", color: "var(--nan-bark)", cursor: "pointer" }}>
-                  <input type="checkbox" checked={form.is_community} onChange={(e) => setForm((f) => ({ ...f, is_community: e.target.checked }))} />
+                  <input type="checkbox" checked={form.is_community} onChange={(e) => updateForm({ is_community: e.target.checked })} />
                   Community
                 </label>
               </div>
 
               {/* Categories */}
               <div>
-                <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--nan-bark)", display: "block", marginBottom: "0.25rem" }}>Categories</label>
+                <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--nan-bark)", display: "block", marginBottom: "0.25rem" }}>Categories *</label>
                 <div style={{ display: "flex", gap: "0.375rem", flexWrap: "wrap" }}>
                   {CATEGORIES.map((c) => (
                     <button
@@ -412,7 +546,7 @@ export default function AdminAttractionsPage() {
 
               {/* Months */}
               <div>
-                <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--nan-bark)", display: "block", marginBottom: "0.25rem" }}>Best Months</label>
+                <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--nan-bark)", display: "block", marginBottom: "0.25rem" }}>Best Months *</label>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "0.25rem" }}>
                   {MONTHS.map((m, i) => (
                     <button
@@ -451,13 +585,13 @@ export default function AdminAttractionsPage() {
                 <button onClick={handleSave} disabled={saving} className="btn-primary" style={{ padding: "0.5rem 1.25rem", fontSize: "0.85rem" }}>
                   {saving ? "Saving..." : "Save"}
                 </button>
-                <button onClick={() => { setEditing(null); setForm(EMPTY); setMessage(""); }} className="btn-outline" style={{ padding: "0.5rem 1.25rem", fontSize: "0.85rem" }}>
+                <button onClick={() => { setEditing(null); setForm(EMPTY); setIsDirty(false); snapshotRef.current = ""; setMessage(""); }} className="btn-outline" style={{ padding: "0.5rem 1.25rem", fontSize: "0.85rem" }}>
                   Cancel
                 </button>
               </div>
             </div>
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );

@@ -18,6 +18,10 @@ export async function GET() {
     admin.from("shared_plans").select("id", { count: "exact", head: true }),
   ]);
 
+  if (attractions.error) {
+    return NextResponse.json({ error: "Failed to fetch attractions", details: attractions.error.message }, { status: 500 });
+  }
+
   const rows = attractions.data ?? [];
 
   // District counts
@@ -37,7 +41,7 @@ export async function GET() {
     return { month, count };
   });
 
-  return NextResponse.json({
+  const response = NextResponse.json({
     totalAttractions: rows.length,
     secondaryCount: rows.filter((a) => a.is_secondary).length,
     communityCount: rows.filter((a) => a.is_community).length,
@@ -45,4 +49,7 @@ export async function GET() {
     districts,
     monthlyCoverage,
   });
+
+  response.headers.set("Cache-Control", "private, max-age=60");
+  return response;
 }

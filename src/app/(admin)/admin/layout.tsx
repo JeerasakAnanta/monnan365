@@ -7,9 +7,9 @@ import { createClient } from "@/lib/supabase/client";
 import { NanIcon } from "@/components/Icon";
 
 const ADMIN_NAV = [
-  { href: "/admin/dashboard", label: "Dashboard", icon: "layout-dashboard" as const },
-  { href: "/admin/attractions", label: "Attractions", icon: "map-pin" as const },
-  { href: "/admin/ai-config", label: "AI Config", icon: "settings" as const },
+  { href: "/admin/dashboard", label: "แดชบอร์ด", icon: "layout-dashboard" as const },
+  { href: "/admin/attractions", label: "สถานที่ท่องเที่ยว", icon: "map-pin" as const },
+  { href: "/admin/ai-config", label: "ตั้งค่า AI", icon: "settings" as const },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -48,7 +48,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               MonNan365
             </div>
             <div style={{ fontSize: "0.7rem", color: "var(--nan-stone)", marginTop: "0.125rem" }}>
-              Admin Panel
+              แผงผู้ดูแล
             </div>
           </Link>
         </div>
@@ -145,7 +145,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         >
           <NanIcon name={sidebarOpen ? "x" : "menu"} size={14} />
         </button>
-        <span style={{ fontWeight: 700, color: "var(--nan-forest)" }}>Admin</span>
+        <span style={{ fontWeight: 700, color: "var(--nan-forest)" }}>ผู้ดูแล</span>
         <button
           onClick={handleLogout}
           style={{

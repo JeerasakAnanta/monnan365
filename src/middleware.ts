@@ -29,10 +29,31 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Protect /admin routes (except /admin/login)
-  if (request.nextUrl.pathname.startsWith("/admin")) {
-    if (request.nextUrl.pathname === "/admin/login") {
-      // If already logged in, redirect to dashboard
+  const pathname = request.nextUrl.pathname;
+
+  async function checkAdminRole(userId: string): Promise<boolean> {
+    const { data } = await supabase
+      .from("admin_users")
+      .select("id")
+      .eq("id", userId)
+      .single();
+    return !!data;
+  }
+
+  // API routes: /api/admin/*
+  if (pathname.startsWith("/api/admin")) {
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    if (!(await checkAdminRole(user.id))) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+    return supabaseResponse;
+  }
+
+  // Page routes: /admin/*
+  if (pathname.startsWith("/admin")) {
+    if (pathname === "/admin/login") {
       if (user) {
         return NextResponse.redirect(new URL("/admin/dashboard", request.url));
       }
@@ -40,6 +61,13 @@ export async function middleware(request: NextRequest) {
     }
 
     if (!user) {
+      const loginUrl = new URL("/admin/login", request.url);
+      loginUrl.searchParams.set("returnTo", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    // Admin role check
+    if (!(await checkAdminRole(user.id))) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
   }
@@ -48,5 +76,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/api/admin/:path*"],
 };

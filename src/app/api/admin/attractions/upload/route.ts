@@ -4,20 +4,26 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 export const runtime = "nodejs";
 
-const s3 = new S3Client({
-  region: "auto",
-  endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: process.env.R2_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY!,
-  },
-});
+const s3 = process.env.R2_ACCOUNT_ID
+  ? new S3Client({
+      region: "auto",
+      endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+      credentials: {
+        accessKeyId: process.env.R2_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.R2_SECRET_ACCESS_KEY!,
+      },
+    })
+  : null;
 
 export async function POST(request: Request) {
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    if (!s3) {
+      return NextResponse.json({ error: "R2 storage not configured" }, { status: 500 });
+    }
 
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
@@ -34,7 +40,7 @@ export async function POST(request: Request) {
     }
 
     const ext = file.name.split(".").pop() ?? "jpg";
-    const key = `attractions/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const key = `attractions/${crypto.randomUUID()}.${ext}`;
 
     const buffer = Buffer.from(await file.arrayBuffer());
 
