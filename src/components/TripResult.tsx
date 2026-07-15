@@ -258,6 +258,33 @@ export function TripResult({ result, id }: { result: PlanApiResponse; id?: strin
                     <NanIcon name="phone" size={12} /> {item.attraction.contact}
                   </p>
                 )}
+
+                {item.attraction?.lat != null && item.attraction?.lng != null && (
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${item.attraction.lat},${item.attraction.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      marginTop: "0.75rem",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.4rem",
+                      borderRadius: "99px",
+                      border: "1.5px solid var(--nan-smoke)",
+                      background: "#fff",
+                      padding: "0.35rem 0.875rem",
+                      fontSize: "0.8rem",
+                      fontWeight: 500,
+                      color: "var(--nan-forest)",
+                      textDecoration: "none",
+                      transition: "border-color 0.2s",
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--nan-leaf)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--nan-smoke)"; }}
+                  >
+                    <NanIcon name="map-pin" size={12} /> เปิดใน Google Maps
+                  </a>
+                )}
               </article>
             ))}
           </div>
