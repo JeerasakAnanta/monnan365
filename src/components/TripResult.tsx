@@ -211,7 +211,7 @@ export function TripResult({ result, id }: { result: PlanApiResponse; id?: strin
                           fontWeight: 500,
                         }}
                       >
-                        แหล่งรอง
+                        แหล่งท่องเที่ยวรอง
                       </span>
                     )}
                     {item.attraction?.is_community && (
