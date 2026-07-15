@@ -24,6 +24,8 @@ const CATEGORIES = ["nature", "culture", "food", "wellness", "community"];
 const BUDGET_LEVELS = ["low", "mid", "premium"];
 const MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
 
+const ITEMS_PER_PAGE = 12;
+
 const EMPTY: Attraction = {
   id: "", name: "", district: "", category: [], months_best: [],
   season_note: "", is_secondary: false, is_community: false,
@@ -35,6 +37,7 @@ export default function AdminAttractionsPage() {
   const [attractions, setAttractions] = useState<Attraction[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   const [editing, setEditing] = useState<Attraction | null>(null);
   const [form, setForm] = useState<Attraction>(EMPTY);
   const [saving, setSaving] = useState(false);
@@ -55,6 +58,11 @@ export default function AdminAttractionsPage() {
     a.name.toLowerCase().includes(search.toLowerCase()) ||
     (a.district ?? "").toLowerCase().includes(search.toLowerCase())
   );
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+  const paged = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+
+  useEffect(() => { setPage(1); }, [search]);
 
   function startEdit(a: Attraction) {
     setEditing(a);
@@ -179,7 +187,7 @@ export default function AdminAttractionsPage() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((a) => (
+              {paged.map((a) => (
                 <tr
                   key={a.id}
                   style={{
@@ -209,6 +217,66 @@ export default function AdminAttractionsPage() {
               ))}
             </tbody>
           </table>
+
+          {filtered.length > ITEMS_PER_PAGE && (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "0.75rem", fontSize: "0.8rem", color: "var(--nan-stone)" }}>
+              <span>
+                {filtered.length} รายการ — หน้า {page}/{totalPages}
+              </span>
+              <div style={{ display: "flex", gap: "0.25rem" }}>
+                <button
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                  style={{
+                    padding: "0.375rem 0.75rem", borderRadius: "0.5rem",
+                    border: "1.5px solid var(--nan-smoke)", background: page === 1 ? "#f9fafb" : "#fff",
+                    cursor: page === 1 ? "not-allowed" : "pointer", fontSize: "0.8rem", color: "var(--nan-bark)",
+                    opacity: page === 1 ? 0.5 : 1,
+                  }}
+                >
+                  ← ก่อนหน้า
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter((p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1)
+                  .reduce<(number | "...")[]>((acc, p, i, arr) => {
+                    if (i > 0 && p - (arr[i - 1] as number) > 1) acc.push("...");
+                    acc.push(p);
+                    return acc;
+                  }, [])
+                  .map((p, i) =>
+                    p === "..." ? (
+                      <span key={`e${i}`} style={{ padding: "0.375rem 0.5rem", color: "var(--nan-stone)" }}>…</span>
+                    ) : (
+                      <button
+                        key={p}
+                        onClick={() => setPage(p as number)}
+                        style={{
+                          padding: "0.375rem 0.625rem", borderRadius: "0.5rem",
+                          border: `1.5px solid ${page === p ? "var(--nan-forest)" : "var(--nan-smoke)"}`,
+                          background: page === p ? "var(--nan-forest)" : "#fff",
+                          color: page === p ? "#fff" : "var(--nan-bark)",
+                          cursor: "pointer", fontSize: "0.8rem", fontWeight: page === p ? 600 : 400,
+                        }}
+                      >
+                        {p}
+                      </button>
+                    )
+                  )}
+                <button
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                  style={{
+                    padding: "0.375rem 0.75rem", borderRadius: "0.5rem",
+                    border: "1.5px solid var(--nan-smoke)", background: page === totalPages ? "#f9fafb" : "#fff",
+                    cursor: page === totalPages ? "not-allowed" : "pointer", fontSize: "0.8rem", color: "var(--nan-bark)",
+                    opacity: page === totalPages ? 0.5 : 1,
+                  }}
+                >
+                  ถัดไป →
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Form */}
