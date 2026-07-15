@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { NanIcon } from "@/components/Icon";
 
 export function HeroSection() {
 
@@ -112,7 +113,7 @@ export function HeroSection() {
               boxShadow: "0 2px 12px rgba(45,106,79,0.15)",
             }}
           >
-            <span>🌿</span>
+            <NanIcon name="leaf" size={14} />
             <span>ค้นพบน่าน ในแบบที่ไม่เคยรู้จักมาก่อน</span>
           </div>
 
@@ -158,8 +159,8 @@ export function HeroSection() {
 
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
             <Link href="/plan" style={{ textDecoration: "none" }}>
-              <button className="btn-primary" style={{ fontSize: "1.05rem", padding: "0.875rem 2.25rem" }}>
-                ✨ เริ่มวางแผนทริป
+              <button className="btn-primary" style={{ fontSize: "1.05rem", padding: "0.875rem 2.25rem", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+                <NanIcon name="sparkles" size={14} /> เริ่มวางแผนทริป
               </button>
             </Link>
             <Link href="/about-nan" style={{ textDecoration: "none" }}>
@@ -264,7 +265,7 @@ export function HeroSection() {
                 gap: "0.75rem",
               }}
             >
-              <span style={{ fontSize: "1.5rem" }}>🌾</span>
+              <NanIcon name="rice" size={18} />
               <div>
                 <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)" }}>
                   นาขั้นบันได — บ่อเกลือ
