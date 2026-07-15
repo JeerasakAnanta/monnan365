@@ -36,20 +36,21 @@ export function Navbar() {
           minHeight: "60px",
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-end",
           gap: "0.5rem",
+          width: "100%",
         }}
         className="navbar-container"
       >
-        {/* Logo */}
-        <Link href="/" style={{ textDecoration: "none" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }} className="navbar-logo">
-            <span style={{ fontSize: "clamp(1.25rem, 5vw, 1.75rem)", lineHeight: 1 }}>🌄</span>
+        {/* Logo - Hidden on mobile */}
+        <Link href="/" style={{ textDecoration: "none", display: "none" }} className="navbar-logo-desktop">
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <span style={{ fontSize: "1.75rem", lineHeight: 1 }}>🌄</span>
             <div>
               <div
                 style={{
                   fontWeight: 700,
-                  fontSize: "clamp(0.9rem, 2.5vw, 1.125rem)",
+                  fontSize: "1.125rem",
                   color: "var(--nan-forest)",
                   lineHeight: 1.1,
                 }}
@@ -58,7 +59,7 @@ export function Navbar() {
               </div>
               <div
                 style={{
-                  fontSize: "clamp(0.6rem, 1.5vw, 0.65rem)",
+                  fontSize: "0.65rem",
                   color: "var(--nan-stone)",
                   letterSpacing: "0.08em",
                   fontWeight: 500,
@@ -213,26 +214,36 @@ export function Navbar() {
           }
         }
 
-        /* Mobile First - Hide desktop menu by default */
+        /* Mobile First - Hide everything except hamburger */
+        .navbar-logo-desktop {
+          display: none !important;
+        }
         .desktop-menu {
           display: none !important;
         }
 
-        /* Show desktop menu on medium screens and up */
+        /* Desktop - Show logo and menu */
         @media (min-width: 768px) {
+          .navbar-container {
+            justify-content: space-between !important;
+          }
+          .navbar-logo-desktop {
+            display: flex !important;
+          }
           .desktop-menu {
             display: flex !important;
           }
         }
 
+        /* Mobile optimizations */
         @media (max-width: 767px) {
           .navbar-container {
             padding: 0 0.75rem !important;
             min-height: 56px !important;
+            justify-content: flex-end !important;
           }
-          .navbar-logo {
-            min-width: 0;
-            flex-shrink: 1;
+          .navbar-logo-desktop {
+            display: none !important;
           }
           .desktop-menu {
             display: none !important;
