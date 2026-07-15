@@ -53,12 +53,12 @@ export default function Home() {
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <Link href="/plan" style={{ textDecoration: "none" }}>
               <button className="btn-primary" style={{ fontSize: "1.05rem", padding: "0.9rem 2.5rem", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
-                <NanIcon name="map" size={14} /> วางแผนทริปกับ AI
+                <NanIcon name="map" size={12} /> วางแผนทริปกับ AI
               </button>
             </Link>
             <Link href="/about-nan" style={{ textDecoration: "none" }}>
               <button className="btn-outline" style={{ fontSize: "1.05rem", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
-                <NanIcon name="book-open" size={14} /> รู้จักน่านก่อน
+                <NanIcon name="book-open" size={12} /> รู้จักน่านก่อน
               </button>
             </Link>
           </div>

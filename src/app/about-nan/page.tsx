@@ -292,7 +292,7 @@ export default function AboutNanPage() {
                       color: "#fff",
                     }}
                   >
-                    <NanIcon name={HISTORY_ICONS[i]} size={14} color="#fff" />
+                    <NanIcon name={HISTORY_ICONS[i]} size={12} color="#fff" />
                   </div>
                 </div>
                 <div>
@@ -449,7 +449,7 @@ export default function AboutNanPage() {
               fontWeight: 600,
             }}
           >
-            <NanIcon name="sparkles" size={14} /> เริ่มวางแผนทริปเลย
+            <NanIcon name="sparkles" size={12} /> เริ่มวางแผนทริปเลย
           </Link>
         </div>
       </section>
