@@ -67,7 +67,7 @@ export function PlanForm({
         {/* Month */}
         <label style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
-            <NanIcon name="calendar" size={16} /> เดือนที่เดินทาง
+            <NanIcon name="calendar" size={12} /> เดือนที่เดินทาง
           </span>
           <select
             style={selectStyle}
@@ -85,7 +85,7 @@ export function PlanForm({
         {/* Days */}
         <label style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
-            <NanIcon name="calendar-days" size={16} /> จำนวนวัน
+            <NanIcon name="calendar-days" size={12} /> จำนวนวัน
           </span>
           <select
             style={selectStyle}
@@ -103,7 +103,7 @@ export function PlanForm({
         {/* Budget */}
         <label style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
-            <NanIcon name="circle-dollar-sign" size={16} /> งบประมาณ
+            <NanIcon name="circle-dollar-sign" size={12} /> งบประมาณ
           </span>
           <select
             style={selectStyle}
@@ -122,7 +122,7 @@ export function PlanForm({
       {/* Styles */}
       <fieldset style={{ border: "none", marginTop: "1.75rem" }}>
         <legend style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)", marginBottom: "0.75rem", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
-          <NanIcon name="target" size={16} /> สไตล์ที่สนใจ (เลือกได้หลายข้อ)
+          <NanIcon name="target" size={12} /> สไตล์ที่สนใจ (เลือกได้หลายข้อ)
         </legend>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.625rem" }}>
           {STYLE_OPTIONS.map((opt) => {
@@ -165,7 +165,7 @@ export function PlanForm({
         className="btn-primary"
         style={{ marginTop: "2rem", width: "100%", fontSize: "1rem", padding: "0.875rem", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
       >
-        {isLoading ? <><NanIcon name="loader" size={14} className="animate-spin" /> กำลังวางแผน...</> : <><NanIcon name="map" size={14} /> วางแผนทริปเลย</>}
+        {isLoading ? <><NanIcon name="loader" size={12} className="animate-spin" /> กำลังวางแผน...</> : <><NanIcon name="map" size={12} /> วางแผนทริปเลย</>}
       </button>
     </form>
   );

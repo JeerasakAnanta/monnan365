@@ -34,7 +34,7 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "0.875rem" }}>
-          <NanIcon name="leaf" size={14} />
+          <NanIcon name="leaf" size={12} />
           <h2 style={{ fontSize: "1.175rem", color: "var(--nan-bark)" }}>
             ทำไมเดือนนี้ถึงน่าไปน่าน
           </h2>
@@ -59,7 +59,7 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
                   gap: "0.35rem",
                 }}
               >
-                <NanIcon name="check" size={14} /> {perk}
+                <NanIcon name="check" size={12} /> {perk}
               </li>
             ))}
           </ul>
@@ -154,7 +154,7 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
                         marginBottom: "0.375rem",
                       }}
                     >
-                      <NanIcon name="clock" size={14} /> {item.time}
+                      <NanIcon name="clock" size={12} /> {item.time}
                     </span>
                     <h4 style={{ fontSize: "1.05rem", color: "var(--nan-bark)" }}>
                       {item.attraction?.name ?? item.id}
@@ -209,14 +209,14 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
                       gap: "0.5rem",
                     }}
                   >
-                    <NanIcon name="lightbulb" size={14} />
+                    <NanIcon name="lightbulb" size={12} />
                     <span>{item.tip}</span>
                   </div>
                 )}
 
                 {item.attraction?.contact && (
                   <p style={{ marginTop: "0.625rem", fontSize: "0.83rem", color: "var(--nan-stone)", display: "flex", alignItems: "center", gap: "0.35rem" }}>
-                    <NanIcon name="phone" size={14} /> {item.attraction.contact}
+                    <NanIcon name="phone" size={12} /> {item.attraction.contact}
                   </p>
                 )}
               </article>

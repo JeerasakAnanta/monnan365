@@ -46,7 +46,7 @@ export function Navbar() {
         {/* Logo - Hidden on mobile */}
         <Link href="/" style={{ textDecoration: "none", display: "none" }} className="navbar-logo-desktop">
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <NanIcon name="sunrise" size={20} />
+            <NanIcon name="sunrise" size={14} />
             <div>
               <div
                 style={{
@@ -154,7 +154,7 @@ export function Navbar() {
             (e.currentTarget as HTMLButtonElement).style.background = "var(--nan-sprout)";
           }}
         >
-          {menuOpen ? <NanIcon name="x" size={16} /> : <NanIcon name="menu" size={16} />}
+          {menuOpen ? <NanIcon name="x" size={12} /> : <NanIcon name="menu" size={12} />}
         </button>
       </div>
 

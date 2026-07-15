@@ -54,7 +54,7 @@ export function NanHighlights() {
               marginBottom: "1rem",
             }}
           >
-            <NanIcon name="leaf" size={16} /> ทำไมต้องมาเที่ยวน่าน
+            <NanIcon name="leaf" size={12} /> ทำไมต้องมาเที่ยวน่าน
           </span>
           <h2
             style={{
@@ -112,7 +112,7 @@ export function NanHighlights() {
                   boxShadow: `0 4px 16px ${h.accent}30`,
                 }}
               >
-                <NanIcon name={h.icon} size={20} />
+                <NanIcon name={h.icon} size={14} />
               </div>
 
               {/* Title */}

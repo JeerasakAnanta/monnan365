@@ -71,7 +71,7 @@ export function SeasonTimeline() {
               marginBottom: "1rem",
             }}
           >
-            <NanIcon name="calendar" size={16} /> ฤดูกาลน่าน
+            <NanIcon name="calendar" size={12} /> ฤดูกาลน่าน
           </span>
           <h2
             style={{
@@ -132,7 +132,7 @@ export function SeasonTimeline() {
                   marginBottom: "0.875rem",
                 }}
               >
-                <NanIcon name={s.icon} size={18} />
+                <NanIcon name={s.icon} size={14} />
               </div>
 
               <div style={{ fontSize: "0.7rem", fontWeight: 600, color: s.color, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.25rem" }}>

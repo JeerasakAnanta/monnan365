@@ -113,7 +113,7 @@ export function HeroSection() {
               boxShadow: "0 2px 12px rgba(45,106,79,0.15)",
             }}
           >
-            <NanIcon name="leaf" size={14} />
+            <NanIcon name="leaf" size={12} />
             <span>ค้นพบน่าน ในแบบที่ไม่เคยรู้จักมาก่อน</span>
           </div>
 
@@ -160,7 +160,7 @@ export function HeroSection() {
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
             <Link href="/plan" style={{ textDecoration: "none" }}>
               <button className="btn-primary" style={{ fontSize: "1.05rem", padding: "0.875rem 2.25rem", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
-                <NanIcon name="sparkles" size={14} /> เริ่มวางแผนทริป
+                <NanIcon name="sparkles" size={12} /> เริ่มวางแผนทริป
               </button>
             </Link>
             <Link href="/about-nan" style={{ textDecoration: "none" }}>
@@ -265,7 +265,7 @@ export function HeroSection() {
                 gap: "0.75rem",
               }}
             >
-              <NanIcon name="rice" size={18} />
+              <NanIcon name="rice" size={14} />
               <div>
                 <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)" }}>
                   นาขั้นบันได — บ่อเกลือ

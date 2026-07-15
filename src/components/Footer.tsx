@@ -50,7 +50,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
-              <NanIcon name="sunrise" size={22} />
+              <NanIcon name="sunrise" size={14} />
               <div>
                 <div
                   style={{
@@ -135,7 +135,7 @@ export function Footer() {
                   key={item.text}
                   style={{ color: "var(--nan-mist)", fontSize: "0.9rem", display: "flex", alignItems: "center", gap: "0.5rem" }}
                 >
-                  <NanIcon name={item.icon} size={14} />
+                  <NanIcon name={item.icon} size={12} />
                   {item.text}
                 </li>
               ))}
@@ -158,11 +158,11 @@ export function Footer() {
             </h4>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", fontSize: "0.875rem", color: "var(--nan-mist)" }}>
               <div style={{ display: "flex", gap: "0.5rem", alignItems: "flex-start" }}>
-                <NanIcon name="map-pin" size={14} />
+                <NanIcon name="map-pin" size={12} />
                 <span>มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา น่าน</span>
               </div>
               <div style={{ display: "flex", gap: "0.5rem" }}>
-                <NanIcon name="mail" size={14} />
+                <NanIcon name="mail" size={12} />
                 <span>jeerasakananta@gmail.com</span>
               </div>
             </div>
