@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import type { PlanApiResponse } from "@/lib/types";
 import type { MapPoint } from "@/components/TripMap";
+import { NanIcon } from "@/components/Icon";
 
 const TripMap = dynamic(() => import("@/components/TripMap").then((m) => m.TripMap), {
   ssr: false,
@@ -33,7 +34,7 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "0.875rem" }}>
-          <span style={{ fontSize: "1.5rem" }}>🌿</span>
+          <NanIcon name="leaf" size={14} />
           <h2 style={{ fontSize: "1.175rem", color: "var(--nan-bark)" }}>
             ทำไมเดือนนี้ถึงน่าไปน่าน
           </h2>
@@ -53,9 +54,12 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
                   fontSize: "0.8rem",
                   color: "var(--nan-forest)",
                   fontWeight: 500,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.35rem",
                 }}
               >
-                ✓ {perk}
+                <NanIcon name="check" size={14} /> {perk}
               </li>
             ))}
           </ul>
@@ -138,7 +142,9 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
                   <div>
                     <span
                       style={{
-                        display: "inline-block",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "0.35rem",
                         background: "var(--nan-sprout)",
                         color: "var(--nan-forest)",
                         borderRadius: "99px",
@@ -148,7 +154,7 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
                         marginBottom: "0.375rem",
                       }}
                     >
-                      🕐 {item.time}
+                      <NanIcon name="clock" size={14} /> {item.time}
                     </span>
                     <h4 style={{ fontSize: "1.05rem", color: "var(--nan-bark)" }}>
                       {item.attraction?.name ?? item.id}
@@ -203,14 +209,14 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
                       gap: "0.5rem",
                     }}
                   >
-                    <span>💡</span>
+                    <NanIcon name="lightbulb" size={14} />
                     <span>{item.tip}</span>
                   </div>
                 )}
 
                 {item.attraction?.contact && (
-                  <p style={{ marginTop: "0.625rem", fontSize: "0.83rem", color: "var(--nan-stone)" }}>
-                    📞 {item.attraction.contact}
+                  <p style={{ marginTop: "0.625rem", fontSize: "0.83rem", color: "var(--nan-stone)", display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                    <NanIcon name="phone" size={14} /> {item.attraction.contact}
                   </p>
                 )}
               </article>
