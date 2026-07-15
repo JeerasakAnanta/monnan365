@@ -1,6 +1,7 @@
 import { HeroSection } from "@/components/HeroSection";
 import { NanHighlights } from "@/components/NanHighlights";
 import { SeasonTimeline } from "@/components/SeasonTimeline";
+import { NanIcon } from "@/components/Icon";
 import Link from "next/link";
 
 export default function Home() {
@@ -21,12 +22,13 @@ export default function Home() {
         <div style={{ maxWidth: "640px", margin: "0 auto" }}>
           <div
             style={{
-              fontSize: "3rem",
               marginBottom: "1.25rem",
               lineHeight: 1,
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            ✨
+            <NanIcon name="sparkles" size={18} />
           </div>
           <h2
             style={{
@@ -50,13 +52,13 @@ export default function Home() {
           </p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <Link href="/plan" style={{ textDecoration: "none" }}>
-              <button className="btn-primary" style={{ fontSize: "1.05rem", padding: "0.9rem 2.5rem" }}>
-                🗺️ วางแผนทริปกับ AI
+              <button className="btn-primary" style={{ fontSize: "1.05rem", padding: "0.9rem 2.5rem", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+                <NanIcon name="map" size={14} /> วางแผนทริปกับ AI
               </button>
             </Link>
             <Link href="/about-nan" style={{ textDecoration: "none" }}>
-              <button className="btn-outline" style={{ fontSize: "1.05rem" }}>
-                📖 รู้จักน่านก่อน
+              <button className="btn-outline" style={{ fontSize: "1.05rem", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+                <NanIcon name="book-open" size={14} /> รู้จักน่านก่อน
               </button>
             </Link>
           </div>
