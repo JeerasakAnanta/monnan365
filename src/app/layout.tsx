@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { ScrollRestoration } from "@/components/ScrollRestoration";
 import { SITE_URL } from "@/lib/constants";
 
@@ -52,10 +50,8 @@ export default function RootLayout({
           fontFamily: "var(--font-google-sans), Arial, sans-serif",
         }}
       >
-        <Navbar />
         <ScrollRestoration />
-        <main style={{ flex: 1 }}>{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
