@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { NanIcon, type IconName } from "@/components/Icon";
 
 export const metadata: Metadata = {
   title: "มนต์น่าน 365 วัน",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 
 const ATTRACTIONS = [
   {
-    emoji: "🏔️",
+    icon: "mountain" as IconName,
     name: "ดอยภูคา",
     category: "ธรรมชาติ",
     desc: "ยอดดอยสูง 1,980 เมตร ปกคลุมด้วยป่าดิบชื้น เป็นที่อยู่ของชมพูภูคา ดอกไม้หายากที่พบในน่านเท่านั้น ทะเลหมอกยามเช้าสวยงามที่สุดแห่งหนึ่งของภาคเหนือ",
@@ -18,7 +19,7 @@ const ATTRACTIONS = [
     light: "var(--nan-sprout)",
   },
   {
-    emoji: "🛕",
+    icon: "temple" as IconName,
     name: "วัดภูมินทร์",
     category: "วัฒนธรรม",
     desc: "วัดเอกลักษณ์สถาปัตยกรรมล้านช้างที่มีอายุกว่า 400 ปี มีภาพจิตรกรรมฝาผนัง \"กระซิบรัก\" อันลือชื่อ สัญลักษณ์ของเมืองน่าน",
@@ -27,7 +28,7 @@ const ATTRACTIONS = [
     light: "var(--nan-wheat)",
   },
   {
-    emoji: "🧂",
+    icon: "salt" as IconName,
     name: "บ่อเกลือสินธุ์",
     category: "วิถีชีวิต",
     desc: "บ่อเกลือโบราณที่เดียวในประเทศไทย มีอายุมากกว่า 1,000 ปี ชาวบ้านยังต้มเกลือจากน้ำเกลือใต้ดินด้วยวิธีดั้งเดิม น่าทึ่งและหาดูที่ไหนไม่ได้",
@@ -36,7 +37,7 @@ const ATTRACTIONS = [
     light: "#E0F7F5",
   },
   {
-    emoji: "🎋",
+    icon: "bamboo" as IconName,
     name: "บ้านหนองบัว (ไทลื้อ)",
     category: "ชุมชน",
     desc: "หมู่บ้านชุมชนไทลื้อที่ยังคงวิถีชีวิตดั้งเดิม ทอผ้าลายโบราณ เต้นฟ้อนเล็บ และสถาปัตยกรรมบ้านไม้เก่าแก่",
@@ -45,7 +46,7 @@ const ATTRACTIONS = [
     light: "var(--nan-wheat)",
   },
   {
-    emoji: "🌊",
+    icon: "waves" as IconName,
     name: "แม่น้ำน่าน",
     category: "ธรรมชาติ",
     desc: "ต้นกำเนิดแม่น้ำเจ้าพระยา ล่องแพชมทิวทัศน์สองฝั่ง ปลาหลากชนิด วิถีประมงพื้นบ้าน และบรรยากาศสงบงาม",
@@ -54,7 +55,7 @@ const ATTRACTIONS = [
     light: "#E0F7F5",
   },
   {
-    emoji: "🌾",
+    icon: "rice" as IconName,
     name: "นาขั้นบันได น้ำเลา",
     category: "ธรรมชาติ",
     desc: "นาขั้นบันไดสีทองงดงามยามข้าวสุก ถ่ายภาพได้ทุกฤดู — เขียวช่วงดำนา ทองช่วงเก็บเกี่ยว ว่างเปล่าช่วงพักหน้าแล้ง",
@@ -64,14 +65,16 @@ const ATTRACTIONS = [
   },
 ];
 
-const QUICK_FACTS = [
-  { icon: "📐", label: "พื้นที่", value: "11,472 ตร.กม." },
-  { icon: "🌡️", label: "อุณหภูมิเฉลี่ย", value: "24°C" },
-  { icon: "🌿", label: "พื้นที่ป่า", value: "80% ของพื้นที่" },
-  { icon: "🏔️", label: "ยอดเขาสูงสุด", value: "2,079 ม. (ดอยผากลอง)" },
-  { icon: "🛕", label: "วัดโบราณ", value: "มากกว่า 200 วัด" },
-  { icon: "🚗", label: "ระยะจากกรุงเทพ", value: "668 กม." },
+const QUICK_FACTS: { icon: IconName; label: string; value: string }[] = [
+  { icon: "ruler", label: "พื้นที่", value: "11,472 ตร.กม." },
+  { icon: "thermometer", label: "อุณหภูมิเฉลี่ย", value: "24°C" },
+  { icon: "leaf", label: "พื้นที่ป่า", value: "80% ของพื้นที่" },
+  { icon: "mountain", label: "ยอดเขาสูงสุด", value: "2,079 ม. (ดอยผากลอง)" },
+  { icon: "temple", label: "วัดโบราณ", value: "มากกว่า 200 วัด" },
+  { icon: "car", label: "ระยะจากกรุงเทพ", value: "668 กม." },
 ];
+
+const HISTORY_ICONS: IconName[] = ["castle", "temple", "scroll"];
 
 export default function AboutNanPage() {
   return (
@@ -100,7 +103,9 @@ export default function AboutNanPage() {
         <div style={{ position: "relative", zIndex: 1, maxWidth: "700px", margin: "0 auto" }}>
           <div
             style={{
-              display: "inline-block",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
               background: "rgba(255,255,255,0.2)",
               backdropFilter: "blur(8px)",
               borderRadius: "99px",
@@ -112,7 +117,7 @@ export default function AboutNanPage() {
               marginBottom: "1.5rem",
             }}
           >
-            🌿 แนะนำจังหวัดน่าน
+            <NanIcon name="leaf" size={12} /> แนะนำจังหวัดน่าน
           </div>
           <h1
             style={{
@@ -186,7 +191,7 @@ export default function AboutNanPage() {
                 className="glass-card"
                 style={{ padding: "1.5rem", textAlign: "center" }}
               >
-                <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>{f.icon}</div>
+                <div style={{ marginBottom: "0.5rem", display: "flex", justifyContent: "center" }}><NanIcon name={f.icon} size={14} /></div>
                 <div style={{ fontSize: "0.75rem", color: "var(--nan-stone)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.25rem" }}>
                   {f.label}
                 </div>
@@ -220,7 +225,9 @@ export default function AboutNanPage() {
           <div>
             <span
               style={{
-                display: "inline-block",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
                 background: "var(--nan-wheat)",
                 color: "var(--nan-earth)",
                 borderRadius: "99px",
@@ -231,7 +238,7 @@ export default function AboutNanPage() {
                 marginBottom: "1rem",
               }}
             >
-              📜 ประวัติ
+              <NanIcon name="scroll" size={12} /> ประวัติ
             </span>
             <h2
               style={{
@@ -282,11 +289,10 @@ export default function AboutNanPage() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: "1.25rem",
                       color: "#fff",
                     }}
                   >
-                    {i === 0 ? "🏰" : i === 1 ? "🛕" : "📜"}
+                    <NanIcon name={HISTORY_ICONS[i]} size={14} color="#fff" />
                   </div>
                 </div>
                 <div>
@@ -318,7 +324,9 @@ export default function AboutNanPage() {
           <div style={{ textAlign: "center", marginBottom: "3rem" }}>
             <span
               style={{
-                display: "inline-block",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
                 background: "var(--nan-sprout)",
                 color: "var(--nan-forest)",
                 borderRadius: "99px",
@@ -328,7 +336,7 @@ export default function AboutNanPage() {
                 marginBottom: "1rem",
               }}
             >
-              🗺️ สถานที่ไฮไลต์
+              <NanIcon name="map" size={12} /> สถานที่ไฮไลต์
             </span>
             <h2
               style={{
@@ -364,11 +372,10 @@ export default function AboutNanPage() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      fontSize: "1.625rem",
                       flexShrink: 0,
                     }}
                   >
-                    {a.emoji}
+                    <NanIcon name={a.icon} size={14} />
                   </div>
                   <div>
                     <div style={{ fontSize: "0.7rem", fontWeight: 600, color: a.color, letterSpacing: "0.08em", textTransform: "uppercase" }}>
@@ -396,7 +403,7 @@ export default function AboutNanPage() {
                     fontWeight: 600,
                   }}
                 >
-                  📅 ช่วงเวลาดีที่สุด: {a.best}
+                  <NanIcon name="calendar" size={12} /> ช่วงเวลาดีที่สุด: {a.best}
                 </div>
               </div>
             ))}
@@ -429,7 +436,9 @@ export default function AboutNanPage() {
             href="/plan"
             className="btn-primary"
             style={{
-              display: "inline-block",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
               background: "var(--nan-amber)",
               color: "var(--nan-bark)",
               boxShadow: "0 4px 20px rgba(233,196,106,0.4)",
@@ -440,7 +449,7 @@ export default function AboutNanPage() {
               fontWeight: 600,
             }}
           >
-            ✨ เริ่มวางแผนทริปเลย
+            <NanIcon name="sparkles" size={14} /> เริ่มวางแผนทริปเลย
           </Link>
         </div>
       </section>
