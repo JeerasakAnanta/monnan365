@@ -140,7 +140,6 @@ export function Navbar() {
             width: "44px",
             height: "44px",
             minWidth: "44px",
-            display: "flex",
             alignItems: "center",
             justifyContent: "center",
             cursor: "pointer",
