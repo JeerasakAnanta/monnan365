@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { NanIcon, type IconName } from "@/components/Icon";
 
 export const metadata: Metadata = {
   title: "เกี่ยวกับเรา  มนต์น่าน",
@@ -8,21 +9,21 @@ export const metadata: Metadata = {
 
 const TEAM_VALUES = [
   {
-    emoji: "🌿",
+    icon: "leaf" as IconName,
     title: "รักษ์น่าน",
     desc: "ส่งเสริมการท่องเที่ยวอย่างรับผิดชอบ กระจายนักท่องเที่ยวสู่ชุมชนรอง",
     color: "var(--nan-forest)",
     light: "var(--nan-sprout)",
   },
   {
-    emoji: "✨",
+    icon: "sparkles" as IconName,
     title: "เทคโนโลยี AI",
     desc: "ใช้ AI อัจฉริยะวางแผนทริปเฉพาะบุคคล เหมาะกับทุกเดือนและทุกสไตล์",
     color: "var(--nan-river)",
     light: "#E0F7F5",
   },
   {
-    emoji: "🤝",
+    icon: "handshake" as IconName,
     title: "ชุมชนมาก่อน",
     desc: "แนะนำสถานที่ท่องเที่ยวชุมชนและแหล่งท่องเที่ยวรองที่นักท่องเที่ยวมักไม่รู้จัก",
     color: "var(--nan-gold)",
@@ -55,7 +56,9 @@ export default function AboutUsPage() {
         <div style={{ position: "relative", zIndex: 1, maxWidth: "650px", margin: "0 auto" }}>
           <div
             style={{
-              display: "inline-block",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
               background: "rgba(255,255,255,0.25)",
               backdropFilter: "blur(8px)",
               borderRadius: "99px",
@@ -67,7 +70,7 @@ export default function AboutUsPage() {
               marginBottom: "1.25rem",
             }}
           >
-            🤝 เกี่ยวกับเรา
+            <NanIcon name="handshake" size={12} /> เกี่ยวกับเรา
           </div>
           <h1
             style={{
@@ -116,7 +119,9 @@ export default function AboutUsPage() {
             <div>
               <span
                 style={{
-                  display: "inline-block",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.4rem",
                   background: "var(--nan-sprout)",
                   color: "var(--nan-forest)",
                   borderRadius: "99px",
@@ -127,7 +132,7 @@ export default function AboutUsPage() {
                   marginBottom: "1rem",
                 }}
               >
-                🎯 พันธกิจของเรา
+                <NanIcon name="target" size={12} /> พันธกิจของเรา
               </span>
               <h2
                 style={{
@@ -230,11 +235,10 @@ export default function AboutUsPage() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "2rem",
                     margin: "0 auto 1.25rem",
                   }}
                 >
-                  {v.emoji}
+                  <NanIcon name={v.icon} size={14} />
                 </div>
                 <h3
                   style={{
@@ -277,10 +281,10 @@ export default function AboutUsPage() {
           </p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <Link href="/plan" style={{ textDecoration: "none" }}>
-              <button className="btn-primary">✨ วางแผนทริปเลย</button>
+              <button className="btn-primary" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}><NanIcon name="sparkles" size={12} /> วางแผนทริปเลย</button>
             </Link>
             <Link href="/about-nan" style={{ textDecoration: "none" }}>
-              <button className="btn-outline">🌿 รู้จักน่าน</button>
+              <button className="btn-outline" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem" }}><NanIcon name="leaf" size={12} /> รู้จักน่าน</button>
             </Link>
           </div>
         </div>
