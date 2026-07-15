@@ -7,6 +7,7 @@ export function HeroSection() {
 
   return (
     <section
+      className="hero-section"
       style={{
         position: "relative",
         minHeight: "80vh",
@@ -312,6 +313,9 @@ export function HeroSection() {
           .hero-grid {
             grid-template-columns: 1fr !important;
             gap: 2rem !important;
+          }
+          .hero-section {
+            min-height: 60vh !important;
           }
         }
       `}</style>

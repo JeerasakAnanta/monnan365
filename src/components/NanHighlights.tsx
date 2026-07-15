@@ -77,6 +77,7 @@ export function NanHighlights() {
 
         {/* Cards */}
         <div
+          className="highlights-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
@@ -160,6 +161,14 @@ export function NanHighlights() {
           ))}
         </div>
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          .highlights-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
