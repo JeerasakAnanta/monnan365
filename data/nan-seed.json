@@ -3,560 +3,1052 @@
     "id": "wat-phumin",
     "name": "วัดภูมินทร์",
     "district": "เมืองน่าน",
-    "category": ["culture"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "culture"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "จิตรกรรม \"ปู่ม่านย่าม่าน\" ชมได้ทุกฤดู ในหน้าฝนคนน้อยกว่าและแสงนุ่มถ่ายรูปสวย",
     "is_secondary": false,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.7756, "lng": 100.7714,
+    "lat": 18.7746,
+    "lng": 100.7716,
     "description": "วัดจตุรมุขที่มีจิตรกรรมฝาผนังปู่ม่านย่าม่านอันโด่งดัง สัญลักษณ์การท่องเที่ยวน่าน",
-    "contact": null
+    "contact": null,
+    "verified": true
   },
   {
     "id": "wat-phra-that-chae-haeng",
     "name": "วัดพระธาตุแช่แห้ง",
     "district": "ภูเพียง",
-    "category": ["culture", "wellness"],
-    "months_best": [1,2,3,11,12],
+    "category": [
+      "culture",
+      "wellness"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      11,
+      12
+    ],
     "season_note": "อากาศเย็นสบายเหมาะแก่การเดินขึ้นบันไดนาคไหว้พระธาตุคู่บ้านคู่เมือง",
     "is_secondary": false,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.7585, "lng": 100.7916,
+    "lat": 18.7583,
+    "lng": 100.7917,
     "description": "พระธาตุคู่บ้านคู่เมืองน่าน บนเนินเขาเตี้ยๆ มองเห็นทุ่งนาโดยรอบ เป็นที่สักการะปีนักษัตรเถาะ",
-    "contact": null
+    "contact": null,
+    "verified": true
   },
   {
     "id": "wat-phra-that-khao-noi",
     "name": "วัดพระธาตุเขาน้อย",
     "district": "เมืองน่าน",
-    "category": ["culture", "nature"],
-    "months_best": [11,12,1,2],
+    "category": [
+      "culture",
+      "nature"
+    ],
+    "months_best": [
+      11,
+      12,
+      1,
+      2
+    ],
     "season_note": "จุดชมวิวเมืองน่านและพระอาทิตย์ตกที่สวยที่สุดจุดหนึ่ง อากาศเย็นชัดเจนช่วงปลายปี",
     "is_secondary": false,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.7694, "lng": 100.7506,
+    "lat": 18.7699,
+    "lng": 100.7506,
     "description": "องค์พระธาตุบนยอดเขาน้อย พร้อมพระพุทธรูปปางลีลาองค์ใหญ่ มองเห็นตัวเมืองน่านทั้งเมือง",
-    "contact": null
+    "contact": null,
+    "verified": true
   },
   {
     "id": "wat-nong-bua",
     "name": "วัดหนองบัว (จิตรกรรมไทลื้อ)",
     "district": "ท่าวังผา",
-    "category": ["culture", "community"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "culture",
+      "community"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "ชมจิตรกรรมฝาผนังไทลื้อและหมู่บ้านทอผ้าได้ทุกเดือน",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "low",
-    "lat": 19.0887, "lng": 100.7860,
+    "lat": 19.0886,
+    "lng": 100.7859,
     "description": "วัดในหมู่บ้านไทลื้อหนองบัว มีจิตรกรรมฝาผนังฝีมือหนานบัวผัน และเป็นศูนย์กลางชุมชนทอผ้าลายน้ำไหล",
-    "contact": "กลุ่มทอผ้าไทลื้อบ้านหนองบัว"
+    "contact": "กลุ่มทอผ้าไทลื้อบ้านหนองบัว",
+    "verified": true
   },
   {
     "id": "nan-riverside-walking-street",
     "name": "ถนนคนเดินกาดข่วงเมืองน่าน",
     "district": "เมืองน่าน",
-    "category": ["food", "culture"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "food",
+      "culture"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "เปิดทุกคืนวันศุกร์-เสาร์ อาหารพื้นเมืองและงานฝีมือท้องถิ่น",
     "is_secondary": false,
     "is_community": true,
     "budget_level": "low",
-    "lat": 18.7745, "lng": 100.7719,
+    "lat": 18.7745,
+    "lng": 100.7719,
     "description": "ถนนคนเดินหน้าวัดภูมินทร์ รวมร้านอาหารพื้นเมือง ของฝาก และการแสดงศิลปวัฒนธรรมน่าน",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "doi-phu-kha-samer-dao",
     "name": "ดอยเสมอดาว อุทยานแห่งชาติศรีน่าน",
     "district": "นาน้อย",
-    "category": ["nature"],
-    "months_best": [11,12,1,2],
+    "category": [
+      "nature"
+    ],
+    "months_best": [
+      11,
+      12,
+      1,
+      2
+    ],
     "season_note": "ทะเลหมอกยามเช้าและอากาศหนาวเย็นชัดเจนที่สุดช่วงปลายปีถึงต้นปี",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.3756, "lng": 100.8260,
+    "lat": 18.3761,
+    "lng": 100.8274,
     "description": "จุดกางเต็นท์ชมทะเลหมอกและพระอาทิตย์ขึ้นชื่อดังของอุทยานแห่งชาติศรีน่าน",
-    "contact": "อุทยานแห่งชาติศรีน่าน"
+    "contact": "อุทยานแห่งชาติศรีน่าน",
+    "verified": true
   },
   {
     "id": "chompoo-phu-kha-tree",
     "name": "ต้นชมพูภูคา",
     "district": "บ่อเกลือ",
-    "category": ["nature"],
-    "months_best": [1,2],
+    "category": [
+      "nature"
+    ],
+    "months_best": [
+      1,
+      2
+    ],
     "season_note": "ดอกบานเฉพาะช่วงเดือนกุมภาพันธ์ พันธุ์ไม้หายากที่พบเฉพาะในน่านและลาวเท่านั้น",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 19.2229, "lng": 101.1478,
+    "lat": 19.2229,
+    "lng": 101.1478,
     "description": "พันธุ์ไม้หายากระดับโลก ดอกสีชมพูบานปีละครั้งช่วงเดือนกุมภาพันธ์ในเขตอุทยานแห่งชาติดอยภูคา",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "bo-kluea-salt-well",
     "name": "บ่อเกลือสินเธาว์ภูเขา",
     "district": "บ่อเกลือ",
-    "category": ["community", "wellness"],
-    "months_best": [11,12,1,2,3],
+    "category": [
+      "community",
+      "wellness"
+    ],
+    "months_best": [
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
     "season_note": "ชมวิถีต้มเกลือแบบโบราณ อากาศเย็นสบายเหมาะแก่การเดินชมชุมชน",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "low",
-    "lat": 19.1505, "lng": 101.1552,
+    "lat": 19.1503,
+    "lng": 101.1549,
     "description": "บ่อเกลือสินเธาว์กลางภูเขาแห่งเดียวในไทย ชุมชนยังคงต้มเกลือด้วยวิธีดั้งเดิมสืบทอดกันมา",
-    "contact": "กลุ่มวิสาหกิจชุมชนบ่อเกลือโบราณ"
+    "contact": "กลุ่มวิสาหกิจชุมชนบ่อเกลือโบราณ",
+    "verified": true
   },
   {
     "id": "bo-kluea-salt-sauna",
     "name": "อบสมุนไพร-แช่น้ำเกลือบ่อเกลือ",
     "district": "บ่อเกลือ",
-    "category": ["wellness", "community"],
-    "months_best": [6,7,8,9,10,11,12,1,2],
+    "category": [
+      "wellness",
+      "community"
+    ],
+    "months_best": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      1,
+      2
+    ],
     "season_note": "กิจกรรมผ่อนคลายเหมาะกับหน้าฝน (Green Season) ที่นักท่องเที่ยวยังน้อย",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "mid",
-    "lat": 19.1660, "lng": 101.2135,
+    "lat": 19.166,
+    "lng": 101.2135,
     "description": "บริการอบสมุนไพรและแช่น้ำเกลือจากบ่อเกลือโบราณ โดยวิสาหกิจชุมชนบ่อเกลือ ช่วยกระตุ้นเศรษฐกิจนอกฤดูหนาว",
-    "contact": "กลุ่มวิสาหกิจชุมชนบ่อเกลือโบราณ"
+    "contact": "กลุ่มวิสาหกิจชุมชนบ่อเกลือโบราณ",
+    "verified": null
   },
   {
     "id": "doi-wiang-la",
     "name": "ดอยเวียงลอ (จุดชมวิวทุ่งนาขั้นบันได)",
     "district": "ปัว",
-    "category": ["nature"],
-    "months_best": [8,9,10],
+    "category": [
+      "nature"
+    ],
+    "months_best": [
+      8,
+      9,
+      10
+    ],
     "season_note": "ทุ่งนาขั้นบันไดเขียวขจีช่วงปลายฝนต้นหนาว เป็น Green Season ที่สวยที่สุด",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 19.1775, "lng": 100.9247,
+    "lat": 19.1775,
+    "lng": 100.9247,
     "description": "จุดชมวิวทุ่งนาขั้นบันไดและทะเลหมอกยามเช้าในอำเภอปัว สวยงามช่วงข้าวออกรวง",
-    "contact": null
+    "contact": null,
+    "verified": false
   },
   {
     "id": "sapan-village",
     "name": "หมู่บ้านสะปัน",
     "district": "บ่อเกลือ",
-    "category": ["nature", "community"],
-    "months_best": [11,12,1,2,7,8,9],
+    "category": [
+      "nature",
+      "community"
+    ],
+    "months_best": [
+      11,
+      12,
+      1,
+      2,
+      7,
+      8,
+      9
+    ],
     "season_note": "อากาศเย็นตลอดปีเพราะอยู่หุบเขาสูง เหมาะกับ Workation และพักผ่อนระยะยาว",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "mid",
-    "lat": 19.1064, "lng": 101.1611,
+    "lat": 19.1918,
+    "lng": 101.1975,
     "description": "หมู่บ้านเล็กๆ ริมลำน้ำในหุบเขา อากาศเย็นสบายตลอดปี มีโฮมสเตย์ชุมชนและจุดกางเต็นท์ริมน้ำ",
-    "contact": "กลุ่มโฮมสเตย์บ้านสะปัน"
+    "contact": "กลุ่มโฮมสเตย์บ้านสะปัน",
+    "verified": true
   },
   {
     "id": "huai-nam-om",
     "name": "อ่างเก็บน้ำห้วยน้ำอูน",
     "district": "สันติสุข",
-    "category": ["nature", "wellness"],
-    "months_best": [6,7,8,9],
+    "category": [
+      "nature",
+      "wellness"
+    ],
+    "months_best": [
+      6,
+      7,
+      8,
+      9
+    ],
     "season_note": "บรรยากาศร่มรื่นและเงียบสงบ เหมาะกับกิจกรรมพักผ่อน/ปั่นจักรยานหน้าฝน",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 19.0100, "lng": 100.8386,
+    "lat": 19.01,
+    "lng": 100.8386,
     "description": "อ่างเก็บน้ำท่ามกลางขุนเขา เหมาะกับกิจกรรมพักผ่อนแบบเงียบสงบ นักท่องเที่ยวยังไม่หนาแน่น",
-    "contact": null
+    "contact": null,
+    "verified": false
   },
   {
     "id": "nong-bua-weaving-community",
     "name": "กลุ่มทอผ้าลายน้ำไหลไทลื้อ บ้านหนองบัว",
     "district": "ท่าวังผา",
-    "category": ["community", "culture"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "community",
+      "culture"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "เรียนรู้และช้อปผ้าทอไทลื้อได้ทุกเดือน สนับสนุนรายได้ชุมชนโดยตรง",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "mid",
-    "lat": 19.1430, "lng": 100.8050,
+    "lat": 19.0835,
+    "lng": 100.7982,
     "description": "วิสาหกิจชุมชนทอผ้าลายน้ำไหลอันเลื่องชื่อของชาวไทลื้อ เปิดให้เยี่ยมชมขั้นตอนการทอและเลือกซื้อผลิตภัณฑ์",
-    "contact": "กลุ่มทอผ้าไทลื้อบ้านหนองบัว"
+    "contact": "กลุ่มทอผ้าไทลื้อบ้านหนองบัว",
+    "verified": true
   },
   {
     "id": "doi-phu-kha-coffee-farm",
     "name": "ไร่กาแฟชุมชนดอยภูคา",
     "district": "ปัว",
-    "category": ["food", "community"],
-    "months_best": [11,12,1,2],
+    "category": [
+      "food",
+      "community"
+    ],
+    "months_best": [
+      11,
+      12,
+      1,
+      2
+    ],
     "season_note": "ฤดูเก็บเกี่ยวกาแฟอาราบิก้าช่วงปลายปี อากาศหนาวเย็นเหมาะแก่การเที่ยวไร่",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "mid",
-    "lat": 19.1900, "lng": 101.0800,
+    "lat": 19.19,
+    "lng": 101.08,
     "description": "ไร่กาแฟอาราบิก้าใต้ร่มเงาป่าดอยภูคา ปลูกโดยเกษตรกรในชุมชน ชิมและเรียนรู้กระบวนการคั่วกาแฟสด",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "khao-soi-nan-market",
     "name": "ข้าวซอยน่าน (ร้านดั้งเดิมในตัวเมือง)",
     "district": "เมืองน่าน",
-    "category": ["food"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "food"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "อาหารขึ้นชื่อประจำจังหวัด ทานได้ทุกฤดูกาล",
     "is_secondary": false,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.7770, "lng": 100.7730,
+    "lat": 18.777,
+    "lng": 100.773,
     "description": "ข้าวซอยสูตรน่านแบบดั้งเดิม เส้นเหนียวนุ่ม น้ำซุปเข้มข้น หาทานได้ในตัวเมืองน่าน",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "nan-national-museum",
     "name": "พิพิธภัณฑสถานแห่งชาติน่าน",
     "district": "เมืองน่าน",
-    "category": ["culture"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "culture"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "อาคารมีหลังคาคลุม เหมาะเป็นกิจกรรมในร่มช่วงหน้าฝน",
     "is_secondary": false,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.7758, "lng": 100.7726,
+    "lat": 18.7762,
+    "lng": 100.7708,
     "description": "อดีตคุ้มหลวงเจ้าผู้ครองนคร จัดแสดงงาช้างดำอันเลื่องชื่อและประวัติศาสตร์เมืองน่าน",
-    "contact": null
+    "contact": null,
+    "verified": true
   },
   {
     "id": "lai-reua-fai-festival",
     "name": "เทศกาลแข่งเรือยาวและไหลเรือไฟ",
     "district": "เมืองน่าน",
-    "category": ["culture", "community"],
-    "months_best": [10,11],
+    "category": [
+      "culture",
+      "community"
+    ],
+    "months_best": [
+      10,
+      11
+    ],
     "season_note": "จัดช่วงออกพรรษา ริมแม่น้ำน่าน เป็นไฮไลต์ประเพณีประจำปี",
     "is_secondary": false,
     "is_community": true,
     "budget_level": "low",
-    "lat": 18.7740, "lng": 100.7715,
+    "lat": 18.774,
+    "lng": 100.7715,
     "description": "ประเพณีแข่งเรือยาวและไหลเรือไฟบูชารอยพระพุทธบาทริมแม่น้ำน่าน จัดขึ้นทุกปีช่วงออกพรรษา",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "bua-tong-tung-chang",
     "name": "ทุ่งดอกบัวตอง อำเภอท่าวังผา/สองแคว",
     "district": "สองแคว",
-    "category": ["nature"],
-    "months_best": [11,12],
+    "category": [
+      "nature"
+    ],
+    "months_best": [
+      11,
+      12
+    ],
     "season_note": "ดอกบัวตองสีเหลืองบานเต็มทุ่งช่วงปลายปี เป็นแหล่งท่องเที่ยวรองที่ยังไม่แออัด",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 19.2900, "lng": 100.9500,
+    "lat": 19.29,
+    "lng": 100.95,
     "description": "ทุ่งดอกบัวตอง (ทานตะวันเม็กซิกัน) สีเหลืองสะพรั่งเต็มไหล่เขาในช่วงเดือนพฤศจิกายน-ธันวาคม",
-    "contact": null
+    "contact": null,
+    "verified": false
   },
   {
     "id": "songkran-nan",
     "name": "ประเพณีสงกรานต์เมืองน่าน",
     "district": "เมืองน่าน",
-    "category": ["culture", "community"],
-    "months_best": [4],
+    "category": [
+      "culture",
+      "community"
+    ],
+    "months_best": [
+      4
+    ],
     "season_note": "สงกรานต์แบบล้านนา ขบวนแห่และการละเล่นพื้นบ้านช่วงเดือนเมษายน",
     "is_secondary": false,
     "is_community": true,
     "budget_level": "low",
-    "lat": 18.7756, "lng": 100.7714,
+    "lat": 18.7756,
+    "lng": 100.7714,
     "description": "งานสงกรานต์แบบล้านนาน่าน มีขบวนแห่พระ รดน้ำดำหัวผู้ใหญ่ และการละเล่นพื้นบ้าน",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "wat-suan-tan",
     "name": "วัดสวนตาล",
     "district": "เมืองน่าน",
-    "category": ["culture"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "culture"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "ชมพระเจดีย์ทรงพุ่มข้าวบิณฑ์และพระพุทธรูปทองคำได้ทุกฤดู",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.7810, "lng": 100.7690,
+    "lat": 18.7842,
+    "lng": 100.7739,
     "description": "วัดเก่าแก่ที่มีพระเจดีย์ทรงพุ่มข้าวบิณฑ์แบบสุโขทัยและพระพุทธรูปทองคำศิลปะเชียงแสน",
-    "contact": null
+    "contact": null,
+    "verified": true
   },
   {
     "id": "nan-old-city-walls",
     "name": "กำแพงเมืองและประตูเมืองน่านเก่า",
     "district": "เมืองน่าน",
-    "category": ["culture"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "culture"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "เดินชมเมืองเก่าได้ทุกฤดู แนะนำช่วงเช้าหรือเย็นที่อากาศเย็นกว่า",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.7780, "lng": 100.7700,
+    "lat": 18.778,
+    "lng": 100.77,
     "description": "ร่องรอยกำแพงเมืองและประตูเมืองน่านโบราณ เดินสำรวจย่านเมืองเก่าและบ้านไม้เก่าแก่",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "doi-phu-waew",
     "name": "ดอยภูแวสันติสุข",
     "district": "สันติสุข",
-    "category": ["nature"],
-    "months_best": [11,12,1],
+    "category": [
+      "nature"
+    ],
+    "months_best": [
+      11,
+      12,
+      1
+    ],
     "season_note": "ทะเลหมอกและอากาศหนาวเย็น เป็นจุดชมวิวรองที่คนรู้จักน้อยกว่าดอยภูคา",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 19.0300, "lng": 100.8700,
+    "lat": 19.03,
+    "lng": 100.87,
     "description": "จุดกางเต็นท์ชมทะเลหมอกที่ยังไม่เป็นที่รู้จักในวงกว้าง เงียบสงบกว่าดอยภูคา",
-    "contact": null
+    "contact": null,
+    "verified": false
   },
   {
     "id": "rice-harvest-experience",
     "name": "กิจกรรมเกี่ยวข้าวร่วมกับชุมชน อำเภอเวียงสา",
     "district": "เวียงสา",
-    "category": ["community", "food"],
-    "months_best": [10,11],
+    "category": [
+      "community",
+      "food"
+    ],
+    "months_best": [
+      10,
+      11
+    ],
     "season_note": "ฤดูเก็บเกี่ยวข้าว ทุ่งนาสีทองสวยงาม เปิดให้นักท่องเที่ยวร่วมกิจกรรมกับเกษตรกร",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "low",
-    "lat": 18.5980, "lng": 100.7350,
+    "lat": 18.598,
+    "lng": 100.735,
     "description": "ร่วมกิจกรรมเกี่ยวข้าวและวิถีเกษตรกรรมกับชุมชนอำเภอเวียงสาในช่วงฤดูเก็บเกี่ยว",
-    "contact": "กลุ่มวิสาหกิจชุมชนเกษตรเวียงสา"
+    "contact": "กลุ่มวิสาหกิจชุมชนเกษตรเวียงสา",
+    "verified": null
   },
   {
     "id": "nan-riverside-cycling",
     "name": "เส้นทางปั่นจักรยานริมแม่น้ำน่าน",
     "district": "เมืองน่าน",
-    "category": ["nature", "wellness"],
-    "months_best": [11,12,1,2,3],
+    "category": [
+      "nature",
+      "wellness"
+    ],
+    "months_best": [
+      11,
+      12,
+      1,
+      2,
+      3
+    ],
     "season_note": "อากาศเย็นสบายเหมาะกับการปั่นจักรยานชมวิวสองฝั่งแม่น้ำน่านยามเช้า",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.7700, "lng": 100.7740,
+    "lat": 18.77,
+    "lng": 100.774,
     "description": "เส้นทางปั่นจักรยานเลียบแม่น้ำน่าน ผ่านสะพานและวัดสำคัญหลายแห่งในตัวเมือง",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "boklua-organic-farm-homestay",
     "name": "โฮมสเตย์เกษตรอินทรีย์บ่อเกลือ",
     "district": "บ่อเกลือ",
-    "category": ["wellness", "community", "food"],
-    "months_best": [6,7,8,9],
+    "category": [
+      "wellness",
+      "community",
+      "food"
+    ],
+    "months_best": [
+      6,
+      7,
+      8,
+      9
+    ],
     "season_note": "หน้าฝน/Green Season ต้นไม้เขียวชอุ่ม เหมาะกับ Workation ระยะยาวในราคาที่พักถูกกว่าไฮซีซัน",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "mid",
-    "lat": 19.1500, "lng": 101.2000,
+    "lat": 19.15,
+    "lng": 101.2,
     "description": "โฮมสเตย์ในชุมชนที่ทำเกษตรอินทรีย์ นักท่องเที่ยวร่วมทำกิจกรรมปลูก-เก็บผักและทานอาหารพื้นบ้าน",
-    "contact": "กลุ่มโฮมสเตย์เกษตรอินทรีย์บ่อเกลือ"
+    "contact": "กลุ่มโฮมสเตย์เกษตรอินทรีย์บ่อเกลือ",
+    "verified": null
   },
   {
     "id": "wat-ming-mueang",
     "name": "วัดมิ่งเมือง",
     "district": "เมืองน่าน",
-    "category": ["culture"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "culture"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "วิหารลายปูนปั้นสีขาววิจิตร ชมได้ทุกฤดู",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.7735, "lng": 100.7735,
+    "lat": 18.7746,
+    "lng": 100.7691,
     "description": "วัดที่มีวิหารลายปูนปั้นสีขาวอ่อนช้อยงดงาม เป็นที่ประดิษฐานเสาหลักเมืองน่าน",
-    "contact": null
+    "contact": null,
+    "verified": true
   },
   {
     "id": "nan-marathon",
     "name": "งานวิ่งน่านมาราธอน",
     "district": "เมืองน่าน",
-    "category": ["wellness", "community"],
-    "months_best": [12],
+    "category": [
+      "wellness",
+      "community"
+    ],
+    "months_best": [
+      12
+    ],
     "season_note": "จัดช่วงอากาศเย็นปลายปี ดึงดูดนักท่องเที่ยวกลุ่มรักสุขภาพ",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "mid",
-    "lat": 18.7756, "lng": 100.7714,
+    "lat": 18.7756,
+    "lng": 100.7714,
     "description": "งานวิ่งประจำปีเส้นทางผ่านสถานที่สำคัญในตัวเมืองน่าน กระตุ้นการท่องเที่ยวเชิงสุขภาพ",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
-    "id": "wiang-sa-pottery",
-    "name": "กลุ่มเครื่องปั้นดินเผาเวียงสา",
-    "district": "เวียงสา",
-    "category": ["community", "culture"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "id": "bo-suak-pottery",
+    "name": "แหล่งเรียนรู้เครื่องปั้นดินเผาบ่อสวก",
+    "district": "เมืองน่าน",
+    "category": [
+      "community",
+      "culture"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "เยี่ยมชมและลงมือปั้นเครื่องปั้นดินเผาแบบโบราณได้ทุกเดือน",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "low",
-    "lat": 18.6000, "lng": 100.7400,
-    "description": "วิสาหกิจชุมชนเครื่องปั้นดินเผาโบราณ สืบทอดภูมิปัญญาการปั้นด้วยมือแบบดั้งเดิม",
-    "contact": null
+    "lat": 18.7511,
+    "lng": 100.6942,
+    "description": "แหล่งเตาเผาโบราณบ้านบ่อสวก ชุมชนสืบทอดภูมิปัญญาเครื่องปั้นดินเผาด้วยมือแบบดั้งเดิม พร้อมกิจกรรมลงมือปั้น",
+    "contact": null,
+    "verified": true
   },
   {
     "id": "sri-nan-national-park-mist",
     "name": "ทะเลหมอกอุทยานแห่งชาติศรีน่าน",
-    "district": "เวียงสา",
-    "category": ["nature"],
-    "months_best": [11,12,1],
+    "district": "นาน้อย",
+    "category": [
+      "nature"
+    ],
+    "months_best": [
+      11,
+      12,
+      1
+    ],
     "season_note": "จุดชมทะเลหมอกและแม่น้ำน่านโค้งเป็นตัว S อันโด่งดัง อากาศหนาวเย็นชัดเจน",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.4200, "lng": 100.7100,
+    "lat": 18.3694,
+    "lng": 100.8316,
     "description": "จุดชมวิวแม่น้ำน่านโค้งรูปตัว S ท่ามกลางทะเลหมอกยามเช้า วิวขึ้นชื่อของอุทยานแห่งชาติศรีน่าน",
-    "contact": null
+    "contact": null,
+    "verified": true
   },
   {
     "id": "nan-hot-air-lantern-loy-krathong",
     "name": "ลอยกระทงสายและโคมไฟเมืองน่าน",
     "district": "เมืองน่าน",
-    "category": ["culture", "community"],
-    "months_best": [11],
+    "category": [
+      "culture",
+      "community"
+    ],
+    "months_best": [
+      11
+    ],
     "season_note": "ประเพณีลอยกระทงริมแม่น้ำน่าน อากาศเริ่มเย็นสบาย",
     "is_secondary": false,
     "is_community": true,
     "budget_level": "low",
-    "lat": 18.7745, "lng": 100.7720,
+    "lat": 18.7745,
+    "lng": 100.772,
     "description": "งานลอยกระทงประจำปีริมแม่น้ำน่าน มีการประกวดกระทงและการแสดงศิลปวัฒนธรรม",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "doi-phu-kha-herb-walk",
     "name": "เดินป่าศึกษาสมุนไพรดอยภูคา",
     "district": "บ่อเกลือ",
-    "category": ["wellness", "nature"],
-    "months_best": [6,7,8,9],
+    "category": [
+      "wellness",
+      "nature"
+    ],
+    "months_best": [
+      6,
+      7,
+      8,
+      9
+    ],
     "season_note": "หน้าฝนป่าเขียวชอุ่ม พืชสมุนไพรและเฟิร์นออกใบเต็มที่ เหมาะกับ Green Season",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "mid",
-    "lat": 19.2000, "lng": 101.1300,
+    "lat": 19.2,
+    "lng": 101.13,
     "description": "กิจกรรมเดินป่าศึกษาพันธุ์ไม้และสมุนไพรพื้นถิ่นกับไกด์ชุมชนในเขตอุทยานแห่งชาติดอยภูคา",
-    "contact": "ไกด์ชุมชนดอยภูคา"
+    "contact": "ไกด์ชุมชนดอยภูคา",
+    "verified": null
   },
   {
     "id": "tha-wang-pha-market",
     "name": "ตลาดเช้าท่าวังผา",
     "district": "ท่าวังผา",
-    "category": ["food", "community"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "food",
+      "community"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "ตลาดสดชุมชนที่ขายของพื้นเมืองและอาหารเช้าแบบไทลื้อทุกวัน",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "low",
-    "lat": 19.1380, "lng": 100.8020,
+    "lat": 19.1003,
+    "lng": 100.8076,
     "description": "ตลาดเช้าชุมชนท่าวังผา แหล่งอาหารพื้นเมืองไทลื้อและของป่าตามฤดูกาลราคาย่อมเยา",
-    "contact": null
+    "contact": null,
+    "verified": true
   },
   {
     "id": "pua-community-cotton-dye",
     "name": "กลุ่มย้อมสีธรรมชาติผ้าฝ้าย อำเภอปัว",
     "district": "ปัว",
-    "category": ["community", "culture"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "community",
+      "culture"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "เวิร์คช็อปย้อมผ้าสีธรรมชาติ ทำได้ทุกฤดูกาล เหมาะกับสาย Workation",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "mid",
-    "lat": 19.1800, "lng": 100.9150,
+    "lat": 19.18,
+    "lng": 100.915,
     "description": "วิสาหกิจชุมชนย้อมผ้าฝ้ายด้วยสีธรรมชาติจากพืชท้องถิ่น เปิดเวิร์คช็อปให้นักท่องเที่ยวลงมือทำ",
-    "contact": "กลุ่มย้อมสีธรรมชาติปัว"
+    "contact": "กลุ่มย้อมสีธรรมชาติปัว",
+    "verified": null
   },
   {
     "id": "nan-view-cafe-hillside",
     "name": "คาเฟ่วิวเขาโดยผู้ประกอบการท้องถิ่น",
     "district": "ปัว",
-    "category": ["food", "wellness"],
-    "months_best": [11,12,1,2],
+    "category": [
+      "food",
+      "wellness"
+    ],
+    "months_best": [
+      11,
+      12,
+      1,
+      2
+    ],
     "season_note": "วิวทะเลหมอกจากคาเฟ่ท้องถิ่น เปิดรับลมหนาวปลายปี",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "mid",
-    "lat": 19.1850, "lng": 100.9300,
+    "lat": 19.185,
+    "lng": 100.93,
     "description": "คาเฟ่วิวเขาที่ดำเนินการโดยคนในพื้นที่ ใช้วัตถุดิบกาแฟและผลไม้จากไร่ท้องถิ่น",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "wiang-sa-hot-spring",
     "name": "น้ำพุร้อนเวียงสา",
     "district": "เวียงสา",
-    "category": ["wellness"],
-    "months_best": [11,12,1,2,6,7,8,9],
+    "category": [
+      "wellness"
+    ],
+    "months_best": [
+      11,
+      12,
+      1,
+      2,
+      6,
+      7,
+      8,
+      9
+    ],
     "season_note": "แช่น้ำแร่ได้ทั้งหน้าหนาวและหน้าฝน เป็นกิจกรรมผ่อนคลายนอกไฮซีซัน",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.5500, "lng": 100.7600,
+    "lat": 18.55,
+    "lng": 100.76,
     "description": "บ่อน้ำพุร้อนธรรมชาติ เหมาะกับการพักผ่อนแช่น้ำแร่ผ่อนคลายกล้ามเนื้อ",
-    "contact": null
+    "contact": null,
+    "verified": false
   },
   {
     "id": "nan-photography-old-town",
     "name": "ทัวร์ถ่ายภาพเมืองเก่าน่านยามเช้า",
     "district": "เมืองน่าน",
-    "category": ["culture"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "culture"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "แสงเช้านุ่มตลอดปี เหมาะกับการเดินถ่ายภาพบ้านไม้เก่าและวิถีชีวิตยามเช้า",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "low",
-    "lat": 18.7760, "lng": 100.7715,
+    "lat": 18.776,
+    "lng": 100.7715,
     "description": "เดินถ่ายภาพย่านเมืองเก่าน่าน บ้านไม้โบราณ และวิถีชีวิตตลาดเช้าท้องถิ่น",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "santisuk-mist-viewpoint-camp",
     "name": "จุดกางเต็นท์ชมทะเลหมอกสันติสุข",
     "district": "สันติสุข",
-    "category": ["nature", "wellness"],
-    "months_best": [11,12,1],
+    "category": [
+      "nature",
+      "wellness"
+    ],
+    "months_best": [
+      11,
+      12,
+      1
+    ],
     "season_note": "แหล่งกางเต็นท์ทะเลหมอกที่ยังไม่พลุกพล่าน เหมาะกระจายนักท่องเที่ยวจากดอยภูคา",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "low",
-    "lat": 19.0200, "lng": 100.8600,
+    "lat": 19.02,
+    "lng": 100.86,
     "description": "จุดกางเต็นท์ชุมชนชมทะเลหมอก บริหารจัดการโดยคนในพื้นที่ตำบลสันติสุข",
-    "contact": "กลุ่มท่องเที่ยวชุมชนสันติสุข"
+    "contact": "กลุ่มท่องเที่ยวชุมชนสันติสุข",
+    "verified": null
   },
   {
     "id": "chaloem-phrakiat-district-hilltribe",
     "name": "หมู่บ้านชาติพันธุ์เฉลิมพระเกียรติ",
     "district": "เฉลิมพระเกียรติ",
-    "category": ["community", "culture"],
-    "months_best": [11,12,1,2],
+    "category": [
+      "community",
+      "culture"
+    ],
+    "months_best": [
+      11,
+      12,
+      1,
+      2
+    ],
     "season_note": "เยี่ยมชมวิถีชีวิตชุมชนชาติพันธุ์บนพื้นที่สูง อากาศเย็นตลอดปี",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "mid",
-    "lat": 19.2700, "lng": 101.1900,
+    "lat": 19.27,
+    "lng": 101.19,
     "description": "ชุมชนชาติพันธุ์บนพื้นที่สูงชายแดนไทย-ลาว เปิดรับนักท่องเที่ยวเรียนรู้วิถีชีวิตและหัตถกรรม",
-    "contact": "กลุ่มท่องเที่ยวชุมชนเฉลิมพระเกียรติ"
+    "contact": "กลุ่มท่องเที่ยวชุมชนเฉลิมพระเกียรติ",
+    "verified": null
   },
   {
     "id": "nan-riverside-yoga-retreat",
     "name": "โยคะและสมาธิริมแม่น้ำน่าน",
     "district": "เมืองน่าน",
-    "category": ["wellness"],
-    "months_best": [6,7,8,9,10],
+    "category": [
+      "wellness"
+    ],
+    "months_best": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
     "season_note": "กิจกรรมผ่อนคลายในร่มเหมาะกับหน้าฝน ดึงดูดกลุ่ม Workation",
     "is_secondary": true,
     "is_community": false,
     "budget_level": "mid",
-    "lat": 18.7720, "lng": 100.7745,
+    "lat": 18.772,
+    "lng": 100.7745,
     "description": "คลาสโยคะและฝึกสมาธิยามเช้าริมแม่น้ำน่าน จัดโดยผู้ประกอบการท้องถิ่นขนาดเล็ก",
-    "contact": null
+    "contact": null,
+    "verified": null
   },
   {
     "id": "puak-bamboo-craft",
     "name": "กลุ่มจักสานไม้ไผ่บ้านผาก",
     "district": "ท่าวังผา",
-    "category": ["community"],
-    "months_best": [1,2,3,4,5,6,7,8,9,10,11,12],
+    "category": [
+      "community"
+    ],
+    "months_best": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
     "season_note": "เวิร์คช็อปจักสานไม้ไผ่แบบพื้นบ้าน เปิดรับนักท่องเที่ยวได้ทุกฤดู",
     "is_secondary": true,
     "is_community": true,
     "budget_level": "low",
-    "lat": 19.1300, "lng": 100.8100,
+    "lat": 19.13,
+    "lng": 100.81,
     "description": "วิสาหกิจชุมชนจักสานไม้ไผ่ สืบทอดภูมิปัญญางานหัตถกรรมพื้นบ้านของอำเภอท่าวังผา",
-    "contact": "กลุ่มจักสานบ้านผาก"
+    "contact": "กลุ่มจักสานบ้านผาก",
+    "verified": null
   }
 ]
