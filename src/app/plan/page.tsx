@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { PlanForm, type PlanFormValues } from "@/components/PlanForm";
 import { FontSizeToggle } from "@/components/FontSizeToggle";
 import { TripResult } from "@/components/TripResult";
+import { NanIcon } from "@/components/Icon";
 import type { PlanApiResponse } from "@/lib/types";
 
 const LOADING_MESSAGES = [
@@ -77,7 +78,9 @@ export default function PlanPage() {
         <div style={{ position: "relative", zIndex: 1, maxWidth: "700px", margin: "0 auto" }}>
           <div
             style={{
-              display: "inline-block",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
               background: "rgba(255,255,255,0.2)",
               backdropFilter: "blur(8px)",
               borderRadius: "99px",
@@ -89,7 +92,7 @@ export default function PlanPage() {
               marginBottom: "1.25rem",
             }}
           >
-            ✨ AI Trip Planner
+            <NanIcon name="sparkles" size={12} /> AI Trip Planner
           </div>
           <h1
             style={{
@@ -194,9 +197,12 @@ export default function PlanPage() {
               padding: "1.25rem 1.5rem",
               color: "#B91C1C",
               fontSize: "0.9375rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
             }}
           >
-            ⚠️ {error}
+            <NanIcon name="alert-triangle" size={12} /> {error}
           </div>
         )}
 
@@ -236,7 +242,7 @@ function PlanFormNanTheme({
           gap: "0.75rem",
         }}
       >
-        <span style={{ fontSize: "1.5rem" }}>🗺️</span>
+        <NanIcon name="map" size={14} />
         <div>
           <div style={{ fontWeight: 700, color: "var(--nan-bark)", fontSize: "1.125rem" }}>
             วางแผนทริปของคุณ
