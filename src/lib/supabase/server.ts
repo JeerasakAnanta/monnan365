@@ -19,7 +19,6 @@ export async function createClient() {
             );
           } catch {
             // setAll called from a Server Component render — safe to ignore
-            // since this app has no auth session to refresh.
           }
         },
       },
