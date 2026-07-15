@@ -206,9 +206,100 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: 0.4rem;
 }
 
+/* ─── Print-only helpers (hidden on screen) ─── */
+.print-only {
+  display: none !important;
+}
+
 /* ─── Print (Save trip plan as PDF) ─── */
 @media print {
+  /* Hide screen-only elements */
   nav, footer, .no-print {
     display: none !important;
+  }
+
+  /* Show print-only elements */
+  .print-only {
+    display: block !important;
+  }
+
+  /* Force background colors & images */
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Page layout */
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    padding: 1.5cm 1.25cm;
+    font-size: 10.5pt;
+    line-height: 1.6;
+    background: #fff !important;
+  }
+
+  /* Page break control */
+  .avoid-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  h2, h3, h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Remove interactive hover effects */
+  article {
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Print header */
+  .print-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--nan-leaf);
+  }
+
+  .print-header h1 {
+    font-size: 1.5rem;
+    color: var(--nan-forest);
+    margin-bottom: 0.25rem;
+  }
+
+  .print-header .print-meta {
+    font-size: 0.8rem;
+    color: var(--nan-stone);
+  }
+
+  /* Print footer */
+  .print-footer {
+    margin-top: 2rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--nan-smoke);
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--nan-stone);
+  }
+
+  /* Ensure badges print with color */
+  span[style*="background"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Links show URL */
+  a[href]::after {
+    content: none;
   }
 }

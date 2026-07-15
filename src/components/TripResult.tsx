@@ -22,8 +22,18 @@ export function TripResult({ result, id }: { result: PlanApiResponse; id?: strin
       isSecondary: item.attraction!.is_secondary || item.attraction!.is_community,
     }));
 
+  const today = new Date().toLocaleDateString("th-TH", { year: "numeric", month: "long", day: "numeric" });
+
   return (
     <div style={{ marginTop: "2.5rem", width: "100%", maxWidth: "672px", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+
+      {/* Print Header (only visible in print) */}
+      <div className="print-only print-header">
+        <h1>มนต์น่าน 365 — แผนเที่ยวน่าน</h1>
+        <p className="print-meta">{result.summary.slice(0, 80)}...</p>
+        <p className="print-meta">พิมพ์เมื่อ: {today}</p>
+        <p className="print-meta">monnan.jeerasakananta.dev</p>
+      </div>
 
       {/* Actions */}
       <div className="no-print" style={{ display: "flex", justifyContent: "flex-end", gap: "0.625rem" }}>
@@ -111,7 +121,7 @@ export function TripResult({ result, id }: { result: PlanApiResponse; id?: strin
 
       {/* Day-by-day */}
       {result.days.map((day) => (
-        <section key={day.day}>
+        <section key={day.day} className="avoid-break">
           <div
             style={{
               display: "flex",
@@ -253,6 +263,12 @@ export function TripResult({ result, id }: { result: PlanApiResponse; id?: strin
           </div>
         </section>
       ))}
+
+      {/* Print Footer (only visible in print) */}
+      <div className="print-only print-footer">
+        <p>MonNan365 — มนต์น่าน 365 วัน | monnan.jeerasakananta.dev</p>
+        <p>แผนเที่ยวสร้างโดย AI จากฐานข้อมูลแหล่งท่องเที่ยวจังหวัดน่าน</p>
+      </div>
     </div>
   );
 }
