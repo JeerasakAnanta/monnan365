@@ -46,7 +46,6 @@ export function Navbar() {
         {/* Logo - Hidden on mobile */}
         <Link href="/" style={{ textDecoration: "none", display: "none" }} className="navbar-logo-desktop">
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <NanIcon name="sunrise" size={14} />
             <div>
               <div
                 style={{
