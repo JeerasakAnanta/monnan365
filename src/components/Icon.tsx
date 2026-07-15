@@ -34,6 +34,7 @@ import {
   Printer,
   Settings,
   Eye,
+  Image,
   type LucideProps,
 } from "lucide-react";
 import type { ComponentType } from "react";
@@ -125,6 +126,7 @@ const ICON_MAP: Record<string, ComponentType<LucideProps>> = {
   printer: Printer,
   settings: Settings,
   eye: Eye,
+  image: Image,
 };
 
 export type IconName = keyof typeof ICON_MAP;

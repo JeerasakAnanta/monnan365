@@ -14,6 +14,7 @@ export type Attraction = {
   lng: number | null;
   description: string | null;
   contact: string | null;
+  image_url: string | null;
 };
 
 export type PlanRequest = {

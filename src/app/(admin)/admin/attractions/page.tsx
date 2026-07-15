@@ -17,6 +17,7 @@ type Attraction = {
   lng: number | null;
   description: string | null;
   contact: string | null;
+  image_url: string | null;
 };
 
 const CATEGORIES = ["nature", "culture", "food", "wellness", "community"];
@@ -27,6 +28,7 @@ const EMPTY: Attraction = {
   id: "", name: "", district: "", category: [], months_best: [],
   season_note: "", is_secondary: false, is_community: false,
   budget_level: "low", lat: null, lng: null, description: "", contact: "",
+  image_url: "",
 };
 
 export default function AdminAttractionsPage() {
@@ -37,6 +39,7 @@ export default function AdminAttractionsPage() {
   const [form, setForm] = useState<Attraction>(EMPTY);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const load = useCallback(async () => {
     const res = await fetch("/api/admin/attractions");
@@ -112,6 +115,27 @@ export default function AdminAttractionsPage() {
         ? f.months_best.filter((n) => n !== m)
         : [...f.months_best, m].sort((a, b) => a - b),
     }));
+  }
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    const fd = new FormData();
+    fd.append("file", file);
+    try {
+      const res = await fetch("/api/admin/attractions/upload", { method: "POST", body: fd });
+      if (res.ok) {
+        const { url } = await res.json();
+        setForm((f) => ({ ...f, image_url: url }));
+      } else {
+        const err = await res.json();
+        setMessage(`Upload error: ${err.error}`);
+      }
+    } catch {
+      setMessage("Upload failed");
+    }
+    setUploading(false);
   }
 
   if (loading) return <div style={{ color: "var(--nan-stone)" }}>กำลังโหลด...</div>;
@@ -193,6 +217,46 @@ export default function AdminAttractionsPage() {
             <h2 style={{ fontSize: "1rem", color: "var(--nan-bark)", fontWeight: 600, marginBottom: "1rem" }}>
               {editing ? "Edit" : "New"} Attraction
             </h2>
+
+            {/* Image Upload */}
+            <div style={{ marginBottom: "1rem" }}>
+              {form.image_url ? (
+                <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "0.5rem" }}>
+                  <img
+                    src={form.image_url}
+                    alt={form.name}
+                    style={{ width: "100%", height: "160px", objectFit: "cover", display: "block" }}
+                  />
+                  <button
+                    onClick={() => setForm((f) => ({ ...f, image_url: "" }))}
+                    style={{
+                      position: "absolute", top: "0.5rem", right: "0.5rem",
+                      background: "rgba(0,0,0,0.5)", border: "none", borderRadius: "0.375rem",
+                      width: "28px", height: "28px", display: "flex", alignItems: "center",
+                      justifyContent: "center", cursor: "pointer", color: "#fff",
+                    }}
+                  >
+                    <NanIcon name="x" size={12} />
+                  </button>
+                </div>
+              ) : (
+                <label
+                  style={{
+                    display: "flex", flexDirection: "column", alignItems: "center",
+                    justifyContent: "center", height: "120px", borderRadius: "0.75rem",
+                    border: "2px dashed var(--nan-smoke)", cursor: "pointer",
+                    fontSize: "0.8rem", color: "var(--nan-stone)", gap: "0.5rem",
+                    transition: "border-color 0.2s",
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLLabelElement).style.borderColor = "var(--nan-leaf)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLLabelElement).style.borderColor = "var(--nan-smoke)"; }}
+                >
+                  <NanIcon name="image" size={20} />
+                  {uploading ? "กำลังอัปโหลด..." : "คลิกเพื่ออัปโหลดรูปภาพ"}
+                  <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={handleImageUpload} style={{ display: "none" }} disabled={uploading} />
+                </label>
+              )}
+            </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
               {[
