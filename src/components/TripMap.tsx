@@ -35,6 +35,7 @@ export function TripMap({ points }: { points: MapPoint[] }) {
 
   return (
     <MapContainer
+      key={points.map((p) => p.id).join(",")}
       center={center}
       zoom={10}
       scrollWheelZoom={false}
