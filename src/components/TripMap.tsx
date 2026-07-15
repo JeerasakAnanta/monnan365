@@ -40,6 +40,7 @@ export function TripMap({ points }: { points: MapPoint[] }) {
       zoom={10}
       scrollWheelZoom={false}
       className="h-80 w-full rounded-xl"
+      style={{ isolation: "isolate" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
