@@ -2,6 +2,16 @@
 
 import Link from "next/link";
 import { APP_VERSION } from "@/lib/constants";
+import { NanIcon, type IconName } from "@/components/Icon";
+
+const HIGHLIGHT_ITEMS: { icon: IconName; text: string }[] = [
+  { icon: "mountain", text: "ดอยภูคา" },
+  { icon: "temple", text: "วัดภูมินทร์" },
+  { icon: "salt", text: "บ่อเกลือโบราณ" },
+  { icon: "bamboo", text: "ชุมชนไทลื้อ" },
+  { icon: "waves", text: "แม่น้ำน่าน" },
+  { icon: "rice", text: "นาขั้นบันได" },
+];
 
 export function Footer() {
   return (
@@ -40,7 +50,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
-              <span style={{ fontSize: "2rem" }}>🌄</span>
+              <NanIcon name="sunrise" size={22} />
               <div>
                 <div
                   style={{
@@ -120,19 +130,13 @@ export function Footer() {
               ไฮไลต์น่าน
             </h4>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-              {[
-                "🏔️ ดอยภูคา",
-                "🛕 วัดภูมินทร์",
-                "🧂 บ่อเกลือโบราณ",
-                "🎋 ชุมชนไทลื้อ",
-                "🌊 แม่น้ำน่าน",
-                "🌾 นาขั้นบันได",
-              ].map((item) => (
+              {HIGHLIGHT_ITEMS.map((item) => (
                 <li
-                  key={item}
-                  style={{ color: "var(--nan-mist)", fontSize: "0.9rem", display: "flex", gap: "0.5rem" }}
+                  key={item.text}
+                  style={{ color: "var(--nan-mist)", fontSize: "0.9rem", display: "flex", alignItems: "center", gap: "0.5rem" }}
                 >
-                  {item}
+                  <NanIcon name={item.icon} size={14} />
+                  {item.text}
                 </li>
               ))}
             </ul>
@@ -154,11 +158,11 @@ export function Footer() {
             </h4>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", fontSize: "0.875rem", color: "var(--nan-mist)" }}>
               <div style={{ display: "flex", gap: "0.5rem", alignItems: "flex-start" }}>
-                <span>📍</span>
+                <NanIcon name="map-pin" size={14} />
                 <span>มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา น่าน</span>
               </div>
               <div style={{ display: "flex", gap: "0.5rem" }}>
-                <span>📧</span>
+                <NanIcon name="mail" size={14} />
                 <span>jeerasakananta@gmail.com</span>
               </div>
             </div>
