@@ -205,3 +205,10 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50% 0 50% 0;
   margin-right: 0.4rem;
 }
+
+/* ─── Print (Save trip plan as PDF) ─── */
+@media print {
+  nav, footer, .no-print {
+    display: none !important;
+  }
+}
