@@ -7,6 +7,35 @@ import { TripResult } from "@/components/TripResult";
 import { NanIcon } from "@/components/Icon";
 import type { PlanApiResponse } from "@/lib/types";
 
+const PLAN_STORAGE_KEY = "nan_plan_result_v1";
+
+type StoredPlan = {
+  values: PlanFormValues;
+  result: PlanApiResponse;
+  savedAt: number;
+};
+
+function readStoredPlan(): StoredPlan | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(PLAN_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed?.result || !Array.isArray(parsed.result.days)) return null;
+    return parsed as StoredPlan;
+  } catch {
+    return null;
+  }
+}
+
+function writeStoredPlan(data: StoredPlan) {
+  try {
+    sessionStorage.setItem(PLAN_STORAGE_KEY, JSON.stringify(data));
+  } catch {
+    // quota exceeded / private browsing — persistence is best-effort, fail silently
+  }
+}
+
 const LOADING_MESSAGES = [
   "กำลังสำรวจวัดภูมินทร์และเมืองเก่าน่าน...",
   "กำลังฟังเสียงต้มเกลือโบราณที่บ่อเกลือ...",
@@ -34,6 +63,14 @@ export default function PlanPage() {
     return () => clearInterval(interval);
   }, [loading]);
 
+  useEffect(() => {
+    // Must read sessionStorage post-mount (not in a lazy useState initializer) so the
+    // first client render matches the server-rendered null, avoiding a hydration mismatch.
+    const stored = readStoredPlan();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time hydration from an external store (sessionStorage) on mount, not a render-triggered cascade
+    if (stored) setResult(stored.result);
+  }, []);
+
   async function handleSubmit(values: PlanFormValues) {
     setLoading(true);
     setError(null);
@@ -47,6 +84,7 @@ export default function PlanPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
       setResult(data as PlanApiResponse);
+      writeStoredPlan({ values, result: data as PlanApiResponse, savedAt: Date.now() });
     } catch (err) {
       setError(err instanceof Error ? err.message : "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
     } finally {
@@ -58,6 +96,7 @@ export default function PlanPage() {
     <>
       {/* Page Hero */}
       <section
+        className="no-print"
         style={{
           background: "linear-gradient(135deg, var(--nan-sky) 0%, var(--nan-leaf) 50%, var(--nan-forest) 100%)",
           padding: "4rem 1.5rem 6rem",
@@ -139,6 +178,7 @@ export default function PlanPage() {
       >
         {/* Font size toggle */}
         <div
+          className="no-print"
           style={{
             width: "100%",
             maxWidth: "672px",
@@ -151,13 +191,14 @@ export default function PlanPage() {
         </div>
 
         {/* Form */}
-        <div style={{ width: "100%", maxWidth: "672px" }}>
+        <div className="no-print" style={{ width: "100%", maxWidth: "672px" }}>
           <PlanFormNanTheme onSubmit={handleSubmit} isLoading={loading} />
         </div>
 
         {/* Loading */}
         {loading && (
           <div
+            className="no-print"
             style={{
               marginTop: "3rem",
               display: "flex",
@@ -187,6 +228,7 @@ export default function PlanPage() {
         {/* Error */}
         {error && (
           <div
+            className="no-print"
             style={{
               marginTop: "2rem",
               width: "100%",
