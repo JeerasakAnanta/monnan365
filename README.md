@@ -3,8 +3,8 @@
 > **AI Trip Planner & Concierge เที่ยวน่านได้ทุกฤดู**
 > ผลงานส่งเข้าแข่งขัน Nan Beyond Seasons Challenge 2026 (Track 1: AI Trip Planner & Concierge)
 
-🔗 **Live Demo:** https://monnan.jeerasakananta.dev/
-🎬 **Video Demo:** (ใส่ลิงก์วิดีโอ ≤ 3 นาที)
+🔗 **Live Demo:** <https://monnan.jeerasakananta.dev/>
+📋 **Changelog:** [CHANGELOG.md](./CHANGELOG.md)
 
 ---
 
@@ -163,6 +163,7 @@ rmutl_nan/
 │   └── seed.mjs              # upsert nan-seed.json เข้าตาราง attractions
 ├── supabase/migrations/
 │   └── 0001_attractions.sql  # schema ตาราง attractions + RLS policy
+├── CHANGELOG.md              # project changelog (Keep a Changelog)
 ├── Dockerfile                # multi-stage build, Next.js standalone output
 ├── docker-compose.yml        # รัน container บน VPS (port 3003:3000)
 ├── .gitlab-ci.yml            # install → lint/typecheck/build → docker build+push → deploy
