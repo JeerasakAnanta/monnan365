@@ -36,7 +36,7 @@ export function Navbar() {
           minHeight: "60px",
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
           gap: "0.5rem",
           width: "100%",
         }}
@@ -240,7 +240,7 @@ export function Navbar() {
           .navbar-container {
             padding: 0 0.75rem !important;
             min-height: 56px !important;
-            justify-content: flex-end !important;
+            justify-content: flex-start !important;
           }
           .navbar-logo-desktop {
             display: none !important;
