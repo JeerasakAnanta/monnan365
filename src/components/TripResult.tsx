@@ -1,16 +1,21 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useState } from "react";
 import type { PlanApiResponse } from "@/lib/types";
 import type { MapPoint } from "@/components/TripMap";
 import { NanIcon } from "@/components/Icon";
 import { ShareButton } from "@/components/ShareButton";
+import { AttractionModal } from "@/components/AttractionModal";
+import type { EnrichedPlanItem } from "@/lib/types";
 
 const TripMap = dynamic(() => import("@/components/TripMap").then((m) => m.TripMap), {
   ssr: false,
 });
 
 export function TripResult({ result, id }: { result: PlanApiResponse; id?: string }) {
+  const [selectedItem, setSelectedItem] = useState<EnrichedPlanItem | null>(null);
+
   const points: MapPoint[] = result.days
     .flatMap((day) => day.items)
     .filter((item) => item.attraction?.lat != null && item.attraction?.lng != null)
@@ -160,6 +165,7 @@ export function TripResult({ result, id }: { result: PlanApiResponse; id?: strin
             {day.items.map((item) => (
               <article
                 key={item.id}
+                onClick={() => item.attraction && setSelectedItem(item)}
                 style={{
                   borderRadius: "1rem",
                   border: "1.5px solid var(--nan-smoke)",
@@ -167,6 +173,7 @@ export function TripResult({ result, id }: { result: PlanApiResponse; id?: strin
                   padding: "1.25rem 1.5rem",
                   boxShadow: "0 2px 12px rgba(45,106,79,0.05)",
                   transition: "box-shadow 0.2s, transform 0.2s",
+                  cursor: item.attraction ? "pointer" : "default",
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 24px rgba(45,106,79,0.1)";
@@ -296,6 +303,15 @@ export function TripResult({ result, id }: { result: PlanApiResponse; id?: strin
         <p>MonNan365 — มนต์น่าน 365 วัน | monnan.jeerasakananta.dev</p>
         <p>แผนเที่ยวสร้างโดย AI จากฐานข้อมูลแหล่งท่องเที่ยวจังหวัดน่าน</p>
       </div>
+
+      {/* Attraction Detail Modal */}
+      {selectedItem?.attraction && (
+        <AttractionModal
+          attraction={selectedItem.attraction}
+          time={selectedItem.time}
+          onClose={() => setSelectedItem(null)}
+        />
+      )}
     </div>
   );
 }
