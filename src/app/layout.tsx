@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th" className={`${googleSans.variable} h-full`}>
+    <html lang="th" className={`${googleSans.variable} h-full`} data-scroll-behavior="smooth">
       <body
         style={{
           minHeight: "100vh",
