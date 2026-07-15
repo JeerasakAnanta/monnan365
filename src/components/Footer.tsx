@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { APP_VERSION } from "@/lib/constants";
 import { NanIcon, type IconName } from "@/components/Icon";
+import { useVisitorCount } from "@/hooks/useVisitorCount";
+import { animateCount } from "@/lib/animateCount";
 
 const HIGHLIGHT_ITEMS: { icon: IconName; text: string }[] = [
   { icon: "mountain", text: "ดอยภูคา" },
@@ -14,6 +17,15 @@ const HIGHLIGHT_ITEMS: { icon: IconName; text: string }[] = [
 ];
 
 export function Footer() {
+  const { count, loading } = useVisitorCount();
+  const [displayCount, setDisplayCount] = useState(0);
+
+  useEffect(() => {
+    if (!loading && count > 0) {
+      animateCount(0, count, 1500, setDisplayCount);
+    }
+  }, [count, loading]);
+
   return (
     <footer
       style={{
@@ -185,6 +197,14 @@ export function Footer() {
           <p style={{ fontSize: "0.8rem", color: "rgba(149,213,178,0.7)" }}>
             © {new Date().getFullYear()} มนต์น่าน RMUTL Nan · {APP_VERSION}
           </p>
+          {!loading && count > 0 && (
+            <div style={{ display: "flex", alignItems: "center", gap: "0.375rem" }}>
+              <NanIcon name="eye" size={12} />
+              <span style={{ fontSize: "0.8rem", color: "rgba(149,213,178,0.7)" }}>
+                ผู้เข้าชม {displayCount.toLocaleString("th-TH")} คน
+              </span>
+            </div>
+          )}
           <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
             <span style={{ fontSize: "0.75rem", color: "rgba(149,213,178,0.5)" }}>พัฒนาโดย</span>
             <span style={{ fontSize: "0.75rem", color: "var(--nan-amber)" }}>Jeerasak Ananta SS4</span>
