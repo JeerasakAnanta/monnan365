@@ -4,12 +4,13 @@ import dynamic from "next/dynamic";
 import type { PlanApiResponse } from "@/lib/types";
 import type { MapPoint } from "@/components/TripMap";
 import { NanIcon } from "@/components/Icon";
+import { ShareButton } from "@/components/ShareButton";
 
 const TripMap = dynamic(() => import("@/components/TripMap").then((m) => m.TripMap), {
   ssr: false,
 });
 
-export function TripResult({ result }: { result: PlanApiResponse }) {
+export function TripResult({ result, id }: { result: PlanApiResponse; id?: string }) {
   const points: MapPoint[] = result.days
     .flatMap((day) => day.items)
     .filter((item) => item.attraction?.lat != null && item.attraction?.lng != null)
@@ -23,6 +24,33 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
 
   return (
     <div style={{ marginTop: "2.5rem", width: "100%", maxWidth: "672px", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+
+      {/* Actions */}
+      <div className="no-print" style={{ display: "flex", justifyContent: "flex-end", gap: "0.625rem" }}>
+        <button
+          type="button"
+          onClick={() => window.print()}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.4rem",
+            borderRadius: "99px",
+            border: "1.5px solid var(--nan-smoke)",
+            background: "#fff",
+            padding: "0.45rem 1.1rem",
+            fontSize: "0.85rem",
+            fontWeight: 500,
+            color: "var(--nan-forest)",
+            cursor: "pointer",
+            transition: "border-color 0.2s",
+          }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--nan-leaf)"; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--nan-smoke)"; }}
+        >
+          <NanIcon name="printer" size={14} /> พิมพ์ / บันทึกเป็น PDF
+        </button>
+        <ShareButton result={result} existingId={id} />
+      </div>
 
       {/* Summary Card */}
       <section
@@ -69,6 +97,7 @@ export function TripResult({ result }: { result: PlanApiResponse }) {
       {/* Map */}
       {points.length > 0 && (
         <section
+          className="no-print"
           style={{
             overflow: "hidden",
             borderRadius: "1.25rem",
