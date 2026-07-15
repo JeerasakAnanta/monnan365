@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { NanIcon } from "@/components/Icon";
 
 const NAV_ITEMS = [
   { href: "/", label: "หน้าแรก" },
@@ -45,7 +46,7 @@ export function Navbar() {
         {/* Logo - Hidden on mobile */}
         <Link href="/" style={{ textDecoration: "none", display: "none" }} className="navbar-logo-desktop">
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <span style={{ fontSize: "1.75rem", lineHeight: 1 }}>🌄</span>
+            <NanIcon name="sunrise" size={20} />
             <div>
               <div
                 style={{
@@ -144,7 +145,6 @@ export function Navbar() {
             justifyContent: "center",
             cursor: "pointer",
             color: "var(--nan-forest)",
-            fontSize: "clamp(1rem, 5vw, 1.5rem)",
             transition: "all 0.2s ease",
           }}
           onMouseEnter={(e) => {
@@ -154,7 +154,7 @@ export function Navbar() {
             (e.currentTarget as HTMLButtonElement).style.background = "var(--nan-sprout)";
           }}
         >
-          {menuOpen ? "✕" : "☰"}
+          {menuOpen ? <NanIcon name="x" size={16} /> : <NanIcon name="menu" size={16} />}
         </button>
       </div>
 
