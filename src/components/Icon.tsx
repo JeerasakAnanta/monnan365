@@ -32,6 +32,7 @@ import {
   Castle,
   Share2,
   Printer,
+  Settings,
   type LucideProps,
 } from "lucide-react";
 import type { ComponentType } from "react";
@@ -121,6 +122,7 @@ const ICON_MAP: Record<string, ComponentType<LucideProps>> = {
   check: Check,
   share: Share2,
   printer: Printer,
+  settings: Settings,
 };
 
 export type IconName = keyof typeof ICON_MAP;
