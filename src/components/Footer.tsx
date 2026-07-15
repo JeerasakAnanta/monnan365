@@ -183,7 +183,7 @@ export function Footer() {
           }}
         >
           <p style={{ fontSize: "0.8rem", color: "rgba(149,213,178,0.7)" }}>
-            © {new Date().getFullYear()} มนต์น่าน — พัฒนาโดย RMUTL Nan · v{APP_VERSION}
+            © {new Date().getFullYear()} มนต์น่าน RMUTL Nan · {APP_VERSION}
           </p>
           <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
             <span style={{ fontSize: "0.75rem", color: "rgba(149,213,178,0.5)" }}>พัฒนาโดย</span>
