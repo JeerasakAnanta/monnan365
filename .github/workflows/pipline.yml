@@ -95,6 +95,7 @@ jobs:
             docker compose pull
             docker compose up -d
             sleep 5
+            source .env
             RUNNING_IMAGE=$(docker inspect --format='{{.Config.Image}}' "$(docker compose ps -q app)")
             if [ "$RUNNING_IMAGE" != "$IMAGE_NAME" ]; then
               echo "❌ Deploy verification failed: running image ($RUNNING_IMAGE) != expected ($IMAGE_NAME)"
