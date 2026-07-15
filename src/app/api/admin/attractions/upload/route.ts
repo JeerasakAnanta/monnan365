@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createServiceRoleClient } from "@/lib/supabase/serviceRole";
+import { createClient } from "@/lib/supabase/server";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 export const runtime = "nodejs";
@@ -15,8 +15,8 @@ const s3 = new S3Client({
 
 export async function POST(request: Request) {
   try {
-    const admin = createServiceRoleClient();
-    const { data: { user } } = await admin.auth.getUser();
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const formData = await request.formData();
