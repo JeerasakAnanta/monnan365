@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ScrollRestoration } from "@/components/ScrollRestoration";
+import { SITE_URL } from "@/lib/constants";
 
 const googleSans = localFont({
   src: [
@@ -27,6 +28,7 @@ const googleSans = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "มนต์น่าน 365 วัน",
   description:
     "สัมผัสธรรมชาติ วัฒนธรรม และวิถีชีวิตจังหวัดน่านด้วย AI Trip Planner ที่ช่วยวางแผนทริปให้เหมาะกับทุกเดือน",
