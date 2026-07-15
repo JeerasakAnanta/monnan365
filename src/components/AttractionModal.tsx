@@ -62,152 +62,84 @@ export function AttractionModal({ attraction, time, onClose }: Props) {
           boxShadow: "0 24px 64px rgba(0,0,0,0.2)",
         }}
       >
-        {/* Hero Image */}
-        {attraction.image_url ? (
-          <div style={{ position: "relative", height: "220px", overflow: "hidden", borderRadius: "1.25rem 1.25rem 0 0" }}>
-            <img
-              src={attraction.image_url}
-              alt={attraction.name}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: "80px",
-                background: "linear-gradient(transparent, rgba(0,0,0,0.6))",
-              }}
-            />
-            <button
-              onClick={onClose}
-              aria-label="ปิด"
-              style={{
-                position: "absolute",
-                top: "0.75rem",
-                right: "0.75rem",
-                background: "rgba(0,0,0,0.4)",
-                border: "none",
-                borderRadius: "0.5rem",
-                width: "36px",
-                height: "36px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                color: "#fff",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              <NanIcon name="x" size={14} />
-            </button>
-            <div style={{ position: "absolute", bottom: "1rem", left: "1.25rem", right: "1.25rem", zIndex: 1 }}>
-              <h2 style={{ fontSize: "1.25rem", color: "#fff", fontWeight: 700, margin: 0, lineHeight: 1.3, textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>
-                {attraction.name}
-              </h2>
-              {attraction.district && (
-                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", fontSize: "0.8rem", color: "rgba(255,255,255,0.9)", marginTop: "0.25rem" }}>
-                  <NanIcon name="map-pin" size={12} /> {attraction.district}
-                </span>
-              )}
-            </div>
-          </div>
-        ) : (
-          <>
-            {/* Header without image */}
-            <div
-              style={{
-                padding: "1.5rem 1.5rem 1rem",
-                borderBottom: "1px solid var(--nan-smoke)",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-start",
-                gap: "1rem",
-              }}
-            >
-              <div style={{ flex: 1 }}>
-                <h2 style={{ fontSize: "1.25rem", color: "var(--nan-bark)", fontWeight: 700, margin: 0, lineHeight: 1.3 }}>
-                  {attraction.name}
-                </h2>
-              </div>
-              <button
-                onClick={onClose}
-                aria-label="ปิด"
-                style={{
-                  background: "var(--nan-sprout)",
-                  border: "none",
-                  borderRadius: "0.5rem",
-                  width: "36px",
-                  height: "36px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  color: "var(--nan-forest)",
-                  flexShrink: 0,
-                }}
-              >
-                <NanIcon name="x" size={14} />
-              </button>
-            </div>
-          </>
-        )}
-
-        {/* Header info (categories + district) - only when image exists */}
-        {attraction.image_url && (
+        {/* Hero Image — always shown */}
+        <div style={{ position: "relative", height: "220px", overflow: "hidden", borderRadius: "1.25rem 1.25rem 0 0" }}>
+          <img
+            src={attraction.image_url || "/nan-hero.png"}
+            alt={attraction.name}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
           <div
             style={{
-              padding: "1rem 1.5rem",
-              borderBottom: "1px solid var(--nan-smoke)",
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "80px",
+              background: "linear-gradient(transparent, rgba(0,0,0,0.6))",
+            }}
+          />
+          <button
+            onClick={onClose}
+            aria-label="ปิด"
+            style={{
+              position: "absolute",
+              top: "0.75rem",
+              right: "0.75rem",
+              background: "rgba(0,0,0,0.4)",
+              border: "none",
+              borderRadius: "0.5rem",
+              width: "36px",
+              height: "36px",
               display: "flex",
-              flexWrap: "wrap",
-              gap: "0.5rem",
               alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              color: "#fff",
+              backdropFilter: "blur(8px)",
             }}
           >
-            {!attraction.district && (
-              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", fontSize: "0.8rem", color: "var(--nan-stone)" }}>
+            <NanIcon name="x" size={14} />
+          </button>
+          <div style={{ position: "absolute", bottom: "1rem", left: "1.25rem", right: "1.25rem", zIndex: 1 }}>
+            <h2 style={{ fontSize: "1.25rem", color: "#fff", fontWeight: 700, margin: 0, lineHeight: 1.3, textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>
+              {attraction.name}
+            </h2>
+            {attraction.district && (
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", fontSize: "0.8rem", color: "rgba(255,255,255,0.9)", marginTop: "0.25rem" }}>
                 <NanIcon name="map-pin" size={12} /> {attraction.district}
               </span>
             )}
-            {attraction.category.map((cat) => (
-              <span
-                key={cat}
-                style={{
-                  borderRadius: "99px",
-                  background: "var(--nan-sprout)",
-                  color: "var(--nan-forest)",
-                  padding: "0.15rem 0.625rem",
-                  fontSize: "0.75rem",
-                  fontWeight: 500,
-                }}
-              >
-                {CATEGORY_LABEL[cat] ?? cat}
-              </span>
-            ))}
-            <div style={{ flex: 1 }} />
-            <button
-              onClick={onClose}
-              aria-label="ปิด"
+          </div>
+        </div>
+
+        {/* Category badges bar */}
+        <div
+          style={{
+            padding: "0.75rem 1.5rem",
+            borderBottom: "1px solid var(--nan-smoke)",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "0.5rem",
+            alignItems: "center",
+          }}
+        >
+          {attraction.category.map((cat) => (
+            <span
+              key={cat}
               style={{
+                borderRadius: "99px",
                 background: "var(--nan-sprout)",
-                border: "none",
-                borderRadius: "0.5rem",
-                width: "32px",
-                height: "32px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
                 color: "var(--nan-forest)",
-                flexShrink: 0,
+                padding: "0.15rem 0.625rem",
+                fontSize: "0.75rem",
+                fontWeight: 500,
               }}
             >
-              <NanIcon name="x" size={14} />
-            </button>
-          </div>
-        )}
+              {CATEGORY_LABEL[cat] ?? cat}
+            </span>
+          ))}
+        </div>
 
         {/* Body */}
         <div style={{ padding: "1.25rem 1.5rem 1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
