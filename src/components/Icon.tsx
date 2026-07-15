@@ -34,9 +34,9 @@ import {
 } from "lucide-react";
 import type { ComponentType } from "react";
 
-function SaltIcon(props: LucideProps) {
+function SaltIcon({ size = 24, color = "currentColor", strokeWidth = 2, ...rest }: LucideProps) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={size} height={size} fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...rest}>
       <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" />
       <path d="M8 14s1.5 2 4 2 4-2 4-2" />
       <circle cx="9" cy="10" r="1" fill="currentColor" />
@@ -45,9 +45,9 @@ function SaltIcon(props: LucideProps) {
   );
 }
 
-function RiceTerraceIcon(props: LucideProps) {
+function RiceTerraceIcon({ size = 24, color = "currentColor", strokeWidth = 2, ...rest }: LucideProps) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={size} height={size} fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...rest}>
       <path d="M2 22L12 2l10 20" />
       <path d="M5 18h14" />
       <path d="M8 14h8" />
@@ -56,9 +56,9 @@ function RiceTerraceIcon(props: LucideProps) {
   );
 }
 
-function BambooIcon(props: LucideProps) {
+function BambooIcon({ size = 24, color = "currentColor", strokeWidth = 2, ...rest }: LucideProps) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={size} height={size} fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...rest}>
       <path d="M12 2v20" />
       <path d="M12 6h4" />
       <path d="M12 6H8" />
@@ -72,9 +72,9 @@ function BambooIcon(props: LucideProps) {
   );
 }
 
-function AutumnLeafIcon(props: LucideProps) {
+function AutumnLeafIcon({ size = 24, color = "currentColor", strokeWidth = 2, ...rest }: LucideProps) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={size} height={size} fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...rest}>
       <path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z" />
       <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
     </svg>
