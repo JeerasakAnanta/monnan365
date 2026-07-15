@@ -73,12 +73,12 @@ export function Navbar() {
         {/* Desktop Menu */}
         <ul
           style={{
-            display: "flex",
+            display: "none",
             alignItems: "center",
             gap: "0.25rem",
             listStyle: "none",
           }}
-          className="hidden md:flex"
+          className="hidden md:flex desktop-menu"
         >
           {NAV_ITEMS.map((item) => {
             const active = pathname === item.href;
@@ -212,7 +212,20 @@ export function Navbar() {
             transform: translateY(0);
           }
         }
-        @media (max-width: 640px) {
+
+        /* Mobile First - Hide desktop menu by default */
+        .desktop-menu {
+          display: none !important;
+        }
+
+        /* Show desktop menu on medium screens and up */
+        @media (min-width: 768px) {
+          .desktop-menu {
+            display: flex !important;
+          }
+        }
+
+        @media (max-width: 767px) {
           .navbar-container {
             padding: 0 0.75rem !important;
             min-height: 56px !important;
@@ -220,6 +233,12 @@ export function Navbar() {
           .navbar-logo {
             min-width: 0;
             flex-shrink: 1;
+          }
+          .desktop-menu {
+            display: none !important;
+          }
+          .mobile-menu {
+            animation: slideDown 0.2s ease;
           }
         }
       `}</style>
