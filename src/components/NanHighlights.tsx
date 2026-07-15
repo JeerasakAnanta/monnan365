@@ -1,6 +1,8 @@
+import { NanIcon, type IconName } from "@/components/Icon";
+
 const HIGHLIGHTS = [
   {
-    emoji: "🏔️",
+    icon: "mountain" as IconName,
     title: "ธรรมชาติอันอุดม",
     subtitle: "ดอย · ป่า · หมอก",
     desc: "ดอยภูคา ทะเลหมอกยามเช้า น้ำตกฝั่งขวา นาขั้นบันไดสีทอง น่านเป็นจังหวัด ที่มีพื้นที่ป่ามากที่สุดในภาคเหนือ",
@@ -10,7 +12,7 @@ const HIGHLIGHTS = [
     accent: "var(--nan-leaf)",
   },
   {
-    emoji: "🛕",
+    icon: "temple" as IconName,
     title: "วัฒนธรรมล้ำค่า",
     subtitle: "ไทลื้อ · ลัวะ · วัดโบราณ",
     desc: "วัดภูมินทร์ ประดับภาพจิตรกรรมฝาผนัง อันงดงาม ชุมชนไทลื้อบ้านหนองบัว ผ้าทอลายโบราณ ที่ยังสืบทอดจนวันนี้",
@@ -20,7 +22,7 @@ const HIGHLIGHTS = [
     accent: "var(--nan-gold)",
   },
   {
-    emoji: "🧂",
+    icon: "salt" as IconName,
     title: "วิถีชีวิตดั้งเดิม",
     subtitle: "บ่อเกลือ · ชุมชน · เกษตร",
     desc: "บ่อเกลือสินธุ์ โบราณอายุนับพันปี นาเกลือ ที่หาชมไม่ได้จากที่ไหนในไทย วิถีเกษตรกรรมและชุมชน ที่ยังคงสมบูรณ์",
@@ -39,7 +41,9 @@ export function NanHighlights() {
         <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
           <span
             style={{
-              display: "inline-block",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
               background: "var(--nan-sprout)",
               color: "var(--nan-forest)",
               borderRadius: "99px",
@@ -50,7 +54,7 @@ export function NanHighlights() {
               marginBottom: "1rem",
             }}
           >
-            🌿 ทำไมต้องมาเที่ยวน่าน
+            <NanIcon name="leaf" size={16} /> ทำไมต้องมาเที่ยวน่าน
           </span>
           <h2
             style={{
@@ -104,12 +108,11 @@ export function NanHighlights() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "2rem",
                   marginBottom: "1.25rem",
                   boxShadow: `0 4px 16px ${h.accent}30`,
                 }}
               >
-                {h.emoji}
+                <NanIcon name={h.icon} size={20} />
               </div>
 
               {/* Title */}
