@@ -1,10 +1,12 @@
 "use client";
 
+import { NanIcon, type IconName } from "@/components/Icon";
+
 const SEASONS = [
   {
     month: "ม.ค. – ก.พ.",
     season: "ฤดูหนาว",
-    emoji: "❄️",
+    icon: "snowflake" as IconName,
     color: "var(--nan-sky)",
     lightColor: "#E0F7F5",
     highlights: ["ทะเลหมอกสวยงาม", "อากาศเย็น 8-18°C", "เทศกาลต้อนรับปีใหม่"],
@@ -12,7 +14,7 @@ const SEASONS = [
   {
     month: "มี.ค. – พ.ค.",
     season: "ฤดูร้อน",
-    emoji: "☀️",
+    icon: "sun" as IconName,
     color: "var(--nan-gold)",
     lightColor: "var(--nan-wheat)",
     highlights: ["ดอกไม้ป่าบาน", "เดินป่าสบาย", "นกอพยพหายาก"],
@@ -20,7 +22,7 @@ const SEASONS = [
   {
     month: "มิ.ย. – ส.ค.",
     season: "ต้นฝน",
-    emoji: "🌧️",
+    icon: "cloud-rain" as IconName,
     color: "var(--nan-river)",
     lightColor: "#E0F7F5",
     highlights: ["นาดำสีเขียวสด", "น้ำตกเต็มฝั่ง", "ธรรมชาติสดชื่น"],
@@ -28,7 +30,7 @@ const SEASONS = [
   {
     month: "ก.ย. – ต.ค.",
     season: "ปลายฝน",
-    emoji: "🌿",
+    icon: "leaf" as IconName,
     color: "var(--nan-leaf)",
     lightColor: "var(--nan-sprout)",
     highlights: ["นาสีทอง", "หมอกหนาพิเศษ", "ถ่ายภาพสวย"],
@@ -36,7 +38,7 @@ const SEASONS = [
   {
     month: "พ.ย. – ธ.ค.",
     season: "ต้นหนาว",
-    emoji: "🍂",
+    icon: "autumn-leaf" as IconName,
     color: "var(--nan-clay)",
     lightColor: "#F9EDE3",
     highlights: ["เทศกาลลอยกระทง", "ดอยภูคาสวยงาม", "เริ่มมีหมอก"],
@@ -56,7 +58,9 @@ export function SeasonTimeline() {
         <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
           <span
             style={{
-              display: "inline-block",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
               background: "var(--nan-wheat)",
               color: "var(--nan-earth)",
               borderRadius: "99px",
@@ -67,7 +71,7 @@ export function SeasonTimeline() {
               marginBottom: "1rem",
             }}
           >
-            📅 ฤดูกาลน่าน
+            <NanIcon name="calendar" size={16} /> ฤดูกาลน่าน
           </span>
           <h2
             style={{
@@ -125,11 +129,10 @@ export function SeasonTimeline() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "1.5rem",
                   marginBottom: "0.875rem",
                 }}
               >
-                {s.emoji}
+                <NanIcon name={s.icon} size={18} />
               </div>
 
               <div style={{ fontSize: "0.7rem", fontWeight: 600, color: s.color, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.25rem" }}>
