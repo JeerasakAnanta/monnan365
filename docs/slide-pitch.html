@@ -372,18 +372,116 @@
       pointer-events: none;
     }
 
-    /* Architecture diagram */
-    .arch-box {
-      background: var(--nan-ink);
-      color: var(--nan-mist);
-      padding: 1.2em 1.5em;
-      border-radius: 10px;
-      font-family: 'Courier New', monospace;
-      font-size: clamp(0.7rem, 1.2vw, 0.9rem);
-      line-height: 1.6;
-      overflow-x: auto;
-      white-space: pre;
+    /* Architecture flow diagram */
+    .flow-diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       margin: 1em 0;
+    }
+
+    .flow-node {
+      width: 100%;
+      max-width: 640px;
+    }
+
+    .flow-io {
+      background: var(--nan-forest);
+      color: #fff;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.7em 1.5em;
+      border-radius: 999px;
+      box-shadow: 0 6px 16px rgba(45, 106, 79, 0.25);
+    }
+
+    .flow-io.flow-output {
+      background: var(--nan-earth);
+      box-shadow: 0 6px 16px rgba(139, 69, 19, 0.22);
+    }
+
+    .flow-arrow {
+      width: 2px;
+      height: 22px;
+      background: var(--nan-gold);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .flow-arrow::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -1px;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 8px solid var(--nan-gold);
+    }
+
+    .flow-process {
+      background: #fff;
+      border: 1.5px solid rgba(45, 106, 79, 0.18);
+      border-radius: 14px;
+      padding: 1em 1.3em;
+      box-shadow: var(--shadow-card);
+    }
+
+    .flow-process-title {
+      font-weight: 700;
+      color: var(--nan-forest);
+      font-size: 1rem;
+      margin-bottom: 0.6em;
+      padding-bottom: 0.5em;
+      border-bottom: 1px solid rgba(45, 106, 79, 0.12);
+    }
+
+    .flow-process-title span {
+      font-weight: 400;
+      color: var(--nan-muted);
+      font-size: 0.85em;
+    }
+
+    .flow-substeps {
+      list-style: none;
+      counter-reset: flowstep;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+    }
+
+    .flow-substeps li {
+      counter-increment: flowstep;
+      position: relative;
+      padding-left: 2.2em;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--nan-ink);
+    }
+
+    .flow-substeps li::before {
+      content: counter(flowstep);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1.6em;
+      height: 1.6em;
+      background: var(--nan-forest);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+
+    .flow-substep-note {
+      display: block;
+      margin-top: 0.25em;
+      font-size: 0.8rem;
+      color: var(--nan-muted);
     }
 
     /* Metric cards */
@@ -756,19 +854,25 @@
       <h2>AI / Data — RAG-lite Architecture</h2>
       <p style="margin-bottom:0.5em;">LLM ไม่เคยแต่งสถานที่เอง — เลือกและอธิบายได้เฉพาะจาก dataset
         ที่ตรวจสอบแล้วเท่านั้น</p>
-      <div class="arch-box">User Input (เดือน, จำนวนวัน, สไตล์, งบ)
-        │
-        ▼
-        /api/plan (Next.js API Route)
-        ├─ 1. Supabase query: attractions ที่ months_best ครอบคลุมเดือนที่เลือก
-        ├─ 2. selectAttractions(): กรองตามสไตล์ + บังคับ quota ชุมชน ≥35% + สุ่ม (Fisher-Yates)
-        ├─ 3. เรียก OpenRouter API พร้อม zodResponseFormat (structured output)
-        │ - System prompt (ไทย, anti-hallucination): ใช้เฉพาะสถานที่ใน dataset
-        │ อ้างอิงด้วย id ตรงตัว, ทุกวันต้องมีแหล่งท่องเที่ยวรอง/ชุมชน ≥1 แห่ง
-        └─ 4. Enrich: map ID ที่ AI เลือกกลับเป็นข้อมูลสถานที่เต็ม
-        │
-        ▼
-        Timeline cards + แผนที่ Leaflet</div>
+      <div class="flow-diagram">
+        <div class="flow-node flow-io">User Input (เดือน, จำนวนวัน, สไตล์, งบ)</div>
+        <div class="flow-arrow" aria-hidden="true"></div>
+        <div class="flow-node flow-process">
+          <div class="flow-process-title">/api/plan <span>(Next.js API Route)</span></div>
+          <ol class="flow-substeps">
+            <li><strong>Supabase query</strong> — attractions ที่ months_best ครอบคลุมเดือนที่เลือก</li>
+            <li><strong>selectAttractions()</strong> — กรองตามสไตล์ + บังคับ quota ชุมชน ≥35% + สุ่ม (Fisher-Yates)
+            </li>
+            <li><strong>เรียก OpenRouter API</strong> พร้อม zodResponseFormat (structured output)
+              <span class="flow-substep-note">System prompt (ไทย, anti-hallucination): ใช้เฉพาะสถานที่ใน dataset
+                อ้างอิงด้วย id ตรงตัว, ทุกวันต้องมีแหล่งท่องเที่ยวรอง/ชุมชน ≥1 แห่ง</span>
+            </li>
+            <li><strong>Enrich</strong> — map ID ที่ AI เลือกกลับเป็นข้อมูลสถานที่เต็ม</li>
+          </ol>
+        </div>
+        <div class="flow-arrow" aria-hidden="true"></div>
+        <div class="flow-node flow-io flow-output">Timeline cards + แผนที่ Leaflet</div>
+      </div>
       <div class="card-grid" style="margin-top:1em;">
         <div class="card">
           <h4>โมเดล AI</h4>
