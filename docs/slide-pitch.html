@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>มนต์น่าน 365 — Slide Pitch</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Display:wght@400;500;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --nan-forest: #2D6A4F;
+      --nan-forest-deep: #1B4332;
+      --nan-leaf: #52B788;
+      --nan-mist: #95D5B2;
+      --nan-gold: #D4A017;
+      --nan-amber: #E9C46A;
+      --nan-earth: #8B4513;
+      --nan-sky: #4ECDC4;
+      --nan-river: #2A9D8F;
+      --nan-cream: #FDF8EF;
+      --nan-ink: #3D2B1F;
+      --nan-muted: #6E5642;
+      --shadow-card: 0 1px 2px rgba(61, 43, 31, 0.05), 0 10px 26px rgba(45, 106, 79, 0.10);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --contour-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke='%232D6A4F' stroke-opacity='0.05' stroke-width='1.2'%3E%3Cpath d='M-10 24 Q25 4 60 24 T130 24'/%3E%3Cpath d='M-10 58 Q25 38 60 58 T130 58'/%3E%3Cpath d='M-10 92 Q25 72 60 92 T130 92'/%3E%3Cpath d='M-10 126 Q25 106 60 126 T130 126'/%3E%3C/g%3E%3C/svg%3E");
+      --contour-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-opacity='0.045' stroke-width='1.2'%3E%3Cpath d='M-10 24 Q25 4 60 24 T130 24'/%3E%3Cpath d='M-10 58 Q25 38 60 58 T130 58'/%3E%3Cpath d='M-10 92 Q25 72 60 92 T130 92'/%3E%3Cpath d='M-10 126 Q25 106 60 126 T130 126'/%3E%3C/g%3E%3C/svg%3E");
+      --slide-w: 100vw;
+      --slide-h: 100vh;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Google Sans', 'Google Sans Display', 'Inter', 'IBM Plex Sans Thai', 'Sarabun', 'Noto Sans Thai', sans-serif;
+      background: var(--nan-forest-deep);
+      color: var(--nan-ink);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ===== SLIDE CONTAINER ===== */
+    .deck {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5vh 8vw;
+      overflow-y: auto;
+      background-color: var(--nan-cream);
+      background-image:
+        radial-gradient(ellipse 60% 46% at 104% -8%, rgba(45, 106, 79, 0.10), transparent 68%),
+        radial-gradient(ellipse 52% 42% at -8% 106%, rgba(212, 160, 23, 0.09), transparent 68%),
+        var(--contour-light);
+      background-repeat: no-repeat, no-repeat, repeat;
+      background-size: auto, auto, 140px 140px;
+    }
+
+    .slide.active {
+      display: flex;
+      animation: slideRise 0.6s var(--ease-out-expo) both;
+    }
+
+    @keyframes slideRise {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide.active {
+        animation: none;
+      }
+    }
+
+    /* ===== NAV BAR ===== */
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      background: rgba(45, 106, 79, 0.95);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .nav-bar button {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .nav-bar button:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .nav-bar .counter {
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    /* ===== SLIDE STYLES ===== */
+
+    /* Slide 1 - Cover */
+    .slide-cover {
+      background-color: var(--nan-forest-deep);
+      background-image:
+        radial-gradient(ellipse 70% 55% at 12% -8%, rgba(82, 183, 136, 0.30), transparent 62%),
+        radial-gradient(ellipse 60% 55% at 102% 105%, rgba(139, 69, 19, 0.40), transparent 65%),
+        linear-gradient(135deg, var(--nan-forest) 0%, var(--nan-forest-deep) 58%, var(--nan-earth) 100%),
+        var(--contour-dark);
+      background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+      background-size: auto, auto, auto, 160px 160px;
+      color: #fff;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .slide-cover::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 30%;
+      background:
+        radial-gradient(ellipse 20vw 100% at 6% 100%, rgba(14, 36, 27, 0.60) 0%, transparent 72%),
+        radial-gradient(ellipse 24vw 85% at 32% 100%, rgba(14, 36, 27, 0.50) 0%, transparent 72%),
+        radial-gradient(ellipse 22vw 100% at 60% 100%, rgba(14, 36, 27, 0.58) 0%, transparent 72%),
+        radial-gradient(ellipse 20vw 80% at 88% 100%, rgba(14, 36, 27, 0.48) 0%, transparent 72%);
+      pointer-events: none;
+    }
+
+    .slide-cover>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide-cover h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 0.3em;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+    }
+
+    .slide-cover .tagline {
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-weight: 300;
+      color: var(--nan-amber);
+      margin-bottom: 1.5em;
+      text-wrap: balance;
+    }
+
+    .slide-cover .meta {
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      opacity: 0.9;
+      line-height: 1.8;
+    }
+
+    .slide-cover .demo-link {
+      display: inline-block;
+      margin-top: 1.2em;
+      padding: 10px 28px;
+      background: var(--nan-gold);
+      color: var(--nan-forest-deep);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo);
+      box-shadow: 0 8px 20px rgba(212, 160, 23, 0.25);
+    }
+
+    .slide-cover .demo-link:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 12px 26px rgba(212, 160, 23, 0.35);
+    }
+
+    /* Section headers */
+    .slide h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--nan-forest);
+      margin-bottom: 0.6em;
+      border-bottom: 3px solid var(--nan-gold);
+      padding-bottom: 0.2em;
+      display: inline-block;
+      text-wrap: balance;
+    }
+
+    .slide h3 {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 600;
+      color: var(--nan-forest);
+      margin: 1em 0 0.4em;
+      text-wrap: balance;
+    }
+
+    .slide p,
+    .slide li {
+      font-size: clamp(0.9rem, 1.6vw, 1.15rem);
+      line-height: 1.7;
+      color: var(--nan-ink);
+      text-wrap: pretty;
+    }
+
+    .slide ul {
+      padding-left: 1.5em;
+      margin: 0.5em 0;
+    }
+
+    .slide li {
+      margin-bottom: 0.4em;
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 1em 0;
+    }
+
+    .card {
+      background:
+        linear-gradient(180deg, rgba(45, 106, 79, 0.055), rgba(45, 106, 79, 0) 45%), #fff;
+      border: 1px solid rgba(45, 106, 79, 0.10);
+      border-radius: 14px;
+      padding: 1.3em 1.4em;
+      box-shadow: var(--shadow-card);
+    }
+
+    .card.gold {
+      background:
+        linear-gradient(180deg, rgba(212, 160, 23, 0.10), rgba(212, 160, 23, 0) 45%), #fff;
+      border-color: rgba(212, 160, 23, 0.20);
+    }
+
+    .card.sky {
+      background:
+        linear-gradient(180deg, rgba(78, 205, 196, 0.10), rgba(78, 205, 196, 0) 45%), #fff;
+      border-color: rgba(78, 205, 196, 0.22);
+    }
+
+    .card.earth {
+      background:
+        linear-gradient(180deg, rgba(139, 69, 19, 0.09), rgba(139, 69, 19, 0) 45%), #fff;
+      border-color: rgba(139, 69, 19, 0.18);
+    }
+
+    .card h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--nan-forest);
+      margin-bottom: 0.35em;
+      letter-spacing: -0.01em;
+    }
+
+    .card p,
+    .card li {
+      font-size: 0.95rem;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+      font-size: clamp(0.8rem, 1.3vw, 0.95rem);
+    }
+
+    th {
+      background: var(--nan-forest);
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e0d8cc;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(45, 106, 79, 0.04);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 2px 4px 2px 0;
+    }
+
+    .badge-green {
+      background: var(--nan-mist);
+      color: var(--nan-forest);
+    }
+
+    .badge-gold {
+      background: var(--nan-amber);
+      color: var(--nan-earth);
+    }
+
+    .badge-sky {
+      background: #d4f5f2;
+      color: #1a7a70;
+    }
+
+    /* Quote / Highlight */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(45, 106, 79, 0.07), rgba(212, 160, 23, 0.10));
+      border-left: 4px solid var(--nan-gold);
+      padding: 1.1em 1.4em;
+      border-radius: 0 12px 12px 0;
+      margin: 1em 0;
+      font-style: normal;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-box::before {
+      content: '"';
+      position: absolute;
+      top: -0.35em;
+      right: 0.35em;
+      font-size: 4.5em;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 700;
+      color: rgba(212, 160, 23, 0.16);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* Architecture diagram */
+    .arch-box {
+      background: var(--nan-ink);
+      color: var(--nan-mist);
+      padding: 1.2em 1.5em;
+      border-radius: 10px;
+      font-family: 'Courier New', monospace;
+      font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+      line-height: 1.6;
+      overflow-x: auto;
+      white-space: pre;
+      margin: 1em 0;
+    }
+
+    /* Metric cards */
+    .metric-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 1em 0;
+    }
+
+    .metric {
+      flex: 1;
+      min-width: 140px;
+      text-align: center;
+      padding: 1.1em 0.8em;
+      background: linear-gradient(180deg, rgba(45, 106, 79, 0.05), rgba(45, 106, 79, 0) 50%), #fff;
+      border: 1px solid rgba(45, 106, 79, 0.10);
+      border-radius: 14px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .metric .num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--nan-forest);
+      letter-spacing: -0.02em;
+    }
+
+    .metric .label {
+      font-size: 0.85rem;
+      color: var(--nan-muted);
+      margin-top: 0.3em;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+      margin: 1em 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--nan-leaf);
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.2em;
+      padding-left: 10px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background: var(--nan-gold);
+      border-radius: 50%;
+      border: 2px solid var(--nan-forest);
+    }
+
+    .timeline-item .time {
+      font-weight: 600;
+      color: var(--nan-forest);
+      font-size: 0.95rem;
+    }
+
+    .timeline-item .desc {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Step flow */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding-left: 3em;
+      margin-bottom: 0.8em;
+      min-height: 2.2em;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2em;
+      height: 2em;
+      background: var(--nan-forest);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    /* Speaker note (hidden by default) */
+    .speaker-note {
+      display: none;
+      position: fixed;
+      bottom: 56px;
+      left: 0;
+      right: 0;
+      background: rgba(61, 43, 31, 0.95);
+      color: #f0e6d3;
+      padding: 12px 24px;
+      font-size: 13px;
+      line-height: 1.5;
+      z-index: 99;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+
+    .speaker-note.visible {
+      display: block;
+    }
+
+    .speaker-note strong {
+      color: var(--nan-amber);
+    }
+
+    /* ===== PRINT ===== */
+    @media print {
+
+      .nav-bar,
+      .speaker-note {
+        display: none !important;
+      }
+
+      .slide {
+        position: relative !important;
+        display: flex !important;
+        animation: none !important;
+        page-break-after: always;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .deck {
+        overflow: visible;
+      }
+
+      body {
+        overflow: visible;
+      }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .slide {
+        padding: 4vh 5vw;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="deck" id="deck">
+
+    <!-- ============================== SLIDE 1: COVER ============================== -->
+    <div class="slide slide-cover active" data-slide="1">
+      <h1>มนต์น่าน 365</h1>
+      <div class="tagline">AI Trip Planner &amp; Concierge เที่ยวน่านได้ทุกฤดู</div>
+      <div class="meta">
+        Nan Beyond Seasons Challenge 2026 — Track 1: AI Trip Planner &amp; Concierge<br>
+        ทีม: Jeerasak — Design, Development &amp; Data Curation
+      </div>
+      <a class="demo-link" href="https://monnan.jeerasakananta.dev/" target="_blank">🔗 Live Demo</a>
+    </div>
+
+    <!-- ============================== SLIDE 2: PROBLEM ============================== -->
+    <div class="slide" data-slide="2">
+      <h2>ปัญหา (Problem)</h2>
+      <div class="highlight-box">
+        การท่องเที่ยวจังหวัดน่านกระจุกตัวอยู่ในช่วงฤดูหนาวเพียงไม่กี่เดือน
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <h4>💰 รายได้ขาดช่วง</h4>
+          <p>ผู้ประกอบการและชุมชนขาดรายได้ในฤดูอื่น — 8-9 เดือนต่อปีไม่มีนักท่องเที่ยวหลัก</p>
+        </div>
+        <div class="card gold">
+          <h4>🏘️ ชุมชนรองไม่เป็นที่รู้จัก</h4>
+          <p>แหล่งท่องเที่ยวรองและวิสาหกิจชุมชนมีคุณค่าตลอด 12 เดือน แต่ไม่มีใครรู้จัก</p>
+        </div>
+        <div class="card sky">
+          <h4>❓ นักท่องเที่ยวไม่รู้</h4>
+          <p>เห็นแต่คอนเทนต์ "น่านหน้าหนาว" ซ้ำๆ ไม่รู้ว่านอกฤดูหนาว น่านมีอะไร</p>
+        </div>
+      </div>
+      <p style="margin-top:1em;color:var(--nan-muted);font-size:0.9rem;">
+        ทั้งที่ทุกเดือนมีเทศกาล วัฒนธรรม อาหาร และธรรมชาติเฉพาะฤดู
+      </p>
+    </div>
+
+    <!-- ============================== SLIDE 3: PERSONA ============================== -->
+    <div class="slide" data-slide="3">
+      <h2>User / Persona</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h4>🧑‍💼 ผู้ใช้หลัก: นักท่องเที่ยวไทย</h4>
+          <ul>
+            <li>วางแผนเดินทางไปน่าน แต่ไม่รู้ว่านอกฤดูหนาวมีอะไร</li>
+            <li>เห็นแต่คอนเทนต์ "น่านหน้าหนาว" ซ้ำๆ</li>
+            <li>ไม่รู้จักแหล่งท่องเที่ยวรอง</li>
+            <li>ไม่มั่นใจว่าเดือนอื่นคุ้มค่าเดินทางไหม</li>
+          </ul>
+        </div>
+        <div class="card gold">
+          <h4>🏡 ผู้ได้ประโยชน์รอง: ชุมชนท้องถิ่น</h4>
+          <ul>
+            <li>ผู้ประกอบการท้องถิ่น</li>
+            <li>วิสาหกิจชุมชน</li>
+            <li>โฮมสเตย์</li>
+            <li>ต้องการช่องทางให้นักท่องเที่ยวมองเห็นตลอดทั้งปี</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top:1em;">
+        <strong>Pain point หลัก:</strong> ไม่มีเครื่องมือที่ช่วย "ขาย"
+        จุดเด่นของทุกฤดูให้นักท่องเที่ยวเห็นว่าน่านน่าเที่ยวได้ทั้งปี
+      </div>
+    </div>
+
+    <!-- ============================== SLIDE 4: INSIGHT ============================== -->
+    <div class="slide" data-slide="4">
+      <h2>Insight</h2>
+      <p style="margin-bottom:0.8em;">ทำไมปัญหานี้สำคัญต่อ 12 เดือนของน่าน — เชื่อมกับเป้าหมายหลักของโจทย์:</p>
+      <table>
+        <tr>
+          <th>เป้าหมายโจทย์ (น่าน ไร้ฤดู)</th>
+          <th>Insight</th>
+        </tr>
+        <tr>
+          <td><strong>กระจายมูลค่าสู่ท้องถิ่น</strong></td>
+          <td>รายได้กระจุกตัวฤดูหนาว = ชุมชนรองไม่ได้ประโยชน์เลยตลอด 8-9 เดือน</td>
+        </tr>
+        <tr>
+          <td><strong>การลงมือทำด้วยเทคโนโลยี</strong></td>
+          <td>ต้องใช้ AI/Design Thinking แก้ปัญหานี้แบบวัดผลได้ ไม่ใช่แค่แคมเปญประชาสัมพันธ์</td>
+        </tr>
+        <tr>
+          <td><strong>สร้างความน่าสนใจตลอด 12 เดือน</strong></td>
+          <td>น่านมีของดีทุกเดือนอยู่แล้ว แค่ไม่มีใครสื่อสารให้นักท่องเที่ยวเห็น</td>
+        </tr>
+        <tr>
+          <td><strong>พัฒนาด้วย Design Thinking</strong></td>
+          <td>ต้นแบบต้องใช้งานได้จริงในชุมชนท้องถิ่น ไม่ใช่แค่ demo สวย</td>
+        </tr>
+      </table>
+      <div class="card-grid" style="margin-top:1em;">
+        <div class="card">
+          <h4>ตัวอย่าง: วัดภูมินทร์</h4>
+          <p><code>season_note: "ชมได้ทั้งปี ฝนตกก็เที่ยวได้"</code><br>
+            → underused นอกฤดูหนาว ทั้งที่เที่ยวได้ทุกฤดู</p>
+        </div>
+        <div class="card gold">
+          <h4>ตัวอย่าง: ดอยภูคา</h4>
+          <p><code>season_note: "ดอกนางพญาเสือโคร่งบาน ม.ค."</code><br>
+            → high-season draw ที่ดึงคนไปกระจุกแค่เดือนเดียว</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================== SLIDE 5: SOLUTION ============================== -->
+    <div class="slide" data-slide="5">
+      <h2>Solution</h2>
+      <div class="highlight-box" style="font-style:normal;font-size:1.1em;">
+        <strong>MonNan365</strong> คือ AI Trip Planner ที่วางแผนเที่ยวน่านตามเดือนที่ผู้ใช้จะเดินทางจริง —
+        ไม่ใช่แนะนำแต่ที่ยอดนิยมหน้าหนาว
+      </div>
+      <p style="margin:0.8em 0;"><strong>ผู้ใช้เลือก:</strong> เดือนเดินทาง · จำนวนวัน (1–5) · สไตล์ (ธรรมชาติ,
+        วัฒนธรรม, อาหาร, Wellness) · งบประมาณ</p>
+      <h3>กลไก 3 ข้อที่ทำให้ต่างจาก trip planner ทั่วไป</h3>
+      <div class="card-grid">
+        <div class="card">
+          <h4>🌿 ขายจุดเด่นของฤดูนั้น</h4>
+          <p>Green Season มีนาข้าวเขียว หมอกหน้าฝน ที่พักถูกกว่า คนน้อยกว่า</p>
+        </div>
+        <div class="card gold">
+          <h4>🏘️ บังคับกระจายสู่ชุมชน</h4>
+          <p>ทุกแผนมีแหล่งท่องเที่ยวรอง/วิสาหกิจชุมชนอย่างน้อย <strong>~35%</strong> พร้อมช่องทางติดต่อจริง</p>
+        </div>
+        <div class="card sky">
+          <h4>🤖 AI อธิบายเหตุผล</h4>
+          <p>ทุกจุดหมายมีคำอธิบายว่าทำไมเหมาะกับเดือนและสไตล์ของผู้ใช้</p>
+        </div>
+      </div>
+      <table style="margin-top:1em;">
+        <tr>
+          <th>เป้าหมายโจทย์</th>
+          <th>สิ่งที่ MonNan365 ทำ</th>
+        </tr>
+        <tr>
+          <td>กระจายนักท่องเที่ยวออกจากฤดูหนาว</td>
+          <td>Planner เชิงรุกที่ชูจุดเด่นของ Low/Green Season</td>
+        </tr>
+        <tr>
+          <td>กระจายรายได้สู่ชุมชนรอง</td>
+          <td>Quota แหล่งท่องเที่ยวรอง + ข้อมูลติดต่อวิสาหกิจชุมชน</td>
+        </tr>
+        <tr>
+          <td>เพิ่มเวลาพำนักและกิจกรรม</td>
+          <td>แผนรายวันหลายวัน ผสมกิจกรรมหลากประเภท</td>
+        </tr>
+        <tr>
+          <td>ยกระดับดิจิทัลท้องถิ่น</td>
+          <td>โครงสร้างข้อมูลเปิด (JSON) ที่ชุมชนต่อยอดเพิ่มรายการเองได้</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- ============================== SLIDE 6: DEMO FLOW ============================== -->
+    <div class="slide" data-slide="6">
+      <h2>Demo Flow</h2>
+      <div class="card-grid">
+        <div class="card" style="grid-column: 1 / -1;">
+          <h4>Flow 1 — สร้างแผนเที่ยวเดือน Green Season</h4>
+          <ol class="steps">
+            <li><strong>เลือกพารามิเตอร์:</strong> เดือน: สิงหาคม / จำนวนวัน: 2-3 / สไตล์: ธรรมชาติ+วัฒนธรรม / งบ: กลาง
+            </li>
+            <li><strong>กดวางแผน</strong> → เห็นสรุป "ทำไมเดือนนี้ถึงน่าไปน่าน" + <code>low_season_perks</code></li>
+            <li><strong>Timeline card รายวัน</strong> — badge <span class="badge badge-green">Low Season</span> <span
+                class="badge badge-gold">ชุมชน-แหล่งท่องเที่ยวรอง</span> บนแต่ละจุดหมาย พร้อมเหตุผลที่ AI อธิบาย</li>
+            <li><strong>เปิดแผนที่ Leaflet</strong> ดูตำแหน่งจริงของทุกจุดหมาย</li>
+          </ol>
+        </div>
+      </div>
+      <div class="card gold" style="margin-top:0.8em;">
+        <h4>Flow 2 (ถ้าเวลาเหลือ) — Share / Print</h4>
+        <p>กด Share → ได้ลิงก์แชร์แผนทริป (บันทึกลง Supabase) หรือ Print → PDF export พร้อม branding</p>
+      </div>
+      <div style="margin-top:1em;">
+        <span class="badge badge-green">Low Season</span>
+        <span class="badge badge-gold">ชุมชน-แหล่งท่องเที่ยวรอง</span>
+        <span class="badge badge-sky">AI Reason</span>
+        <span style="font-size:0.85rem;color:var(--nan-muted);margin-left:8px;">← ตัวอย่าง badge ที่แสดงบน UI
+          จริง</span>
+      </div>
+    </div>
+
+    <!-- ============================== SLIDE 7: AI / DATA ============================== -->
+    <div class="slide" data-slide="7">
+      <h2>AI / Data — RAG-lite Architecture</h2>
+      <p style="margin-bottom:0.5em;">LLM ไม่เคยแต่งสถานที่เอง — เลือกและอธิบายได้เฉพาะจาก dataset
+        ที่ตรวจสอบแล้วเท่านั้น</p>
+      <div class="arch-box">User Input (เดือน, จำนวนวัน, สไตล์, งบ)
+        │
+        ▼
+        /api/plan (Next.js API Route)
+        ├─ 1. Supabase query: attractions ที่ months_best ครอบคลุมเดือนที่เลือก
+        ├─ 2. selectAttractions(): กรองตามสไตล์ + บังคับ quota ชุมชน ≥35% + สุ่ม (Fisher-Yates)
+        ├─ 3. เรียก OpenRouter API พร้อม zodResponseFormat (structured output)
+        │ - System prompt (ไทย, anti-hallucination): ใช้เฉพาะสถานที่ใน dataset
+        │ อ้างอิงด้วย id ตรงตัว, ทุกวันต้องมีแหล่งท่องเที่ยวรอง/ชุมชน ≥1 แห่ง
+        └─ 4. Enrich: map ID ที่ AI เลือกกลับเป็นข้อมูลสถานที่เต็ม
+        │
+        ▼
+        Timeline cards + แผนที่ Leaflet</div>
+      <div class="card-grid" style="margin-top:1em;">
+        <div class="card">
+          <h4>โมเดล AI</h4>
+          <p><strong>google/gemini-3.5-flash</strong> ผ่าน OpenRouter</p>
+        </div>
+        <div class="card gold">
+          <h4>Validation</h4>
+          <p>Zod + Structured Outputs — บังคับ schema ระดับ API</p>
+        </div>
+        <div class="card sky">
+          <h4>Retry</h4>
+          <p>สูงสุด 3 ครั้ง, exponential backoff (1s, 2s, 3s)</p>
+        </div>
+      </div>
+      <div class="metric-row" style="margin-top:1em;">
+        <div class="metric">
+          <div class="num">40</div>
+          <div class="label">รายการคัดสรร</div>
+        </div>
+        <div class="metric">
+          <div class="num">10</div>
+          <div class="label">อำเภอ</div>
+        </div>
+        <div class="metric">
+          <div class="num">12</div>
+          <div class="label">เดือนครอบคลุม</div>
+        </div>
+        <div class="metric">
+          <div class="num">31</div>
+          <div class="label">แหล่งท่องเที่ยวรอง</div>
+        </div>
+        <div class="metric">
+          <div class="num">21</div>
+          <div class="label">วิสาหกิจชุมชน</div>
+        </div>
+      </div>
+      <p style="margin-top:0.8em;font-size:0.9rem;color:var(--nan-muted);">
+        <strong>Selection algorithm</strong> (<code>selectAttractions.ts</code>): แบ่ง pool หลัก/รอง →
+        บังคับสัดส่วนขั้นต่ำ 35% จาก pool รอง/ชุมชน → สุ่มแบบ Fisher-Yates → ผสานผลลัพธ์
+      </p>
+    </div>
+
+    <!-- ============================== SLIDE 8: IMPACT ============================== -->
+    <div class="slide" data-slide="8">
+      <h2>Impact &amp; Metrics</h2>
+      <div class="highlight-box" style="font-style:normal;">
+        ผลิตภัณฑ์เพิ่งเปิดใช้งานสำหรับ hackathon นี้ — ยังไม่มีตัวเลขการใช้งานจริง (usage data) ณ ตอนนี้ สไลด์นี้เน้น
+        <strong>กลไกที่ออกแบบไว้เพื่อการันตีผลลัพธ์</strong>
+      </div>
+      <h3>กลไกที่วัดผลได้จริงในตัวโปรดักต์</h3>
+      <div class="card-grid">
+        <div class="card">
+          <h4>📊 35% Quota ถูกบังคับใน Logic</h4>
+          <p>ทุกแผนที่สร้างขึ้นมีแหล่งท่องเที่ยวรอง/ชุมชน ≥35% — วัดได้ 100% ของ output</p>
+        </div>
+        <div class="card gold">
+          <h4>🏷️ Badge Traceable</h4>
+          <p>แต่ละ badge "Low Season" / "ชุมชน-แหล่งท่องเที่ยวรอง" บน UI คือหลักฐานเชิง traceable</p>
+        </div>
+      </div>
+      <h3>เทียบกับตัวชี้วัดจากผู้จัดงาน</h3>
+      <table>
+        <tr>
+          <th>ตัวชี้วัดจากโจทย์</th>
+          <th>สถานะของ MonNan365</th>
+        </tr>
+        <tr>
+          <td>ปริมาณทริปช่วง Low Season</td>
+          <td>กลไก quota รองรับแล้ว แต่ยังไม่มีข้อมูลการใช้งานจริง</td>
+        </tr>
+        <tr>
+          <td>กระจายเงินสู่ชุมชนรอง</td>
+          <td>มี contact จริงของวิสาหกิจชุมชนแนบทุกแผน — ยังไม่มี conversion จริง</td>
+        </tr>
+        <tr>
+          <td>เพิ่มเวลาพำนัก &amp; กิจกรรม</td>
+          <td>รองรับแผนได้สูงสุด 5 วัน หลายกิจกรรมต่อวัน</td>
+        </tr>
+        <tr>
+          <td>ยกระดับดิจิทัลท้องถิ่น</td>
+          <td>โครงสร้างข้อมูลเปิด (JSON) ให้ชุมชนต่อยอดเองได้</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- ============================== SLIDE 9: FEASIBILITY ============================== -->
+    <div class="slide" data-slide="9">
+      <h2>Feasibility</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h4>✅ สิ่งที่ทำสำเร็จแล้ว</h4>
+          <ul>
+            <li>Production app ใช้งานได้จริง — ไม่ใช่แค่ prototype/mockup</li>
+            <li>ต่อยอดเกิน MVP: ระบบ share + print แผนทริป, PDF export, Google Maps link, NanIcon, Admin panel</li>
+            <li>Deploy pipeline อัตโนมัติเต็มรูปแบบ (CI/CD ผ่าน GitHub Actions)</li>
+          </ul>
+        </div>
+        <div class="card gold">
+          <h4>🚀 สิ่งที่ต้องใช้เพิ่มเพื่อไปต่อ</h4>
+          <ul>
+            <li><strong>Partner:</strong> ททท. น่าน / สำนักงานการท่องเที่ยวจังหวัด — ขยาย dataset เกิน 40 รายการ</li>
+            <li><strong>Budget:</strong> ค่า LLM API ต่อเดือนที่ scale ขึ้น, ค่า hosting เพิ่มเติม</li>
+            <li><strong>Operation:</strong> ทีมดูแล/อัปเดตข้อมูล attractions ต่อเนื่อง (admin panel รองรับแล้ว)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="metric-row" style="margin-top:1em;">
+        <div class="metric">
+          <div class="num">40+</div>
+          <div class="label">Dataset ปัจจุบัน</div>
+        </div>
+        <div class="metric">
+          <div class="num">10</div>
+          <div class="label">อำเภอครอบคลุม</div>
+        </div>
+        <div class="metric">
+          <div class="num">15</div>
+          <div class="label">Components</div>
+        </div>
+        <div class="metric">
+          <div class="num">6</div>
+          <div class="label">SQL Migrations</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================== SLIDE 10: NEXT STEP ============================== -->
+    <div class="slide" data-slide="10">
+      <h2>Next Step — แผนต่อยอด 30-90 วัน</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="time">0–30 วัน</div>
+          <div class="desc">เปิดฟอร์มให้ชุมชน/ผู้ประกอบการเพิ่มรายการของตนเอง<br>(ขยาย dataset โดยไม่ต้องรอ partner
+            ทางการ)</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">30–60 วัน</div>
+          <div class="desc">เชื่อม TAT Data API + พยากรณ์อากาศ real-time เข้ากับ planner</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">60–90 วัน</div>
+          <div class="desc">เปิดระบบ feedback จากนักท่องเที่ยว + เริ่มรองรับภาษาอังกฤษ</div>
+        </div>
+      </div>
+      <div class="card-grid" style="margin-top:1.5em;">
+        <div class="card sky">
+          <h4>📋 แผนต่อยอดทั้งหมด (จาก README)</h4>
+          <ul>
+            <li>เชื่อม TAT Data API แบบ real-time และข้อมูลพยากรณ์อากาศ</li>
+            <li>ให้ชุมชน/ผู้ประกอบการเพิ่มรายการของตนเองผ่านฟอร์ม (community-sourced data)</li>
+            <li>ระบบ feedback จากนักท่องเที่ยวเพื่อปรับปรุงคำแนะนำ</li>
+            <li>รองรับภาษาอังกฤษและจีนสำหรับนักท่องเที่ยวต่างชาติ</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================== APPENDIX: FACT SHEET ============================== -->
+    <div class="slide" data-slide="11" style="padding-top:3vh;">
+      <h2 style="font-size:1.5rem;">Fact Sheet — ภาคผนวก</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <h3 style="font-size:1rem;">Tech Stack</h3>
+          <table style="font-size:0.8rem;">
+            <tr>
+              <th>Layer</th>
+              <th>เทคโนโลยี</th>
+            </tr>
+            <tr>
+              <td>Framework</td>
+              <td>Next.js 16 (App Router)</td>
+            </tr>
+            <tr>
+              <td>UI</td>
+              <td>React 19 + Tailwind CSS 4</td>
+            </tr>
+            <tr>
+              <td>Database</td>
+              <td>Supabase (PostgreSQL)</td>
+            </tr>
+            <tr>
+              <td>LLM</td>
+              <td>google/gemini-3.5-flash (OpenRouter)</td>
+            </tr>
+            <tr>
+              <td>Validation</td>
+              <td>Zod + Structured Outputs</td>
+            </tr>
+            <tr>
+              <td>Maps</td>
+              <td>Leaflet + OpenStreetMap</td>
+            </tr>
+            <tr>
+              <td>Storage</td>
+              <td>Cloudflare R2</td>
+            </tr>
+            <tr>
+              <td>Deploy</td>
+              <td>Docker → VPS (GitHub Actions CI/CD)</td>
+            </tr>
+          </table>
+          <h3 style="font-size:1rem;margin-top:1em;">Q&A Prep</h3>
+          <ul style="font-size:0.8rem;">
+            <li><strong>Responsible AI:</strong> ใช้เฉพาะ dataset ที่ตรวจสอบแล้ว กัน hallucination</li>
+            <li><strong>ไม่มี login</strong> สำหรับผู้ใช้ทั่วไป</li>
+            <li><strong>Accessibility:</strong> ปุ่มปรับขนาดตัวอักษร, รองรับมือถือ</li>
+            <li><strong>MVP scope:</strong> ไม่มีจอง/ชำระเงิน, Thai-only</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NAV BAR -->
+  <div class="nav-bar">
+    <button onclick="prev()">← ก่อนหน้า</button>
+    <span class="counter" id="counter">1 / 11</span>
+    <button onclick="next()">ถัดไป →</button>
+  </div>
+
+  <!-- SPEAKER NOTE -->
+  <div class="speaker-note" id="speakerNote"></div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('counter');
+    const speakerNote = document.getElementById('speakerNote');
+    let current = 0;
+
+    const speakerNotes = [
+      "เปิดด้วย tagline ให้ชัดใน 10 วินาทีแรก — มีเวลาจำกัดมาก ขึ้นลำดับที่ 2 จาก 7 ทีม",
+      "เชื่อมกับ mission ของ hackathon ทันที: 'กระจายมูลค่าการท่องเที่ยวน่านให้ครอบคลุมตลอด 12 เดือน'",
+      "อย่าสับสนกลุ่มผู้เข้าร่วม hackathon กับ end-user ของโปรดักต์ — สองกลุ่มนี้คนละกลุ่ม",
+      "ใช้ตัวอย่างจาก dataset จริง (วัดภูมินทร์, ดอยภูคา) เพื่อให้กรรมการเห็นว่าข้อมูลจริงไม่ใช่สมมติ",
+      "เน้นว่า quota 35% ไม่ใช่แค่ prompt engineering — บังคับใน business logic ก่อนส่งเข้า LLM",
+      "ได้เวลามากกว่าสไลด์อื่น ~2 นาที — ให้กรรมการเห็น badge ชุมชน/แหล่งท่องเที่ยวรองชัดๆ",
+      "Quota 35% บังคับใน logic ก่อนส่งเข้า LLM — ตอบโจทย์ 'การใช้ AI' และ 'ความเข้าใจชุมชน' พร้อมกัน",
+      "ยอมรับตรงๆ ว่ายังไม่มี usage data — แต่โชว์กลไกที่ 'การันตี' ผลลัพธ์ได้แม้ยังไม่มีผู้ใช้จริง",
+      "Production app จริง ไม่ใช่ mockup — ต่อยอดเกิน MVP ไปแล้วหลายฟีเจอร์",
+      "ให้ due date/priority จริงก่อนใช้บนสไลด์ — ปัจจุบันยังเป็นร่างจาก README"
+    ];
+
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      current = Math.max(0, Math.min(n, slides.length - 1));
+      slides[current].classList.add('active');
+      counter.textContent = `${current + 1} / ${slides.length}`;
+      speakerNote.innerHTML = speakerNotes[current] ? `<strong>Speaker Note:</strong> ${speakerNotes[current]}` : '';
+    }
+
+    function next() { showSlide(current + 1); }
+    function prev() { showSlide(current - 1); }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+      if (e.key === 's' || e.key === 'S') {
+        speakerNote.classList.toggle('visible');
+      }
+      if (e.key === 'Home') { e.preventDefault(); showSlide(0); }
+      if (e.key === 'End') { e.preventDefault(); showSlide(slides.length - 1); }
+    });
+
+    // Touch support
+    let touchStartX = 0;
+    document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    document.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); }
+    });
+
+    showSlide(0);
+  </script>
+
+</body>
+
+</html>
