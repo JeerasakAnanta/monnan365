@@ -12,7 +12,7 @@ type Attraction = {
   season_note: string | null;
   is_secondary: boolean;
   is_community: boolean;
-  budget_level: string;
+  budget_level: number;
   lat: number | null;
   lng: number | null;
   description: string | null;
@@ -21,7 +21,6 @@ type Attraction = {
 };
 
 const CATEGORIES = ["nature", "culture", "food", "wellness", "community"];
-const BUDGET_LEVELS = ["low", "mid", "premium"];
 const MONTHS = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
 
 const ITEMS_PER_PAGE = 12;
@@ -29,7 +28,7 @@ const ITEMS_PER_PAGE = 12;
 const EMPTY: Attraction = {
   id: "", name: "", district: "", category: [], months_best: [],
   season_note: "", is_secondary: false, is_community: false,
-  budget_level: "low", lat: null, lng: null, description: "", contact: "",
+  budget_level: 150, lat: null, lng: null, description: "", contact: "",
   image_url: "",
 };
 
@@ -497,14 +496,15 @@ export default function AdminAttractionsPage() {
 
               {/* Budget */}
               <div>
-                <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--nan-bark)", display: "block", marginBottom: "0.25rem" }}>Budget</label>
-                <select
+                <label style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--nan-bark)", display: "block", marginBottom: "0.25rem" }}>Budget (บาท/ครั้ง)</label>
+                <input
+                  type="number"
+                  min={0}
+                  step={50}
                   value={form.budget_level}
-                  onChange={(e) => updateForm({ budget_level: e.target.value })}
+                  onChange={(e) => updateForm({ budget_level: Number(e.target.value) })}
                   style={{ width: "100%", padding: "0.5rem", borderRadius: "0.5rem", border: "1.5px solid var(--nan-smoke)", fontSize: "0.8rem" }}
-                >
-                  {BUDGET_LEVELS.map((b) => <option key={b} value={b}>{b}</option>)}
-                </select>
+                />
               </div>
 
               {/* Toggles */}

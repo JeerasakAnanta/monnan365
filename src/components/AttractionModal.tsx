@@ -1,13 +1,8 @@
 "use client";
 
 import { NanIcon } from "@/components/Icon";
-import type { Attraction, BudgetLevel } from "@/lib/types";
-
-const BUDGET_LABEL: Record<BudgetLevel, string> = {
-  low: "ประหยัด",
-  mid: "กลาง",
-  premium: "พรีเมียม",
-};
+import type { Attraction } from "@/lib/types";
+import { formatBudget } from "@/lib/types";
 
 const CATEGORY_LABEL: Record<string, string> = {
   nature: "ธรรมชาติ",
@@ -191,7 +186,7 @@ export function AttractionModal({ attraction, time, onClose }: Props) {
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.875rem", color: "var(--nan-bark)" }}>
               <NanIcon name="circle-dollar-sign" size={14} />
               <span style={{ fontWeight: 500 }}>งบประมาณ:</span>
-              <span style={{ color: "var(--nan-stone)" }}>{BUDGET_LABEL[attraction.budget_level]}</span>
+              <span style={{ color: "var(--nan-stone)" }}>{formatBudget(attraction.budget_level)}</span>
             </div>
 
             {/* Contact */}

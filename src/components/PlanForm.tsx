@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { STYLE_OPTIONS, BUDGET_OPTIONS, type Style, type BudgetLevel } from "@/lib/types";
+import { STYLE_OPTIONS, BUDGET_RANGE, formatBudget, type Style } from "@/lib/types";
 import { NanIcon } from "@/components/Icon";
 
 const MONTH_NAMES = [
@@ -13,7 +13,7 @@ export type PlanFormValues = {
   month: number;
   days: number;
   styles: Style[];
-  budget: BudgetLevel;
+  budget: number;
 };
 
 const selectStyle: React.CSSProperties = {
@@ -40,7 +40,7 @@ export function PlanForm({
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [days, setDays] = useState(3);
   const [styles, setStyles] = useState<Style[]>(["culture"]);
-  const [budget, setBudget] = useState<BudgetLevel>("mid");
+  const [budget, setBudget] = useState<number>(BUDGET_RANGE.default);
 
   function toggleStyle(value: Style) {
     setStyles((prev) =>
@@ -103,19 +103,24 @@ export function PlanForm({
         {/* Budget */}
         <label style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
-            <NanIcon name="circle-dollar-sign" size={12} /> งบประมาณ
+            <NanIcon name="circle-dollar-sign" size={12} /> งบประมาณทั้งทริป
           </span>
-          <select
-            style={selectStyle}
-            value={budget}
-            onChange={(e) => setBudget(e.target.value as BudgetLevel)}
-            onFocus={(e) => { e.currentTarget.style.borderColor = "var(--nan-leaf)"; }}
-            onBlur={(e) => { e.currentTarget.style.borderColor = "var(--nan-smoke)"; }}
-          >
-            {BUDGET_OPTIONS.map((b) => (
-              <option key={b.value} value={b.value}>{b.label}</option>
-            ))}
-          </select>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+            <input
+              type="range"
+              min={BUDGET_RANGE.min}
+              max={BUDGET_RANGE.max}
+              step={BUDGET_RANGE.step}
+              value={budget}
+              onChange={(e) => setBudget(Number(e.target.value))}
+              style={{ width: "100%", accentColor: "var(--nan-forest)" }}
+            />
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "var(--nan-stone)" }}>
+              <span>{formatBudget(BUDGET_RANGE.min)}</span>
+              <span style={{ fontWeight: 600, fontSize: "0.9375rem", color: "var(--nan-forest)" }}>{formatBudget(budget)}</span>
+              <span>{formatBudget(BUDGET_RANGE.max)}</span>
+            </div>
+          </div>
         </label>
       </div>
 
