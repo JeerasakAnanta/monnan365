@@ -140,7 +140,7 @@ AI configuration is cached in memory for 60 seconds to avoid hitting the databas
 | `season_note` | text | e.g. `"ดอกนางพญาเสือโคร่งบาน ม.ค."` |
 | `is_secondary` | boolean | Secondary attraction flag |
 | `is_community` | boolean | Community-based tourism flag |
-| `budget_level` | text | `low`, `mid`, or `premium` |
+| `budget_level` | numeric | Estimated cost per visit (THB) |
 | `lat` / `lng` | double precision | GPS coordinates |
 | `description` | text | Full description |
 | `contact` | text | Phone/line/facebook |
@@ -170,7 +170,7 @@ Anonymous visitor tracking. IP hashed with salt (SHA-256). Indexed on `ip_hash` 
 
 | Method | Route | Description |
 |---|---|---|
-| POST | `/api/plan` | Generate trip plan. Input: `{month, days, styles[], budget}` |
+| POST | `/api/plan` | Generate trip plan. Input: `{month, days, styles[], budget}` (budget = total THB) |
 | POST | `/api/plan/share` | Save plan to DB, return shareable UUID |
 | GET | `/api/visitor?path=/` | Track visit + return 30-day unique count |
 

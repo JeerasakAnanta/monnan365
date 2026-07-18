@@ -10,7 +10,7 @@
 ## 1. Scope
 
 ### In scope (MVP)
-- ฟอร์มรับ input: เดือนที่เดินทาง, จำนวนวัน (1–5), สไตล์ (ธรรมชาติ / วัฒนธรรม / อาหาร / Wellness), งบประมาณ (ประหยัด / กลาง / พรีเมียม)
+- ฟอร์มรับ input: เดือนที่เดินทาง, จำนวนวัน (1–5), สไตล์ (ธรรมชาติ / วัฒนธรรม / อาหาร / Wellness), งบประมาณทั้งทริป (THB)
 - AI สร้างแผนเที่ยวรายวัน (structured JSON) จาก curated dataset
 - แสดงผลเป็น timeline card ต่อวัน + แผนที่จุดสำคัญ
 - Section "ทำไมเดือนนี้ถึงน่าไป" — highlight จุดเด่นของฤดูนั้น
@@ -59,7 +59,7 @@
   "season_note": "ชมได้ทั้งปี ฝนตกก็เที่ยวได้",
   "is_secondary": false,
   "is_community": false,
-  "budget_level": "low",
+  "budget_level": 150,
   "lat": 18.7756, "lng": 100.7714,
   "description": "จิตรกรรมฝาผนังปู่ม่านย่าม่าน...",
   "contact": null
