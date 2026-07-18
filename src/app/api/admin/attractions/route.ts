@@ -14,7 +14,7 @@ const CreateAttractionSchema = z.object({
   season_note: z.string().max(500).nullable().optional(),
   is_secondary: z.boolean().optional(),
   is_community: z.boolean().optional(),
-  budget_level: z.enum(["low", "mid", "premium"]).optional(),
+  budget_level: z.number().min(0).optional(),
   lat: z.number().min(-90).max(90).nullable().optional(),
   lng: z.number().min(-180).max(180).nullable().optional(),
   description: z.string().max(5000).nullable().optional(),

@@ -13,7 +13,7 @@ const PlanRequestSchema = z.object({
   month: z.number().int().min(1).max(12),
   days: z.number().int().min(1).max(5),
   styles: z.array(z.enum(["nature", "culture", "food", "wellness", "community"])).min(1),
-  budget: z.enum(["low", "mid", "premium"]),
+  budget: z.number().min(0),
 });
 
 const PlanItemSchema = z.object({
@@ -89,7 +89,7 @@ function buildUserPrompt(
   month: number,
   days: number,
   styles: string[],
-  budget: string,
+  budget: number,
   attractions: Attraction[]
 ): string {
   const attractionList = attractions.map((a) => ({
@@ -108,7 +108,7 @@ function buildUserPrompt(
 - เดือนที่เดินทาง: ${MONTH_NAMES[month - 1]}
 - จำนวนวัน: ${days}
 - สไตล์ที่สนใจ: ${styles.join(", ")}
-- งบประมาณ: ${budget}
+- งบประมาณทั้งทริป: ${budget} บาท
 
 รายการสถานที่/กิจกรรมที่ใช้ได้ (ห้ามใช้สถานที่อื่นนอกเหนือจากนี้):
 ${JSON.stringify(attractionList, null, 2)}`;

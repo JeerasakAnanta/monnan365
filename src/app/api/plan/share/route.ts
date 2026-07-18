@@ -13,7 +13,7 @@ const AttractionSchema = z.object({
   season_note: z.string().max(2000).nullable(),
   is_secondary: z.boolean(),
   is_community: z.boolean(),
-  budget_level: z.enum(["low", "mid", "premium"]),
+  budget_level: z.number().min(0),
   lat: z.number().nullable(),
   lng: z.number().nullable(),
   description: z.string().max(5000).nullable(),
