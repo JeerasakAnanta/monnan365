@@ -191,4 +191,4 @@ rmutl_nan/
 
 ## License
 
-MIT  
+MIT
