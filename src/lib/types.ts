@@ -1,4 +1,17 @@
-export type BudgetLevel = "low" | "mid" | "premium";
+export type BudgetLevel = number;
+
+export const BUDGET_RANGE = { min: 500, max: 20000, step: 100, default: 3000 } as const;
+
+export function formatBudget(value: number): string {
+  return `${value.toLocaleString("th-TH")} บาท`;
+}
+
+export function budgetLabel(value: number): string {
+  if (value <= 200) return "ประหยัดมาก";
+  if (value <= 500) return "ประหยัด";
+  if (value <= 1000) return "ปานกลาง";
+  return "พรีเมียม";
+}
 
 export type Attraction = {
   id: string;
@@ -21,7 +34,7 @@ export type PlanRequest = {
   month: number;
   days: number;
   styles: string[];
-  budget: BudgetLevel;
+  budget: number;
 };
 
 export type PlanItem = {
@@ -51,12 +64,6 @@ export const STYLE_OPTIONS = [
 ] as const;
 
 export type Style = (typeof STYLE_OPTIONS)[number]["value"];
-
-export const BUDGET_OPTIONS = [
-  { value: "low", label: "ประหยัด" },
-  { value: "mid", label: "กลาง" },
-  { value: "premium", label: "พรีเมียม" },
-] as const;
 
 export type EnrichedPlanItem = PlanItem & { attraction: Attraction | null };
 export type EnrichedPlanDay = { day: number; items: EnrichedPlanItem[] };
