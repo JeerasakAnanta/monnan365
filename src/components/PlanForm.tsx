@@ -99,30 +99,30 @@ export function PlanForm({
             ))}
           </select>
         </label>
-
-        {/* Budget */}
-        <label style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-          <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
-            <NanIcon name="circle-dollar-sign" size={12} /> งบประมาณทั้งทริป
-          </span>
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
-            <input
-              type="range"
-              min={BUDGET_RANGE.min}
-              max={BUDGET_RANGE.max}
-              step={BUDGET_RANGE.step}
-              value={budget}
-              onChange={(e) => setBudget(Number(e.target.value))}
-              style={{ width: "100%", accentColor: "var(--nan-forest)" }}
-            />
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "var(--nan-stone)" }}>
-              <span>{formatBudget(BUDGET_RANGE.min)}</span>
-              <span style={{ fontWeight: 600, fontSize: "0.9375rem", color: "var(--nan-forest)" }}>{formatBudget(budget)}</span>
-              <span>{formatBudget(BUDGET_RANGE.max)}</span>
-            </div>
-          </div>
-        </label>
       </div>
+
+      {/* Budget - full width */}
+      <label style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "1.25rem" }}>
+        <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--nan-bark)", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
+          <NanIcon name="circle-dollar-sign" size={12} /> งบประมาณทั้งทริป
+        </span>
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+          <input
+            type="range"
+            min={BUDGET_RANGE.min}
+            max={BUDGET_RANGE.max}
+            step={BUDGET_RANGE.step}
+            value={budget}
+            onChange={(e) => setBudget(Number(e.target.value))}
+            style={{ width: "100%", accentColor: "var(--nan-forest)" }}
+          />
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "var(--nan-stone)" }}>
+            <span>{formatBudget(BUDGET_RANGE.min)}</span>
+            <span style={{ fontWeight: 600, fontSize: "0.9375rem", color: "var(--nan-forest)" }}>{formatBudget(budget)}</span>
+            <span>ไม่จำกัด</span>
+          </div>
+        </div>
+      </label>
 
       {/* Styles */}
       <fieldset style={{ border: "none", marginTop: "1.75rem" }}>

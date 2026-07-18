@@ -1,6 +1,6 @@
 export type BudgetLevel = number;
 
-export const BUDGET_RANGE = { min: 500, max: 20000, step: 100, default: 3000 } as const;
+export const BUDGET_RANGE = { min: 500, max: 99999, step: 500, default: 3000 } as const;
 
 export function formatBudget(value: number): string {
   return `${value.toLocaleString("th-TH")} บาท`;
